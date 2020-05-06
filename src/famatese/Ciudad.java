@@ -15,7 +15,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 public class Ciudad extends javax.swing.JFrame {
-
+//Comentario para verificar git
     String coneccionbd = ("jdbc:sqlserver://localhost:1433;databaseName=farmacia_tese;user=sa;password=sasa");
 
     public Ciudad() {

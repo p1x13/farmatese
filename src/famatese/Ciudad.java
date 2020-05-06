@@ -288,7 +288,7 @@ public class Ciudad extends javax.swing.JFrame {
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
         String clave = claveci.getText();
         if (clave.equals("")) {
-            JOptionPane.showConfirmDialog(rootPane, "Por favor ingrese al clave del elemento que sesea eliminar");
+            JOptionPane.showConfirmDialog(rootPane, "Por favor ingrese al clave del elemento que desea eliminar");
         } else {
             try {
                 Connection con;
@@ -330,13 +330,14 @@ public class Ciudad extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarActionPerformed
-     if (claveci.equals("")) {
+     if (claveci.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Ingrese una clave para editar elemento");
         } else if(buscarID()) {
          this.setVisible(false);
         editarCiudad obj = new editarCiudad(claveci.getText());
         obj.show();
-   
+        }else{
+            JOptionPane.showMessageDialog(rootPane,("No se encontro el id: "+claveci.getText()));
            /* try {
                 String Claveci = claveci.getText();
                 Connection con = DriverManager.getConnection(coneccionbd);
@@ -423,10 +424,6 @@ public class Ciudad extends javax.swing.JFrame {
 
     private boolean buscarID() {
         String buscar = claveci.getText();
-        if (buscar.equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Ingrese clave para editar vacio");
-         return false;
-        } else {
             try {
                 Connection con;
                 con = DriverManager.getConnection(coneccionbd);
@@ -434,12 +431,17 @@ public class Ciudad extends javax.swing.JFrame {
                 ResultSet rs = stm.executeQuery("Select * from ciudad where cod_c='" + buscar + "'");
                 while (rs.next()) {
                     claveci.setText(String.valueOf(rs.getString(1)));
+                return true;
                 }
 
             } catch (Exception e) {
-            }
-        } return true;
+            } 
+            JOptionPane.showMessageDialog(rootPane, "Codigo no encontrado buscarID");
+            return false; //si no encontro nada falso
+        
     }
+    
+    
     private boolean confirmarID(){
          String buscar = claveci.getText();
     return true; 

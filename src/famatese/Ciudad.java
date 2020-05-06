@@ -11,7 +11,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 public class Ciudad extends javax.swing.JFrame {
@@ -269,7 +268,7 @@ public class Ciudad extends javax.swing.JFrame {
                 /*Marcara excecp por que el ResulSet espera valor de retorno, usamos executeUpdate                
                 ResultSet rs= stm.executeQuery("insert into ciudad values ('" + clave + "','" + nomci + "','" + codP + "')");*/
                 int stt = stm.executeUpdate("insert into ciudad values ('" + clave + "','" + nomci + "','" + codP + "')");
-                if (stt >= 0) {
+                if (stt >= 1) {
                     JOptionPane.showMessageDialog(rootPane, "Registro creado");
                 } else {
                     JOptionPane.showMessageDialog(rootPane, "no se  pudo crear");
@@ -288,8 +287,10 @@ public class Ciudad extends javax.swing.JFrame {
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
         String clave = claveci.getText();
         if (clave.equals("")) {
-            JOptionPane.showConfirmDialog(rootPane, "Por favor ingrese al clave del elemento que desea eliminar");
-        } else {
+            JOptionPane.showMessageDialog(rootPane, "Por favor ingrese al clave del elemento que desea eliminar");
+        } else if(buscarID()) {
+            int i = JOptionPane.showConfirmDialog(rootPane,"Confirma la eliminación?","Eliminar elemento",2,2);
+            if (i<=0){
             try {
                 Connection con;
                 con = DriverManager.getConnection(coneccionbd);
@@ -298,7 +299,9 @@ public class Ciudad extends javax.swing.JFrame {
             } catch (Exception e) {
             }
             consultarTodo();
-        }
+            }
+        } else
+            JOptionPane.showMessageDialog(rootPane,("No existe: "+clave));
     }//GEN-LAST:event_eliminarActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -337,23 +340,7 @@ public class Ciudad extends javax.swing.JFrame {
         editarCiudad obj = new editarCiudad(claveci.getText());
         obj.show();
         }else{
-            JOptionPane.showMessageDialog(rootPane,("No se encontro el id: "+claveci.getText()));
-           /* try {
-                String Claveci = claveci.getText();
-                Connection con = DriverManager.getConnection(coneccionbd);
-                Statement stm = con.createStatement();
-                ResultSet rs = stm.executeQuery("select * from ciudad where cod_c='" + Claveci + "'");
-                if (rs.next()) {
-                    claveci.setText(String.valueOf(rs.getString(1)));
-                    nombre.setText(String.valueOf(rs.getString(2)));
-
-                    claveci.setEnabled(false);
-                    nombre.setEnabled(true);
-
-                    stm.close();
-                }
-            } catch (SQLException e) {
-            }*/
+         JOptionPane.showMessageDialog(rootPane,("No se encontro el id: "+claveci.getText()));
             consultarTodo();
         }
     }//GEN-LAST:event_editarActionPerformed
@@ -436,37 +423,9 @@ public class Ciudad extends javax.swing.JFrame {
 
             } catch (Exception e) {
             } 
-            JOptionPane.showMessageDialog(rootPane, "Codigo no encontrado buscarID");
             return false; //si no encontro nada falso
         
     }
-    
-    
-    private boolean confirmarID(){
-         String buscar = claveci.getText();
-    return true; 
-}
-    
-  /*  private void editar(){  //duplicar busqueda
-        if (buscarID()>=1){
-            claveci.setEnabled(false);
-            nombre.setEnabled(true);
-            try {
-                Connection con;
-                con = DriverManager.getConnection(coneccionbd);
-          //      claveci=(JTextField) this.Tabla1.get;
-                nombre=(JTextField) this.Tabla1.getCellEditor(0,1);
-                cp=(JTextField) this.Tabla1.getCellEditor(0,2);
-                Statement stm = con.createStatement();
-                int rs = stm.executeUpdate("update * from ciudad where cod_c='" + claveci + "'");
-                 
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }else
-            System.out.println("hjk&");
-    }
-    */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Buscar;

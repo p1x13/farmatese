@@ -128,30 +128,34 @@ public class editarCiudad extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-            Connection con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            
-            int act = stm.executeUpdate("update ciudad set nom_c=" + "'" + jTextField1.getText() + "',"
-                    + "cp='" + jTextField2.getText() + "' "
-                    + "where cod_c='" + clave + "'");
-            if (act >= 1) {
-                JOptionPane.showMessageDialog(rootPane, "Actualizado");
-                this.setVisible(false);
-                Ciudad obj = new Ciudad();
-                obj.show();
-            } else {
-                JOptionPane.showMessageDialog(rootPane, "nail actualizado");
+        if (jTextField1.getText().equals("") || jTextField2.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Rellene los campos");
+        } else {
+            try {
+                Connection con = DriverManager.getConnection(coneccionbd);
+                Statement stm = con.createStatement();
+                int act = stm.executeUpdate("update ciudad set nom_c=" + "'" + jTextField1.getText() + "',"
+                        + "cp='" + jTextField2.getText() + "' "
+                        + "where cod_c='" + clave + "'");
+                if (act >= 1) {
+                    JOptionPane.showMessageDialog(rootPane, "Actualizado");
+                    this.setVisible(false);
+                    Ciudad obj = new Ciudad();
+                    obj.show();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "no se puede actualizar");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.setVisible(false);
-                Ciudad obj = new Ciudad();
-                obj.show();
+        Ciudad obj = new Ciudad();
+        obj.show();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed

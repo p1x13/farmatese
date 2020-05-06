@@ -424,7 +424,7 @@ public class Ciudad extends javax.swing.JFrame {
     private boolean buscarID() {
         String buscar = claveci.getText();
         if (buscar.equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Campo ID vacio");
+            JOptionPane.showMessageDialog(rootPane, "Ingrese clave para editar vacio");
          return false;
         } else {
             try {
@@ -440,6 +440,10 @@ public class Ciudad extends javax.swing.JFrame {
             }
         } return true;
     }
+    private boolean confirmarID(){
+         String buscar = claveci.getText();
+    return true; 
+}
     
   /*  private void editar(){  //duplicar busqueda
         if (buscarID()>=1){

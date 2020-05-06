@@ -131,6 +131,7 @@ public class editarCiudad extends javax.swing.JFrame {
         try {
             Connection con = DriverManager.getConnection(coneccionbd);
             Statement stm = con.createStatement();
+            
             int act = stm.executeUpdate("update ciudad set nom_c=" + "'" + jTextField1.getText() + "',"
                     + "cp='" + jTextField2.getText() + "' "
                     + "where cod_c='" + clave + "'");

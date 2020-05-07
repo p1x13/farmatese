@@ -34,7 +34,7 @@ public class Inicio extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jButton15 = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
-        jButton12 = new javax.swing.JButton();
+        accion = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
         jButton14 = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
@@ -72,7 +72,7 @@ public class Inicio extends javax.swing.JFrame {
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("LABORATORIO");
         jPanel1.add(jLabel9);
-        jLabel9.setBounds(370, 230, 112, 14);
+        jLabel9.setBounds(370, 230, 112, 16);
 
         Monodroga.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/monodroga.jpg"))); // NOI18N
         Monodroga.setToolTipText("Monodroga");
@@ -102,7 +102,7 @@ public class Inicio extends javax.swing.JFrame {
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel15.setText("FARMACIA");
         jPanel1.add(jLabel15);
-        jLabel15.setBounds(60, 390, 110, 14);
+        jLabel15.setBounds(60, 390, 110, 16);
 
         jButton15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/farmaceutico.jpg"))); // NOI18N
         jButton15.setToolTipText("Farmaceutico");
@@ -117,22 +117,22 @@ public class Inicio extends javax.swing.JFrame {
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel17.setText("FARMACEUTICO");
         jPanel1.add(jLabel17);
-        jLabel17.setBounds(530, 230, 110, 14);
+        jLabel17.setBounds(530, 230, 110, 16);
 
-        jButton12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/accion.jpg"))); // NOI18N
-        jButton12.setToolTipText("Accion Terapeutica ");
-        jButton12.addActionListener(new java.awt.event.ActionListener() {
+        accion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/accion.jpg"))); // NOI18N
+        accion.setToolTipText("Accion Terapeutica ");
+        accion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton12ActionPerformed(evt);
+                accionActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton12);
-        jButton12.setBounds(210, 270, 110, 110);
+        jPanel1.add(accion);
+        accion.setBounds(210, 270, 110, 110);
 
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel14.setText("ACCION TERAPEUTICA");
         jPanel1.add(jLabel14);
-        jLabel14.setBounds(210, 390, 112, 14);
+        jLabel14.setBounds(210, 390, 126, 16);
 
         jButton14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/empleado.jpg"))); // NOI18N
         jButton14.setToolTipText("Empleado");
@@ -147,7 +147,7 @@ public class Inicio extends javax.swing.JFrame {
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel16.setText("EMPLEADO");
         jPanel1.add(jLabel16);
-        jLabel16.setBounds(380, 390, 110, 14);
+        jLabel16.setBounds(380, 390, 110, 16);
 
         jButton16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/medicamento.png"))); // NOI18N
         jButton16.setToolTipText("Medicamento");
@@ -162,7 +162,7 @@ public class Inicio extends javax.swing.JFrame {
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel18.setText("MEDICAMENTO");
         jPanel1.add(jLabel18);
-        jLabel18.setBounds(540, 390, 110, 14);
+        jLabel18.setBounds(540, 390, 110, 16);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -173,7 +173,7 @@ public class Inicio extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("FARMATECMX S.A. DE C.V.");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(110, 60, 490, 14);
+        jLabel2.setBounds(110, 60, 490, 16);
 
         Ciudad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ciudad.png"))); // NOI18N
         Ciudad.setToolTipText("Ciudad");
@@ -188,7 +188,7 @@ public class Inicio extends javax.swing.JFrame {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("CIUDAD");
         jPanel1.add(jLabel4);
-        jLabel4.setBounds(210, 220, 110, 14);
+        jLabel4.setBounds(210, 220, 110, 16);
 
         jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/662377-fondo.jpg"))); // NOI18N
         jPanel1.add(jLabel20);
@@ -199,7 +199,7 @@ public class Inicio extends javax.swing.JFrame {
 
         jLabel19.setText("jLabel19");
         getContentPane().add(jLabel19);
-        jLabel19.setBounds(10, 10, 40, 14);
+        jLabel19.setBounds(10, 10, 48, 16);
 
         jMenu1.setText("Acerca de ");
 
@@ -234,19 +234,19 @@ public class Inicio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void CiudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CiudadActionPerformed
- this.setVisible(false);
+        this.setVisible(false);
         Ciudad obj = new Ciudad();
         obj.show();
     }//GEN-LAST:event_CiudadActionPerformed
 
     private void MonodrogaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MonodrogaActionPerformed
-         this.setVisible(false);
+        this.setVisible(false);
         Monodroga obj = new Monodroga();
         obj.show();
     }//GEN-LAST:event_MonodrogaActionPerformed
 
     private void LaboratorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LaboratorioActionPerformed
-         this.setVisible(false);
+        this.setVisible(false);
         Laboratorio obj = new Laboratorio();
         obj.show();
     }//GEN-LAST:event_LaboratorioActionPerformed
@@ -255,32 +255,32 @@ public class Inicio extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-         this.setVisible(false);
+    private void accionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accionActionPerformed
+        this.setVisible(false);
         Accion obj = new Accion();
         obj.show();
-    }//GEN-LAST:event_jButton12ActionPerformed
+    }//GEN-LAST:event_accionActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-         this.setVisible(false);
+        this.setVisible(false);
         Farma obj = new Farma();
         obj.show();
     }//GEN-LAST:event_jButton13ActionPerformed
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
-         this.setVisible(false);
+        this.setVisible(false);
         Empleado obj = new Empleado();
         obj.show();
     }//GEN-LAST:event_jButton14ActionPerformed
 
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
-         this.setVisible(false);
+        this.setVisible(false);
         Farmaceutico obj = new Farmaceutico();
         obj.show();
     }//GEN-LAST:event_jButton15ActionPerformed
 
     private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
-         this.setVisible(false);
+        this.setVisible(false);
         Medicamento obj = new Medicamento();
         obj.show();
     }//GEN-LAST:event_jButton16ActionPerformed
@@ -331,7 +331,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JButton Ciudad;
     private javax.swing.JButton Laboratorio;
     private javax.swing.JButton Monodroga;
-    private javax.swing.JButton jButton12;
+    private javax.swing.JButton accion;
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton15;

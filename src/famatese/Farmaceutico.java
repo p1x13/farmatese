@@ -13,13 +13,13 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-
 public class Farmaceutico extends javax.swing.JFrame {
 
-    String coneccionbd = ("jdbc:sqlserver://localhost:1433;databaseName=FARMATEC2;user=sa;password=sasa");
+    String coneccionbd = ("jdbc:sqlserver://localhost:1433;databaseName=farmacia_tese;user=sa;password=sasa");
 
     public Farmaceutico() {
         initComponents();
+        consultarTodo();
     }
 
     /**
@@ -31,46 +31,24 @@ public class Farmaceutico extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        idca = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        idho = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
-        jLabel9 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
-        jLabel10 = new javax.swing.JLabel();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        clavefa = new javax.swing.JTextField();
-        jButton7 = new javax.swing.JButton();
-        nombre = new javax.swing.JTextField();
-        ap = new javax.swing.JTextField();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        am = new javax.swing.JTextField();
-        jButton10 = new javax.swing.JButton();
-        cedula = new javax.swing.JTextField();
-        correo = new javax.swing.JTextField();
-        idci = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        idco = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel12 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         Tabla1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton16 = new javax.swing.JButton();
-        jButton15 = new javax.swing.JButton();
-        jButton14 = new javax.swing.JButton();
-        jButton13 = new javax.swing.JButton();
-        jButton12 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
+        buscar = new javax.swing.JButton();
+        consultar = new javax.swing.JButton();
+        agregar = new javax.swing.JButton();
+        eliminar = new javax.swing.JButton();
+        editar = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        clavefa = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        nombre = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        ap = new javax.swing.JTextField();
+        am = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
@@ -87,183 +65,9 @@ public class Farmaceutico extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
-        getContentPane().add(idca);
-        idca.setBounds(400, 220, 160, 30);
-
-        jLabel5.setText("Cedula");
-        getContentPane().add(jLabel5);
-        jLabel5.setBounds(10, 210, 90, 50);
-        getContentPane().add(idho);
-        idho.setBounds(400, 100, 160, 30);
-
-        jLabel6.setText("Correo");
-        getContentPane().add(jLabel6);
-        jLabel6.setBounds(310, 60, 80, 40);
-
-        jLabel7.setText("ID Ciudad");
-        getContentPane().add(jLabel7);
-        jLabel7.setBounds(310, 140, 90, 40);
-
-        jLabel8.setText("ID Colonia");
-        getContentPane().add(jLabel8);
-        jLabel8.setBounds(310, 180, 70, 40);
-
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/8OJO.png"))); // NOI18N
-        jButton3.setToolTipText("Consultar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton3);
-        jButton3.setBounds(570, 150, 30, 20);
-
-        jLabel9.setText("ID Calle");
-        getContentPane().add(jLabel9);
-        jLabel9.setBounds(310, 220, 80, 40);
-
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/9 AGREGAR.png"))); // NOI18N
-        jButton4.setToolTipText("Agregar");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton4);
-        jButton4.setBounds(620, 150, 30, 20);
-
-        jLabel10.setText("ID Horario");
-        getContentPane().add(jLabel10);
-        jLabel10.setBounds(310, 100, 70, 40);
-
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/8OJO.png"))); // NOI18N
-        jButton5.setToolTipText("Consultar");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton5);
-        jButton5.setBounds(570, 190, 30, 20);
-
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/9 AGREGAR.png"))); // NOI18N
-        jButton6.setToolTipText("Agregar");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton6);
-        jButton6.setBounds(620, 190, 30, 20);
-
-        clavefa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                clavefaActionPerformed(evt);
-            }
-        });
-        getContentPane().add(clavefa);
-        clavefa.setBounds(160, 60, 130, 30);
-
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/8OJO.png"))); // NOI18N
-        jButton7.setToolTipText("Consultar");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton7);
-        jButton7.setBounds(570, 230, 30, 20);
-        getContentPane().add(nombre);
-        nombre.setBounds(160, 100, 130, 30);
-
-        ap.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                apActionPerformed(evt);
-            }
-        });
-        getContentPane().add(ap);
-        ap.setBounds(160, 140, 130, 30);
-
-        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/9 AGREGAR.png"))); // NOI18N
-        jButton8.setToolTipText("Agregar");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton8);
-        jButton8.setBounds(620, 230, 30, 20);
-
-        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/8OJO.png"))); // NOI18N
-        jButton9.setToolTipText("Consultar");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton9);
-        jButton9.setBounds(570, 110, 30, 20);
-        getContentPane().add(am);
-        am.setBounds(160, 180, 130, 30);
-
-        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/9 AGREGAR.png"))); // NOI18N
-        jButton10.setToolTipText("Agregar");
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton10);
-        jButton10.setBounds(620, 110, 30, 20);
-        getContentPane().add(cedula);
-        cedula.setBounds(160, 220, 130, 30);
-
-        correo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                correoActionPerformed(evt);
-            }
-        });
-        getContentPane().add(correo);
-        correo.setBounds(400, 60, 270, 30);
-
-        idci.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                idciActionPerformed(evt);
-            }
-        });
-        getContentPane().add(idci);
-        idci.setBounds(400, 140, 160, 30);
-
-        jLabel1.setText("ID Farmaceutico");
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(10, 70, 100, 20);
-        getContentPane().add(idco);
-        idco.setBounds(400, 180, 160, 30);
-
-        jLabel2.setText("Nombre");
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(10, 100, 90, 30);
-
-        jLabel3.setText("Apellido Paterno");
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(10, 140, 110, 40);
-
-        jLabel4.setText("Apellido Materno");
-        getContentPane().add(jLabel4);
-        jLabel4.setBounds(10, 180, 120, 40);
-
-        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setText("FARMACEUTICO");
-        getContentPane().add(jLabel11);
-        jLabel11.setBounds(0, 20, 200, 22);
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 204));
         jPanel1.setLayout(null);
-
-        jLabel12.setText("jLabel12");
-        jPanel1.add(jLabel12);
-        jLabel12.setBounds(355, 5, 40, 14);
 
         Tabla1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -279,80 +83,112 @@ public class Farmaceutico extends javax.swing.JFrame {
         jScrollPane1.setViewportView(Tabla1);
 
         jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(20, 310, 710, 90);
+        jScrollPane1.setBounds(10, 250, 410, 90);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/1limpiar.png"))); // NOI18N
-        jButton1.setToolTipText("Limpiar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/2buscarr.png"))); // NOI18N
+        buscar.setToolTipText("Buscar");
+        buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                buscarActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1);
-        jButton1.setBounds(650, 410, 44, 39);
+        jPanel1.add(buscar);
+        buscar.setBounds(110, 360, 60, 60);
 
-        jButton16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/2buscarr.png"))); // NOI18N
-        jButton16.setToolTipText("Buscar");
-        jButton16.addActionListener(new java.awt.event.ActionListener() {
+        consultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/3consultar.png"))); // NOI18N
+        consultar.setToolTipText("Consultar");
+        consultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton16ActionPerformed(evt);
+                consultarActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton16);
-        jButton16.setBounds(540, 410, 44, 39);
+        jPanel1.add(consultar);
+        consultar.setBounds(190, 360, 60, 60);
 
-        jButton15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/3consultar.png"))); // NOI18N
-        jButton15.setToolTipText("Consultar");
-        jButton15.addActionListener(new java.awt.event.ActionListener() {
+        agregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/4agregar.png"))); // NOI18N
+        agregar.setToolTipText("Agregar");
+        agregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton15ActionPerformed(evt);
+                agregarActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton15);
-        jButton15.setBounds(430, 410, 44, 39);
+        jPanel1.add(agregar);
+        agregar.setBounds(30, 360, 60, 60);
 
-        jButton14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/4agregar.png"))); // NOI18N
-        jButton14.setToolTipText("Agregar");
-        jButton14.addActionListener(new java.awt.event.ActionListener() {
+        eliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/5eliminar.png"))); // NOI18N
+        eliminar.setToolTipText("Eliminar");
+        eliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton14ActionPerformed(evt);
+                eliminarActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton14);
-        jButton14.setBounds(330, 410, 44, 39);
+        jPanel1.add(eliminar);
+        eliminar.setBounds(350, 360, 60, 60);
 
-        jButton13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/5eliminar.png"))); // NOI18N
-        jButton13.setToolTipText("Eliminar");
-        jButton13.addActionListener(new java.awt.event.ActionListener() {
+        editar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/7modificar.png"))); // NOI18N
+        editar.setToolTipText("Modificar");
+        editar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton13ActionPerformed(evt);
+                editarActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton13);
-        jButton13.setBounds(230, 410, 44, 39);
+        jPanel1.add(editar);
+        editar.setBounds(270, 360, 60, 60);
 
-        jButton12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/6actualizar.png"))); // NOI18N
-        jButton12.setToolTipText("Actualizar");
-        jButton12.addActionListener(new java.awt.event.ActionListener() {
+        jLabel12.setText("jLabel12");
+        jPanel1.add(jLabel12);
+        jLabel12.setBounds(355, 5, 48, 16);
+
+        jLabel1.setText("ID Farmaceutico");
+        jPanel1.add(jLabel1);
+        jLabel1.setBounds(80, 70, 100, 20);
+
+        clavefa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton12ActionPerformed(evt);
+                clavefaActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton12);
-        jButton12.setBounds(130, 410, 44, 39);
+        jPanel1.add(clavefa);
+        clavefa.setBounds(200, 60, 130, 30);
 
-        jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/7modificar.png"))); // NOI18N
-        jButton11.setToolTipText("Modificar");
-        jButton11.addActionListener(new java.awt.event.ActionListener() {
+        jLabel2.setText("Nombre");
+        jPanel1.add(jLabel2);
+        jLabel2.setBounds(120, 110, 50, 30);
+
+        nombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton11ActionPerformed(evt);
+                nombreActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton11);
-        jButton11.setBounds(40, 410, 44, 39);
+        jPanel1.add(nombre);
+        nombre.setBounds(200, 110, 130, 30);
+
+        jLabel3.setText("Apellido Paterno");
+        jPanel1.add(jLabel3);
+        jLabel3.setBounds(70, 150, 100, 40);
+
+        ap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                apActionPerformed(evt);
+            }
+        });
+        jPanel1.add(ap);
+        ap.setBounds(200, 150, 130, 30);
+        jPanel1.add(am);
+        am.setBounds(200, 200, 130, 30);
+
+        jLabel4.setText("Apellido Materno");
+        jPanel1.add(jLabel4);
+        jLabel4.setBounds(70, 190, 100, 40);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, -20, 750, 470);
+        jPanel1.setBounds(0, -20, 440, 460);
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("FARMACEUTICO");
+        getContentPane().add(jLabel11);
+        jLabel11.setBounds(0, 20, 200, 22);
 
         jMenu1.setText("Busqueda Avanzada");
 
@@ -444,254 +280,13 @@ public class Farmaceutico extends javax.swing.JFrame {
 
         setJMenuBar(jMenuBar1);
 
-        setSize(new java.awt.Dimension(762, 505));
+        setSize(new java.awt.Dimension(451, 490));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void clavefaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clavefaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_clavefaActionPerformed
-
-    private void idciActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idciActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_idciActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        this.setVisible(false);
-        Ciudad obj = new Ciudad();
-        obj.show();
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        this.setVisible(false);
-        Colonia obj = new Colonia();
-        obj.show();
-    }//GEN-LAST:event_jButton6ActionPerformed
-
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        this.setVisible(false);
-        Calle obj = new Calle();
-        obj.show();
-    }//GEN-LAST:event_jButton8ActionPerformed
-
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        this.setVisible(false);
-        Horario obj = new Horario();
-        obj.show();
-    }//GEN-LAST:event_jButton10ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        try {
-            DefaultTableModel tabla = new DefaultTableModel();
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("Select * from Ciudad");
-            tabla.addColumn("ID Ciudad");
-            tabla.addColumn("Nombre Ciudad");
-            while (rs.next()) {
-                Object dato[] = new Object[2];
-                for (int i = 0; i < 2; i++) {
-                    dato[i] = rs.getString(i + 1);
-                }
-                tabla.addRow(dato);
-            }
-            this.Tabla1.setModel(tabla);
-        } catch (Exception e) {
-        }
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        try {
-            DefaultTableModel tabla = new DefaultTableModel();
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("Select * from Colonia");
-            tabla.addColumn("ID Colonia");
-            tabla.addColumn("Nombre Colonia");
-            while (rs.next()) {
-                Object dato[] = new Object[2];
-                for (int i = 0; i < 2; i++) {
-                    dato[i] = rs.getString(i + 1);
-                }
-                tabla.addRow(dato);
-            }
-            this.Tabla1.setModel(tabla);
-        } catch (Exception e) {
-        }
-    }//GEN-LAST:event_jButton5ActionPerformed
-
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        try {
-            DefaultTableModel tabla = new DefaultTableModel();
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("Select * from CALLE");
-            tabla.addColumn("ID Calle");
-            tabla.addColumn("Nombre Calle");
-            while (rs.next()) {
-                Object dato[] = new Object[2];
-                for (int i = 0; i < 2; i++) {
-                    dato[i] = rs.getString(i + 1);
-                }
-                tabla.addRow(dato);
-            }
-            this.Tabla1.setModel(tabla);
-        } catch (Exception e) {
-        }
-    }//GEN-LAST:event_jButton7ActionPerformed
-
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        try {
-            DefaultTableModel tabla = new DefaultTableModel();
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("Select * from Horario");
-            tabla.addColumn("ID Horario");
-            tabla.addColumn("Turno");
-            while (rs.next()) {
-                Object dato[] = new Object[2];
-                for (int i = 0; i < 2; i++) {
-                    dato[i] = rs.getString(i + 1);
-                }
-                tabla.addRow(dato);
-            }
-            this.Tabla1.setModel(tabla);
-        } catch (Exception e) {
-        }
-
-    }//GEN-LAST:event_jButton9ActionPerformed
-
-    private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
-        String clave;
-        clave = clavefa.getText();
-        try {
-            DefaultTableModel tabla = new DefaultTableModel();
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("Select * from Farmaceutico where ID_Farm='"  + clave + "'");
-            tabla.addColumn("ID Farmaceutico");
-            tabla.addColumn("Nombre");
-            tabla.addColumn("Apellido Paterno");
-            tabla.addColumn("Apellido materno");
-            tabla.addColumn("Cedula");
-            tabla.addColumn("Correo");
-            tabla.addColumn("ID Ciudad");
-            tabla.addColumn("ID Colonia");
-            tabla.addColumn("ID Calle");
-            tabla.addColumn("ID Horario");
-            while (rs.next()) {
-                Object dato[] = new Object[10];
-                for (int i = 0; i < 10; i++) {
-                    dato[i] = rs.getString(i + 1);
-                }
-                tabla.addRow(dato);
-            }
-            this.Tabla1.setModel(tabla);
-        } catch (Exception e) {
-        }
-    }//GEN-LAST:event_jButton16ActionPerformed
-
-    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
-        try {
-            DefaultTableModel tabla = new DefaultTableModel();
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("Select * from Farmaceutico");
-            tabla.addColumn("ID Farmaceutico");
-            tabla.addColumn("Nombre");
-            tabla.addColumn("Apellido Paterno");
-            tabla.addColumn("Apellido materno");
-            tabla.addColumn("Cedula");
-            tabla.addColumn("Correo");
-            tabla.addColumn("ID Horario");
-            tabla.addColumn("ID Ciudad");
-            tabla.addColumn("ID Colonia");
-            tabla.addColumn("ID Calle");
-
-            while (rs.next()) {
-                Object dato[] = new Object[10];
-                for (int i = 0; i < 10; i++) {
-                    dato[i] = rs.getString(i + 1);
-                }
-                tabla.addRow(dato);
-            }
-            this.Tabla1.setModel(tabla);
-        } catch (Exception e) {
-        }
-    }//GEN-LAST:event_jButton15ActionPerformed
-
-    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
-        if (clavefa.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Ingrese un ID");
-        }
-        if (nombre.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Ingrese el nombre");
-        }
-        if (ap.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Ingrese el apellido paterno");
-        }
-        if (am.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Ingrese el apellido materno");
-        }
-        if (cedula.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Ingrese la cedula");
-        }
-        if (correo.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Ingrese el correo");
-        }
-        if (idho.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Ingrese el id del horario");
-        }
-        if (idci.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Ingrese el id de la ciudad");
-        }
-        if (idco.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Ingrese el id de la colonia");
-        }
-        if (idca.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Ingrese el id de la calle");
-        }
-
-        String Clavefa, Nombre, Ap, Am, Cedula, Correo, Idci, Idco, Idca, Idho;
-        Clavefa = clavefa.getText();
-        Nombre = nombre.getText();
-        Ap = ap.getText();
-        Am = am.getText();
-        Cedula = cedula.getText();
-        Correo = correo.getText();
-        Idci = idci.getText();
-        Idco = idco.getText();
-        Idca = idca.getText();
-        Idho = idho.getText();
-        
-        try {
-            DefaultTableModel tabla = new DefaultTableModel();
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("insert into Farmaceutico values ('" + Clavefa + "','" + Nombre + "','" + Ap + "','" + Am + "','" + Cedula + "','" + Correo + "','" + Idho + "','"  + Idci + "','" + Idco + "','"  + Idca + "')");
-        } catch (Exception e) {
-        }
-    }//GEN-LAST:event_jButton14ActionPerformed
-
-    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-        String clave;
-        clave = clavefa.getText();
-        try {
-            DefaultTableModel tabla = new DefaultTableModel();
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("delete from Farmaceutico where ID_Farm='" + clave + "'");
-        } catch (Exception e) {
-        }
-    }//GEN-LAST:event_jButton13ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         this.setVisible(false);
@@ -705,13 +300,12 @@ public class Farmaceutico extends javax.swing.JFrame {
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         String clave;
-        clave = idho.getText();
         try {
             DefaultTableModel tabla = new DefaultTableModel();
             Connection con;
             con = DriverManager.getConnection(coneccionbd);
             Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("Select * from Farmaceutico INNER JOIN Horario on ID_Horario1=ID_Horario where ID_Horario='"  + clave + "'");
+            ResultSet rs = stm.executeQuery("Select * from Farmaceutico INNER JOIN Horario on ID_Horario1=ID_Horario where ID_Horario='" + "'");
             tabla.addColumn("ID Farmaceutico");
             tabla.addColumn("Nombre");
             tabla.addColumn("Apellido Paterno");
@@ -736,13 +330,13 @@ public class Farmaceutico extends javax.swing.JFrame {
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         String clave;
-        clave = idci.getText();
+
         try {
             DefaultTableModel tabla = new DefaultTableModel();
             Connection con;
             con = DriverManager.getConnection(coneccionbd);
             Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("Select * from Farmaceutico INNER JOIN Ciudad on ID_Ciu3=ID_Ciu where ID_Ciu='" + clave + "'");
+            ResultSet rs = stm.executeQuery("Select * from Farmaceutico INNER JOIN Ciudad on ID_Ciu3=ID_Ciu where ID_Ciu='");
             tabla.addColumn("ID Farmaceutico");
             tabla.addColumn("Nombre");
             tabla.addColumn("Apellido Paterno");
@@ -767,13 +361,13 @@ public class Farmaceutico extends javax.swing.JFrame {
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         String clave;
-        clave = idco.getText();
+
         try {
             DefaultTableModel tabla = new DefaultTableModel();
             Connection con;
             con = DriverManager.getConnection(coneccionbd);
             Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("Select * from Farmaceutico INNER JOIN Colonia on ID_Col3=ID_Col where ID_Col='"  + clave + "'");
+            ResultSet rs = stm.executeQuery("Select * from Farmaceutico INNER JOIN Colonia on ID_Col3=ID_Col where ID_Col='");
             tabla.addColumn("ID Farmaceutico");
             tabla.addColumn("Nombre");
             tabla.addColumn("Apellido Paterno");
@@ -798,13 +392,13 @@ public class Farmaceutico extends javax.swing.JFrame {
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         String clave;
-        clave = idca.getText();
+
         try {
             DefaultTableModel tabla = new DefaultTableModel();
             Connection con;
             con = DriverManager.getConnection(coneccionbd);
             Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("Select * from Farmaceutico INNER JOIN Calle on ID_Calle3=ID_Calle where ID_Calle='"  + clave + "'");
+            ResultSet rs = stm.executeQuery("Select * from Farmaceutico INNER JOIN Calle on ID_Calle3=ID_Calle where ID_Calle='");
             tabla.addColumn("ID Farmaceutico");
             tabla.addColumn("Nombre");
             tabla.addColumn("Apellido Paterno");
@@ -831,95 +425,17 @@ public class Farmaceutico extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_apActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        clavefa.setText("");
-        nombre.setText("");
-        ap.setText("");
-        am.setText("");
-        cedula.setText("");
-        correo.setText("");
-        idci.setText("");
-        idco.setText("");
-        idca.setText("");
-        idho.setText("");
-        clavefa.setEnabled(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        try {
-            String Clavefa;
-            Clavefa = clavefa.getText();
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("select * from Farmaceutico where ID_Farm='"  + Clavefa + "'");
-            if (rs.next()) {
-                clavefa.setText(String.valueOf(rs.getString(1)));
-                nombre.setText(String.valueOf(rs.getString(2)));
-                ap.setText(String.valueOf(rs.getString(3)));
-                am.setText(String.valueOf(rs.getString(4)));
-                cedula.setText(String.valueOf(rs.getString(5)));
-                correo.setText(String.valueOf(rs.getString(6)));
-                idho.setText(String.valueOf(rs.getString(7)));
-                idci.setText(String.valueOf(rs.getString(8)));
-                idco.setText(String.valueOf(rs.getString(9)));
-                idca.setText(String.valueOf(rs.getString(10)));
-                
-
-                clavefa.setEnabled(false);
-                nombre.setEnabled(true);
-                ap.setEnabled(true);
-                am.setEnabled(true);
-                cedula.setEnabled(true);
-                correo.setEnabled(true);
-                idho.setEnabled(true);
-                idci.setEnabled(true);
-                idco.setEnabled(true);
-                idca.setEnabled(true);
-                
-
-                stm.close();
-            }
-        } catch (SQLException e) {
-
-        }
-
-    }//GEN-LAST:event_jButton11ActionPerformed
-
-    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        try {
-        String Clavefa, Nombre,Ap,Am,Cedula,Correo,Idho,Idci,Idco,Idca;
-        Clavefa = clavefa.getText();
-        Nombre = nombre.getText(); 
-         Ap= ap.getText();
-        Am = am.getText(); 
-         Cedula = cedula.getText();
-        Correo = correo.getText();
-        Idho = idho.getText();
-         Idci = idci.getText();
-        Idco = idco.getText(); 
-         Idca = idca.getText();
-         
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("ACT14 '"+Clavefa+"','"+Nombre+"','"+Ap+"','"+Am+"','"+Cedula+"','"+Correo+"','"+Idho+"','"+Idci+"','"+Idco+"','"+Idca+"'");
-           
-        } catch (Exception e) {
-        }
-    }//GEN-LAST:event_jButton12ActionPerformed
-
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-       try {
-           String clave;
-           clave=clavefa.getText();
+        try {
+            String clave;
+            clave = clavefa.getText();
             DefaultTableModel tabla = new DefaultTableModel();
             Connection con;
             con = DriverManager.getConnection(coneccionbd);
             Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("SELECT ID_Farm,Nom_Farm,AP_Farm,Am_Farm,Cdeula_Farm,Tipo_Horario,Nom_Ciu,Nom_Col,Nom_Calle,ID_Farmac\n" +
-"FROM Farmaceutico INNER JOIN Horario ON ID_Horario1=ID_Horario INNER JOIN Ciudad ON ID_Ciu3=ID_Ciu INNER JOIN Colonia ON ID_Col3=ID_Col INNER JOIN Calle ON ID_Calle3=ID_Calle INNER JOIN FarmacFarm ON ID_Farm=ID_Farm1 INNER JOIN Farmacia ON ID_Farmac=ID_Farmac1\n"
-                    + "WHERE ID_Farm='"+clave+"'");
+            ResultSet rs = stm.executeQuery("SELECT ID_Farm,Nom_Farm,AP_Farm,Am_Farm,Cdeula_Farm,Tipo_Horario,Nom_Ciu,Nom_Col,Nom_Calle,ID_Farmac\n"
+                    + "FROM Farmaceutico INNER JOIN Horario ON ID_Horario1=ID_Horario INNER JOIN Ciudad ON ID_Ciu3=ID_Ciu INNER JOIN Colonia ON ID_Col3=ID_Col INNER JOIN Calle ON ID_Calle3=ID_Calle INNER JOIN FarmacFarm ON ID_Farm=ID_Farm1 INNER JOIN Farmacia ON ID_Farmac=ID_Farmac1\n"
+                    + "WHERE ID_Farm='" + clave + "'");
             tabla.addColumn("ID Farmaceutico");
             tabla.addColumn("Nombre Farmaceutico");
             tabla.addColumn("Apellido Paterno");
@@ -943,13 +459,13 @@ public class Farmaceutico extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
-       try {
+        try {
             DefaultTableModel tabla = new DefaultTableModel();
             Connection con;
             con = DriverManager.getConnection(coneccionbd);
             Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("SELECT ID_Farm,Nom_Farm,AP_Farm,Am_Farm,Cdeula_Farm,Tipo_Horario,Nom_Ciu,Nom_Col,Nom_Calle,ID_Farmac\n" +
-"FROM Farmaceutico INNER JOIN Horario ON ID_Horario1=ID_Horario INNER JOIN Ciudad ON ID_Ciu3=ID_Ciu INNER JOIN Colonia ON ID_Col3=ID_Col INNER JOIN Calle ON ID_Calle3=ID_Calle INNER JOIN FarmacFarm ON ID_Farm=ID_Farm1 INNER JOIN Farmacia ON ID_Farmac=ID_Farmac1");
+            ResultSet rs = stm.executeQuery("SELECT ID_Farm,Nom_Farm,AP_Farm,Am_Farm,Cdeula_Farm,Tipo_Horario,Nom_Ciu,Nom_Col,Nom_Calle,ID_Farmac\n"
+                    + "FROM Farmaceutico INNER JOIN Horario ON ID_Horario1=ID_Horario INNER JOIN Ciudad ON ID_Ciu3=ID_Ciu INNER JOIN Colonia ON ID_Col3=ID_Col INNER JOIN Calle ON ID_Calle3=ID_Calle INNER JOIN FarmacFarm ON ID_Farm=ID_Farm1 INNER JOIN Farmacia ON ID_Farmac=ID_Farmac1");
             tabla.addColumn("ID Farmaceutico");
             tabla.addColumn("Nombre Farmaceutico");
             tabla.addColumn("Apellido Paterno");
@@ -972,9 +488,110 @@ public class Farmaceutico extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
-    private void correoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_correoActionPerformed
+    private void editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarActionPerformed
+        if (clavefa.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Ingrese una clave para editar elemento");
+        } else if (verificarID()) {
+            this.setVisible(false);
+            editarFarmaceutico obj = new editarFarmaceutico(clavefa.getText());
+            obj.show();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, ("No se encontro el id: " + clavefa.getText()));
+            consultarTodo();
+        }
+    }//GEN-LAST:event_editarActionPerformed
+
+    private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
+        String clave;
+        clave = clavefa.getText();
+        try {
+            DefaultTableModel tabla = new DefaultTableModel();
+            Connection con;
+            con = DriverManager.getConnection(coneccionbd);
+            Statement stm = con.createStatement();
+            ResultSet rs = stm.executeQuery("delete from Farmaceutico where ID_Farm='" + clave + "'");
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_eliminarActionPerformed
+
+    private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
+        if (clavefa.getText().equals("")) 
+            JOptionPane.showMessageDialog(null, "Ingrese un ID");
+        else if (nombre.getText().equals("")) 
+            JOptionPane.showMessageDialog(null, "Ingrese el nombre");
+        else if (ap.getText().equals("")) 
+            JOptionPane.showMessageDialog(null, "Ingrese el apellido paterno");
+        else if (am.getText().equals(""))
+            JOptionPane.showMessageDialog(null, "Ingrese el apellido materno");
+        if(!verificarID()) { //Si no existe el ID entra en la creaci+on
+            String Clavefa, Nombre, Ap, Am;
+            Clavefa = clavefa.getText();
+            Nombre = nombre.getText();
+            Ap = ap.getText();
+            Am = am.getText();
+            try {
+                DefaultTableModel tabla = new DefaultTableModel();
+                Connection con;
+                con = DriverManager.getConnection(coneccionbd);
+                Statement stm = con.createStatement();
+                int stt = stm.executeUpdate("insert into farmaceutico values "
+                        + "('" + Clavefa
+                        + "','" + Nombre
+                        + "','" + Ap
+                        + "','" + Am
+                        + "')");
+                if (stt >= 1) {
+                    JOptionPane.showMessageDialog(rootPane, "Registro creado");
+                    clearfields();
+                    consultarTodo();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "no se  pudo crear");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(rootPane, " No se  pudo crear");
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "YA EXISTE LA CLAVE QUE INTENTA ASIGNAR", "No se puede crear", 2);
+        }
+    }//GEN-LAST:event_agregarActionPerformed
+
+    private void consultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarActionPerformed
+        consultarTodo();
+    }//GEN-LAST:event_consultarActionPerformed
+
+    private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
+        String buscar = nombre.getText();
+        if (buscar.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Ingrese una nombre para buscar");
+        } else {
+            try {
+                DefaultTableModel tabla = new DefaultTableModel();
+                Connection con;
+                con = DriverManager.getConnection(coneccionbd);
+                Statement stm = con.createStatement();
+                ResultSet rs = stm.executeQuery("Select * from farmaceutico where nom_fa='" + buscar + "'");
+                tabla.addColumn("ID Farmaceutico");
+                tabla.addColumn("Nombre");
+                tabla.addColumn("Apellido paterno");
+                tabla.addColumn("Apellido materno");
+                while (rs.next()) {
+                    Object dato[] = new Object[4];
+                    for (int i = 0; i < 4; i++) {
+                        dato[i] = rs.getString(i + 1).toUpperCase();
+                    }
+                    tabla.addRow(dato);
+                }
+                this.Tabla1.setModel(tabla);
+            } catch (Exception e) {
+            }
+        }
+        clearfields();
+    }//GEN-LAST:event_buscarActionPerformed
+
+    private void nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_correoActionPerformed
+    }//GEN-LAST:event_nombreActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1010,45 +627,73 @@ public class Farmaceutico extends javax.swing.JFrame {
             }
         });
     }
+ //Grunditses:
+    private void clearfields(){
+        clavefa.setText("");
+        nombre.setText("");
+        ap.setText("");
+        am.setText("");
+    }
+    
+    private boolean verificarID() {
+        String buscar = clavefa.getText();
+        try {
+            Connection con;
+            con = DriverManager.getConnection(coneccionbd);
+            Statement stm = con.createStatement();
+            ResultSet rs = stm.executeQuery("Select * from farmaceutico where cod_fa='" + buscar + "'");
+            while (rs.next()) {
+                clavefa.setText(String.valueOf(rs.getString(1)));
+                return true;
+            }
+
+        } catch (Exception e) {
+        }
+        return false; //si no encontro nada falso
+
+    }
+
+    private void consultarTodo() {
+        try {
+            DefaultTableModel tabla = new DefaultTableModel();
+            Connection con;
+            con = DriverManager.getConnection(coneccionbd);
+            Statement stm = con.createStatement();
+            ResultSet rs = stm.executeQuery("Select * from farmaceutico");
+            tabla.addColumn("ID Farmaceutico");
+            tabla.addColumn("Nombre");
+            tabla.addColumn("Apellido Paterno");
+            tabla.addColumn("Apellido materno");
+            while (rs.next()) {
+                Object dato[] = new Object[4];
+                for (int i = 0; i < 4; i++) {
+                    //convertir a mayusculas del lado de la app
+                    dato[i] = rs.getString(i + 1).toUpperCase();
+                }
+                tabla.addRow(dato);
+            }
+            this.Tabla1.setModel(tabla);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable Tabla1;
+    private javax.swing.JButton agregar;
     private javax.swing.JTextField am;
     private javax.swing.JTextField ap;
-    private javax.swing.JTextField cedula;
+    private javax.swing.JButton buscar;
     private javax.swing.JTextField clavefa;
-    private javax.swing.JTextField correo;
-    private javax.swing.JTextField idca;
-    private javax.swing.JTextField idci;
-    private javax.swing.JTextField idco;
-    private javax.swing.JTextField idho;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton14;
-    private javax.swing.JButton jButton15;
-    private javax.swing.JButton jButton16;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
+    private javax.swing.JButton consultar;
+    private javax.swing.JButton editar;
+    private javax.swing.JButton eliminar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;

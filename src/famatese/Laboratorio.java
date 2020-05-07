@@ -37,12 +37,10 @@ public class Laboratorio extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         Tabla1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -86,7 +84,7 @@ public class Laboratorio extends javax.swing.JFrame {
         jScrollPane1.setViewportView(Tabla1);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(10, 110, 430, 100);
+        jScrollPane1.setBounds(20, 220, 430, 100);
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/7modificar.png"))); // NOI18N
         jButton1.setToolTipText("Modificar");
@@ -96,17 +94,7 @@ public class Laboratorio extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(20, 220, 44, 39);
-
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/6actualizar.png"))); // NOI18N
-        jButton2.setToolTipText("Actualizar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton2);
-        jButton2.setBounds(80, 220, 44, 39);
+        jButton1.setBounds(290, 320, 60, 60);
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/5eliminar.png"))); // NOI18N
         jButton3.setToolTipText("Eliminar");
@@ -116,7 +104,7 @@ public class Laboratorio extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton3);
-        jButton3.setBounds(150, 220, 44, 39);
+        jButton3.setBounds(380, 320, 60, 60);
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/4agregar.png"))); // NOI18N
         jButton4.setToolTipText("Agregar");
@@ -126,7 +114,7 @@ public class Laboratorio extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton4);
-        jButton4.setBounds(210, 220, 44, 39);
+        jButton4.setBounds(20, 320, 70, 60);
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/3consultar.png"))); // NOI18N
         jButton5.setToolTipText("Consultar");
@@ -136,7 +124,7 @@ public class Laboratorio extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton5);
-        jButton5.setBounds(270, 220, 44, 39);
+        jButton5.setBounds(200, 320, 60, 60);
 
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/2buscarr.png"))); // NOI18N
         jButton6.setToolTipText("Buscar");
@@ -146,17 +134,7 @@ public class Laboratorio extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton6);
-        jButton6.setBounds(330, 220, 44, 39);
-
-        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/1limpiar.png"))); // NOI18N
-        jButton9.setToolTipText("Limpiar");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton9);
-        jButton9.setBounds(390, 220, 44, 39);
+        jButton6.setBounds(110, 320, 70, 60);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -166,7 +144,7 @@ public class Laboratorio extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 204));
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, -20, 470, 310);
+        jPanel1.setBounds(320, 0, 170, 170);
 
         jMenu1.setText("Exit");
 
@@ -201,7 +179,7 @@ public class Laboratorio extends javax.swing.JFrame {
 
         setJMenuBar(jMenuBar1);
 
-        setSize(new java.awt.Dimension(480, 339));
+        setSize(new java.awt.Dimension(489, 452));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -298,12 +276,6 @@ public class Laboratorio extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        clavela.setText("");
-        nombre.setText("");
-        clavela.setEnabled(true);
-    }//GEN-LAST:event_jButton9ActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
          try {
          String Clavela;
@@ -325,20 +297,6 @@ public class Laboratorio extends javax.swing.JFrame {
           
         }
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-      try {
-        String Clavela, Nombre;
-        Clavela = clavela.getText();
-        Nombre = nombre.getText(); 
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("ACT7 "+Clavela+",'"+Nombre+"'");
-           
-        } catch (Exception e) {
-        }
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void clavelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clavelaActionPerformed
         // TODO add your handling code here:
@@ -383,12 +341,10 @@ public class Laboratorio extends javax.swing.JFrame {
     private javax.swing.JTable Tabla1;
     private javax.swing.JTextField clavela;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

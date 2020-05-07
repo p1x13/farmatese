@@ -105,7 +105,7 @@ public class Ciudad extends javax.swing.JFrame {
             }
         });
         getContentPane().add(eliminar);
-        eliminar.setBounds(360, 250, 60, 57);
+        eliminar.setBounds(360, 250, 60, 64);
 
         agregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/4agregar.png"))); // NOI18N
         agregar.setToolTipText("Agregar");
@@ -116,7 +116,7 @@ public class Ciudad extends javax.swing.JFrame {
             }
         });
         getContentPane().add(agregar);
-        agregar.setBounds(110, 250, 60, 60);
+        agregar.setBounds(20, 250, 60, 60);
 
         consultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/3consultar.png"))); // NOI18N
         consultar.setToolTipText("Consultar");
@@ -127,7 +127,7 @@ public class Ciudad extends javax.swing.JFrame {
             }
         });
         getContentPane().add(consultar);
-        consultar.setBounds(20, 250, 70, 60);
+        consultar.setBounds(190, 250, 70, 60);
 
         Buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/2buscarr.png"))); // NOI18N
         Buscar.setToolTipText("Buscar");
@@ -138,7 +138,7 @@ public class Ciudad extends javax.swing.JFrame {
             }
         });
         getContentPane().add(Buscar);
-        Buscar.setBounds(190, 250, 70, 60);
+        Buscar.setBounds(100, 250, 70, 60);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -267,6 +267,7 @@ public class Ciudad extends javax.swing.JFrame {
                 Statement stm = con.createStatement();
                 /*Marcara excecp por que el ResulSet espera valor de retorno, usamos executeUpdate                
                 ResultSet rs= stm.executeQuery("insert into ciudad values ('" + clave + "','" + nomci + "','" + codP + "')");*/
+                //stt regresa uno si la actualizacion se efectuo, 0 si fue rechazada
                 int stt = stm.executeUpdate("insert into ciudad values ('" + clave + "','" + nomci + "','" + codP + "')");
                 if (stt >= 1) {
                     JOptionPane.showMessageDialog(rootPane, "Registro creado");

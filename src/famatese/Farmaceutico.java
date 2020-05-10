@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 public class Farmaceutico extends javax.swing.JFrame {
@@ -80,6 +81,11 @@ public class Farmaceutico extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        Tabla1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Tabla1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(Tabla1);
 
         jPanel1.add(jScrollPane1);
@@ -489,16 +495,42 @@ public class Farmaceutico extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarActionPerformed
-        if (clavefa.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Ingrese una clave para editar elemento");
-        } else if (verificarID()) {
-            this.setVisible(false);
-            editarFarmaceutico obj = new editarFarmaceutico(clavefa.getText());
-            obj.show();
+        if (!(clavefa.getText().equals(""))) {
+            System.out.println("paso1");
+            if (verificarID() || !(nombre.getText().equals("") || ap.getText().equals("") || am.getText().equals(""))) {
+                System.out.println("paso2");
+                String actualizar= "Nombre= '"+ nombre.getText()+"' \n"
+                        +"Apellido paterno= '"+ap.getText()+"'\n"
+                        +"Apellido materno= '"+am.getText()+"'";
+                int procd = JOptionPane.showConfirmDialog(rootPane, actualizar, ("Se actualizara la informacion para: " + clavefa.getText()),2, 2);
+                System.out.println(procd);
+                if(procd<=0){
+                try {
+                    Connection con = DriverManager.getConnection(coneccionbd);
+                    Statement stm = con.createStatement();
+                    int act = stm.executeUpdate("update farmaceutico set "
+                            + "nom_fa='" + nombre.getText() + "',"
+                            + "app_fa='" + ap.getText() + "',"
+                            + "apm_fa='" + am.getText() + "'"
+                            + "where cod_fa='" + clavefa.getText() + "'");
+                    if (act >= 1) {
+                        JOptionPane.showMessageDialog(rootPane, "Actualizado");
+                        consultarTodo();
+                        clearfields();
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "no se puede actualizar");
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                }
+            }
         } else {
             JOptionPane.showMessageDialog(rootPane, ("No se encontro el id: " + clavefa.getText()));
             consultarTodo();
+            clearfields();
         }
+        System.out.println("paso0");
     }//GEN-LAST:event_editarActionPerformed
 
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
@@ -515,15 +547,15 @@ public class Farmaceutico extends javax.swing.JFrame {
     }//GEN-LAST:event_eliminarActionPerformed
 
     private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
-        if (clavefa.getText().equals("")) 
+        if (clavefa.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Ingrese un ID");
-        else if (nombre.getText().equals("")) 
+        } else if (nombre.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Ingrese el nombre");
-        else if (ap.getText().equals("")) 
+        } else if (ap.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Ingrese el apellido paterno");
-        else if (am.getText().equals(""))
+        } else if (am.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Ingrese el apellido materno");
-        if(!verificarID()) { //Si no existe el ID entra en la creaci+on
+        } else if (!verificarID()) { //Si no existe el ID entra en la creaci+on
             String Clavefa, Nombre, Ap, Am;
             Clavefa = clavefa.getText();
             Nombre = nombre.getText();
@@ -563,7 +595,7 @@ public class Farmaceutico extends javax.swing.JFrame {
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
         String buscar = nombre.getText();
         if (buscar.equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Ingrese una nombre para buscar");
+            JOptionPane.showMessageDialog(rootPane, "Ingrese un nombre para buscar");
         } else {
             try {
                 DefaultTableModel tabla = new DefaultTableModel();
@@ -592,6 +624,18 @@ public class Farmaceutico extends javax.swing.JFrame {
     private void nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nombreActionPerformed
+
+    //toma la tabla y rellena los campos, se implementara para la edicion, asi evitamos
+    //crear nuevas interfaces editar, cambio de paradigma 09/05/2020
+    private void Tabla1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tabla1MouseClicked
+        DefaultTableModel model = (DefaultTableModel) Tabla1.getModel();
+        int selectedRowIndex = Tabla1.getSelectedRow();
+
+        clavefa.setText(model.getValueAt(selectedRowIndex, 0).toString());
+        nombre.setText(model.getValueAt(selectedRowIndex, 1).toString());
+        ap.setText(model.getValueAt(selectedRowIndex, 2).toString());
+        am.setText(model.getValueAt(selectedRowIndex, 3).toString());
+    }//GEN-LAST:event_Tabla1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -627,14 +671,15 @@ public class Farmaceutico extends javax.swing.JFrame {
             }
         });
     }
- //Grunditses:
-    private void clearfields(){
+    //Grunditses:
+
+    private void clearfields() {
         clavefa.setText("");
         nombre.setText("");
         ap.setText("");
         am.setText("");
     }
-    
+
     private boolean verificarID() {
         String buscar = clavefa.getText();
         try {
@@ -677,6 +722,7 @@ public class Farmaceutico extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable Tabla1;

@@ -633,9 +633,9 @@ public class Farma extends javax.swing.JFrame {
         String compararFarmaceutico = (String) model.getValueAt(selectedRowIndex, 7);
         String compararCiudad = (String) model.getValueAt(selectedRowIndex, 6);
         System.out.println(compararFarmaceutico);
-        ponerFarma = (listaFarmaceuticos.indexOf(compararFarmaceutico)) / 2;
+        ponerFarma = (listaFarmaceuticos.indexOf(compararFarmaceutico))/2;
         boxFarmaceutico.setSelectedIndex(ponerFarma);
-        boxCiudad.setSelectedIndex((listaCiudades.indexOf(compararCiudad)) / 2);
+        boxCiudad.setSelectedIndex((listaCiudades.indexOf(compararCiudad))/2);
         /*for(int bandera=0;bandera<listaFarmaceuticos.size();bandera++){   
            System.out.println(listaFarmaceuticos.get(bandera));
             if(compararFarmaceutico.equalsIgnoreCase(listaFarmaceuticos.get(bandera)))

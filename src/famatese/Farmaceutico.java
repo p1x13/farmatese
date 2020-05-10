@@ -534,16 +534,23 @@ public class Farmaceutico extends javax.swing.JFrame {
     }//GEN-LAST:event_editarActionPerformed
 
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
-        String clave;
-        clave = clavefa.getText();
-        try {
-            DefaultTableModel tabla = new DefaultTableModel();
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("delete from Farmaceutico where ID_Farm='" + clave + "'");
-        } catch (Exception e) {
-        }
+         String clave = clavefa.getText();
+        if (clave.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Por favor ingrese al clave del elemento que desea eliminar");
+        } else if(buscarID()) {
+            int i = JOptionPane.showConfirmDialog(rootPane,"Confirma la eliminación?","Eliminar elemento",2,2);
+            if (i<=0){
+            try {
+                Connection con;
+                con = DriverManager.getConnection(coneccionbd);
+                Statement stm = con.createStatement();
+                stm.executeUpdate("delete from famaceutico where cod_fa='" + clave + "'");
+            } catch (Exception e) {
+            }
+            consultarTodo();
+            }
+        } else
+            JOptionPane.showMessageDialog(rootPane,("No existe: "+clave));
     }//GEN-LAST:event_eliminarActionPerformed
 
     private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
@@ -721,6 +728,23 @@ public class Farmaceutico extends javax.swing.JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    private boolean buscarID() {
+        String buscar = clavefa.getText();
+            try {
+                Connection con;
+                con = DriverManager.getConnection(coneccionbd);
+                Statement stm = con.createStatement();
+                ResultSet rs = stm.executeQuery("Select * from farmaceutico where cod_fa='" + buscar + "'");
+                while (rs.next()) {
+                    clavefa.setText(String.valueOf(rs.getString(1)));
+                return true;
+                }
+
+            } catch (Exception e) {
+            } 
+            return false; //si no encontro nada falso
+        
     }
 
 

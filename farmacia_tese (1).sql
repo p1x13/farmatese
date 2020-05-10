@@ -14,7 +14,7 @@ constraint pk_cod_c primary key (cod_c),
 check (cod_c like 'CIU[0-9][0-9][0-9]'))
 go
 
----depende de farmacia -----!!!!!!!!!!!!!!!!!!
+---depende de farmacia  NAIL -----!!!!!!!!!!!!!!!!!!
 create table farmaceutico(-- farmaceutico  
 cod_fa varchar(6), --codigo farmaceutico
 nom_fa varchar(30), -- nombre farmaceutico
@@ -72,7 +72,7 @@ go
 					
 create table farmacia( --farmacia
 cod_f varchar(6), --cogido de farmacia
-nom_f varchar(30), -- nombre de farmacia 
+nom_f varchar(30), -- nombre de farmacia ---Primay to? unique?
 cal_f varchar(30), --calle
 col_f varchar(30), --colo
 cp_f int, --codigo postal
@@ -140,6 +140,18 @@ select*from laboratorio
 									--inner join--
 									--------------
 
+insert into farmacia values(upper('farm04'),upper('Stiglitz'),upper('deLaRue'),upper('Fontain'),'16661','3',upper('ciu007'),upper('far003'))
+
+
+alter view farmacias
+as
+select cod_f, nom_f,cal_f,col_f,cp_f, gua_f,
+nom_c, nom_fa
+from farmacia where nom_f='esperanza'
+inner join ciudad on cod_c= cod_c1 
+inner join farmaceutico on cod_fa=cod_fa1
+
+Select * from farmacias where nom_f='esperanza'
 
 	--estos los dejo para que ya no te cuentesn trabajo humano
 

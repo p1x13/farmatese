@@ -10,16 +10,20 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-
 public class Farma extends javax.swing.JFrame {
 
-    String coneccionbd = ("jdbc:sqlserver://localhost:1433;databaseName=FARMATEC2;user=sa;password=sasa");
+    String coneccionbd = ("jdbc:sqlserver://localhost:1433;databaseName=farmacia_tese;user=sa;password=sasa");
+    ArrayList<String> listaFarmaceuticos = new ArrayList<>();
+    ArrayList<String> listaCiudades = new ArrayList<>();
 
     public Farma() {
         initComponents();
+        actualizarList();
+        consultarTodo();
     }
 
     /**
@@ -36,25 +40,25 @@ public class Farma extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         clavefa = new javax.swing.JTextField();
-        claveci = new javax.swing.JTextField();
-        claveco = new javax.swing.JTextField();
-        claveca = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        Agregar = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        colonia = new javax.swing.JTextField();
+        calle = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         Tabla1 = new javax.swing.JTable();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
+        editar = new javax.swing.JButton();
         Borrar = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
         Consultar = new javax.swing.JButton();
-        jButton12 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        buscarNombre = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        nombre = new javax.swing.JTextField();
+        boxCiudad = new javax.swing.JComboBox<>();
+        jLabel7 = new javax.swing.JLabel();
+        cp = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        guardias = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        boxFarmaceutico = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -74,93 +78,31 @@ public class Farma extends javax.swing.JFrame {
 
         jLabel1.setText("ID Farmacia");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(10, 40, 70, 14);
+        jLabel1.setBounds(10, 40, 70, 16);
 
-        jLabel2.setText("Id Ciudad");
+        jLabel2.setText("Ciudad");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(10, 90, 60, 14);
+        jLabel2.setBounds(290, 100, 60, 16);
 
-        jLabel3.setText("ID Colonia");
+        jLabel3.setText("Colonia");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(10, 140, 60, 14);
+        jLabel3.setBounds(20, 160, 60, 16);
 
-        jLabel4.setText("ID Calle");
+        jLabel4.setText("Calle");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(10, 190, 60, 14);
+        jLabel4.setBounds(220, 160, 40, 20);
         getContentPane().add(clavefa);
-        clavefa.setBounds(90, 30, 510, 30);
-        getContentPane().add(claveci);
-        claveci.setBounds(90, 80, 510, 30);
+        clavefa.setBounds(90, 30, 110, 30);
 
-        claveco.addActionListener(new java.awt.event.ActionListener() {
+        colonia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                clavecoActionPerformed(evt);
+                coloniaActionPerformed(evt);
             }
         });
-        getContentPane().add(claveco);
-        claveco.setBounds(90, 130, 510, 30);
-        getContentPane().add(claveca);
-        claveca.setBounds(90, 180, 510, 30);
-
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/8OJO.png"))); // NOI18N
-        jButton1.setToolTipText("Consultar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton1);
-        jButton1.setBounds(620, 90, 30, 20);
-
-        Agregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/9 AGREGAR.png"))); // NOI18N
-        Agregar.setToolTipText("Agregar");
-        Agregar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AgregarActionPerformed(evt);
-            }
-        });
-        getContentPane().add(Agregar);
-        Agregar.setBounds(670, 90, 30, 20);
-
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/8OJO.png"))); // NOI18N
-        jButton3.setToolTipText("Consultar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton3);
-        jButton3.setBounds(620, 140, 30, 20);
-
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/9 AGREGAR.png"))); // NOI18N
-        jButton4.setToolTipText("Agregar");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton4);
-        jButton4.setBounds(670, 140, 30, 20);
-
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/8OJO.png"))); // NOI18N
-        jButton5.setToolTipText("Consultar");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton5);
-        jButton5.setBounds(620, 190, 30, 20);
-
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/9 AGREGAR.png"))); // NOI18N
-        jButton6.setToolTipText("Agregar");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton6);
-        jButton6.setBounds(670, 190, 30, 20);
+        getContentPane().add(colonia);
+        colonia.setBounds(90, 150, 110, 30);
+        getContentPane().add(calle);
+        calle.setBounds(270, 150, 110, 30);
 
         Tabla1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -173,30 +115,25 @@ public class Farma extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        Tabla1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Tabla1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(Tabla1);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(10, 220, 740, 102);
+        jScrollPane1.setBounds(10, 210, 590, 102);
 
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/7modificar.png"))); // NOI18N
-        jButton7.setToolTipText("Modificar");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        editar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/7modificar.png"))); // NOI18N
+        editar.setToolTipText("Modificar");
+        editar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                editarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton7);
-        jButton7.setBounds(40, 330, 44, 39);
-
-        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/6actualizar.png"))); // NOI18N
-        jButton8.setToolTipText("Actualizar");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton8);
-        jButton8.setBounds(140, 330, 44, 39);
+        getContentPane().add(editar);
+        editar.setBounds(380, 310, 70, 60);
 
         Borrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/5eliminar.png"))); // NOI18N
         Borrar.setToolTipText("Eliminar");
@@ -206,7 +143,7 @@ public class Farma extends javax.swing.JFrame {
             }
         });
         getContentPane().add(Borrar);
-        Borrar.setBounds(240, 330, 44, 39);
+        Borrar.setBounds(490, 310, 70, 60);
 
         jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/4agregar.png"))); // NOI18N
         jButton10.setToolTipText("Agregar");
@@ -216,7 +153,7 @@ public class Farma extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton10);
-        jButton10.setBounds(340, 330, 44, 39);
+        jButton10.setBounds(50, 310, 70, 60);
 
         Consultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/3consultar.png"))); // NOI18N
         Consultar.setToolTipText("Consultar");
@@ -226,37 +163,57 @@ public class Farma extends javax.swing.JFrame {
             }
         });
         getContentPane().add(Consultar);
-        Consultar.setBounds(440, 330, 44, 39);
+        Consultar.setBounds(260, 310, 70, 60);
 
-        jButton12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/2buscarr.png"))); // NOI18N
-        jButton12.setToolTipText("Buscar");
-        jButton12.addActionListener(new java.awt.event.ActionListener() {
+        buscarNombre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/2buscarr.png"))); // NOI18N
+        buscarNombre.setToolTipText("Buscar");
+        buscarNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton12ActionPerformed(evt);
+                buscarNombreActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton12);
-        jButton12.setBounds(540, 330, 44, 39);
-
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/1limpiar.png"))); // NOI18N
-        jButton2.setToolTipText("Limpiar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton2);
-        jButton2.setBounds(640, 330, 44, 39);
+        getContentPane().add(buscarNombre);
+        buscarNombre.setBounds(160, 310, 60, 60);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("FARMACIA");
         getContentPane().add(jLabel5);
-        jLabel5.setBounds(4, 4, 760, 20);
+        jLabel5.setBounds(150, 0, 310, 20);
+
+        jLabel6.setText("nombre");
+        getContentPane().add(jLabel6);
+        jLabel6.setBounds(220, 40, 50, 16);
+        getContentPane().add(nombre);
+        nombre.setBounds(270, 30, 110, 30);
+
+        boxCiudad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        getContentPane().add(boxCiudad);
+        boxCiudad.setBounds(360, 90, 130, 30);
+
+        jLabel7.setText("CP");
+        getContentPane().add(jLabel7);
+        jLabel7.setBounds(416, 160, 20, 16);
+        getContentPane().add(cp);
+        cp.setBounds(460, 150, 100, 30);
+
+        jLabel8.setText("Dias de guardia");
+        getContentPane().add(jLabel8);
+        jLabel8.setBounds(70, 90, 100, 30);
+        getContentPane().add(guardias);
+        guardias.setBounds(180, 90, 73, 24);
+
+        jLabel9.setText("Farmaceutico");
+        getContentPane().add(jLabel9);
+        jLabel9.setBounds(400, 30, 90, 20);
+
+        boxFarmaceutico.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        getContentPane().add(boxFarmaceutico);
+        boxFarmaceutico.setBounds(490, 30, 90, 30);
 
         jPanel2.setBackground(new java.awt.Color(204, 255, 204));
         getContentPane().add(jPanel2);
-        jPanel2.setBounds(0, -30, 780, 430);
+        jPanel2.setBounds(0, -30, 630, 420);
 
         jMenu1.setText("Busqueda Avanzada");
 
@@ -339,165 +296,101 @@ public class Farma extends javax.swing.JFrame {
 
         setJMenuBar(jMenuBar1);
 
-        setSize(new java.awt.Dimension(779, 447));
+        setSize(new java.awt.Dimension(631, 447));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void AgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarActionPerformed
-        this.setVisible(false);
-        Ciudad obj = new Ciudad();
-        obj.show();
-    }//GEN-LAST:event_AgregarActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        this.setVisible(false);
-        Colonia obj = new Colonia();
-        obj.show();
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        this.setVisible(false);
-        Calle obj = new Calle();
-        obj.show();
-    }//GEN-LAST:event_jButton6ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        try {
-            DefaultTableModel tabla = new DefaultTableModel();
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("Select * from CALLE");
-            tabla.addColumn("ID Calle");
-            tabla.addColumn("Nombre Calle");
-            while (rs.next()) {
-                Object dato[] = new Object[2];
-                for (int i = 0; i < 2; i++) {
-                    dato[i] = rs.getString(i + 1);
+    private void buscarNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarNombreActionPerformed
+        String clave = nombre.getText();
+        if (clave.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Ingrese un nombre para buscar");
+        } else {
+            try {
+                DefaultTableModel tabla = new DefaultTableModel();
+                Connection con;
+                con = DriverManager.getConnection(coneccionbd);
+                Statement stm = con.createStatement();
+                ResultSet rs = stm.executeQuery("Select * from farmacias where nom_f='" + clave + "'");
+                tabla.addColumn("ID Farmacia");
+                tabla.addColumn("Nombre");
+                tabla.addColumn("Calle");
+                tabla.addColumn("Colonia");
+                tabla.addColumn("CP");
+                tabla.addColumn("Dias de guardias");
+                tabla.addColumn("Ciudad");
+                tabla.addColumn("Farmaceutico ");
+                while (rs.next()) {
+                    Object dato[] = new Object[8];
+                    for (int i = 0; i < 8; i++) {
+                        dato[i] = rs.getString(i + 1);
+                    }
+                    tabla.addRow(dato);
                 }
-                tabla.addRow(dato);
+                this.Tabla1.setModel(tabla);
+                int claveSelected = (boxCiudad.getSelectedIndex()) * 2;
+                boxCiudad.setSelectedIndex(claveSelected);
+                //listaCiudades.get(claveSelected);
+                System.out.println(listaCiudades.get(claveSelected));
+                // System.out.println(listaCiudades.get(ciucod * 2));
+                clearfields();
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(rootPane, "No se encontraron resultados");
             }
-            this.Tabla1.setModel(tabla);
-        } catch (Exception e) {
         }
-    }//GEN-LAST:event_jButton5ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-            DefaultTableModel tabla = new DefaultTableModel();
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("Select * from Ciudad");
-            tabla.addColumn("ID Ciudad");
-            tabla.addColumn("Nombre Ciudad");
-            while (rs.next()) {
-                Object dato[] = new Object[2];
-                for (int i = 0; i < 2; i++) {
-                    dato[i] = rs.getString(i + 1);
-                }
-                tabla.addRow(dato);
-            }
-            this.Tabla1.setModel(tabla);
-        } catch (Exception e) {
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        try {
-            DefaultTableModel tabla = new DefaultTableModel();
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("Select * from Colonia");
-            tabla.addColumn("ID Colonia");
-            tabla.addColumn("Nombre Colonia");
-            while (rs.next()) {
-                Object dato[] = new Object[2];
-                for (int i = 0; i < 2; i++) {
-                    dato[i] = rs.getString(i + 1);
-                }
-                tabla.addRow(dato);
-            }
-            this.Tabla1.setModel(tabla);
-        } catch (Exception e) {
-        }
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        String clave;
-        clave = clavefa.getText();
-        try {
-            DefaultTableModel tabla = new DefaultTableModel();
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("Select * from Farmacia where ID_Farmac='" + clave + "'");
-            tabla.addColumn("ID Farmacia");
-            tabla.addColumn("ID Ciudad");
-            tabla.addColumn("ID Colonia");
-            tabla.addColumn("ID Calle");
-            while (rs.next()) {
-                Object dato[] = new Object[4];
-                for (int i = 0; i < 4; i++) {
-                    dato[i] = rs.getString(i + 1);
-                }
-                tabla.addRow(dato);
-            }
-            this.Tabla1.setModel(tabla);
-        } catch (Exception e) {
-        }
-    }//GEN-LAST:event_jButton12ActionPerformed
+    }//GEN-LAST:event_buscarNombreActionPerformed
 
     private void ConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConsultarActionPerformed
-        try {
-            DefaultTableModel tabla = new DefaultTableModel();
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("Select * from Farmacia ");
-            tabla.addColumn("ID Farmacia");
-            tabla.addColumn("ID Ciudad");
-            tabla.addColumn("ID Colonia");
-            tabla.addColumn("ID Calle");
-            while (rs.next()) {
-                Object dato[] = new Object[4];
-                for (int i = 0; i < 4; i++) {
-                    dato[i] = rs.getString(i + 1);
-                }
-                tabla.addRow(dato);
-            }
-            this.Tabla1.setModel(tabla);
-        } catch (Exception e) {
-        }
+        consultarTodo();
+        actualizarList();
     }//GEN-LAST:event_ConsultarActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         if (clavefa.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Ingrese un ID");
+            JOptionPane.showMessageDialog(null, "Ingrese un ID de farmacia");
+        } else if (nombre.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Ingrese el nombre");
+        } else if (guardias.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Ingrese el horario");
+        } else if (colonia.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Ingrese la colonia");
+        } else if (calle.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Ingrese la calle");
+        } else if (cp.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Ingrese el CP");
+        } else if (!verificarID()) { //Si no existe el ID entra en la creaci+on
+            String cF = clavefa.getText();
+            String n = nombre.getText();
+            int idFarmaceutico = (boxFarmaceutico.getSelectedIndex() * 2);
+            String farmaceutico = (String) listaFarmaceuticos.get(idFarmaceutico);
+            String gu = guardias.getText();
+            int idCiudad = (boxCiudad.getSelectedIndex() * 2);
+            String ciudad = (String) listaCiudades.get(idCiudad);
+            String co = colonia.getText();
+            String ca = calle.getText();
+            String cop = cp.getText();
+            try {
+                DefaultTableModel tabla = new DefaultTableModel();
+                Connection con;
+                con = DriverManager.getConnection(coneccionbd);
+                Statement stm = con.createStatement();
+                ResultSet rs = stm.executeQuery("insert into farmacia values ('" + cF + "','"
+                        + n + "','"
+                        + ca + "','"
+                        + co + "','"
+                        + cop + "','"
+                        + gu + "','"
+                        + ciudad + "','"
+                        + farmaceutico + "')");
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(rootPane, "No se pudo crear", "Compruebe los datos", 2);
+            }
         }
-        if (claveci.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Ingrese el ID de la ciudad");
-        }
-        if (claveco.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Ingrese el ID de la colonia");
-        }
-        if (claveca.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Ingrese el ID de la calle");
-        }
-        String clave, clave1, clave2, clave3;
-        clave = clavefa.getText();
-        clave1 = claveci.getText();
-        clave2 = claveco.getText();
-        clave3 = claveca.getText();
-        try {
-            DefaultTableModel tabla = new DefaultTableModel();
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("insert into Farmacia values ('" + clave + "','" + clave1 + "','" + clave2 + "','" + clave3 + "')");
-        } catch (Exception e) {
-        }
+        consultarTodo();
+        //clearfields();
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void BorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BorrarActionPerformed
@@ -519,7 +412,7 @@ public class Farma extends javax.swing.JFrame {
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         String clave;
-        clave = claveca.getText();
+        clave = calle.getText();
         try {
             DefaultTableModel tabla = new DefaultTableModel();
             Connection con;
@@ -544,13 +437,13 @@ public class Farma extends javax.swing.JFrame {
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         String clave;
-        clave = claveci.getText();
+
         try {
             DefaultTableModel tabla = new DefaultTableModel();
             Connection con;
             con = DriverManager.getConnection(coneccionbd);
             Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("Select * from Farmacia INNER JOIN Ciudad on ID_Ciu1=ID_Ciu where ID_Ciu='" + clave + "'");
+            ResultSet rs = stm.executeQuery("Select * from Farmacia INNER JOIN Ciudad on ID_Ciu1=ID_Ciu where ID_Ciu='" + "'");
             tabla.addColumn("ID Farmacia");
             tabla.addColumn("ID Ciudad");
             tabla.addColumn("ID Colonia");
@@ -569,7 +462,7 @@ public class Farma extends javax.swing.JFrame {
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         String clave;
-        clave = claveco.getText();
+        clave = colonia.getText();
         try {
             DefaultTableModel tabla = new DefaultTableModel();
             Connection con;
@@ -592,9 +485,9 @@ public class Farma extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
-    private void clavecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clavecoActionPerformed
+    private void coloniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_coloniaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_clavecoActionPerformed
+    }//GEN-LAST:event_coloniaActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         this.setVisible(false);
@@ -602,60 +495,58 @@ public class Farma extends javax.swing.JFrame {
         obj.show();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        clavefa.setText("");
-        claveci.setText("");
-        claveco.setText("");
-        claveca.setText("");
-        clavefa.setEnabled(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarActionPerformed
+        if (!(clavefa.getText().equals(""))) {
+            System.out.println("paso 1 no esta vacia la clave");
+            if (verificarID()) {
+                System.out.println("paso2");
+                // listaFarmaceuticos;
+                int idFarmaceutico = (boxFarmaceutico.getSelectedIndex() * 2);
+                int idCiudad = (boxCiudad.getSelectedIndex()*2);
+                String farmaceutico = (String) listaFarmaceuticos.get(idFarmaceutico);
+                String ciudad = (String) listaCiudades.get(idCiudad);
+                String actualizar = "Nombre= '" + nombre.getText() + "' \n"
+                        + "dias de guardia= '" + guardias.getText() + "'\n"
+                        + "colonia= '" + colonia.getText() + "'\n"
+                        + "calle= '" + calle.getText() + "'\n"
+                        + "codigo postal= '" + cp.getText() + "'\n"
+                        + "farmaceutico= '" + farmaceutico + "'\n"
+                        + "ciudad= '" + ciudad + "'";
+                int procd = JOptionPane.showConfirmDialog(rootPane, actualizar, ("Se actualizara la informacion para: " + clavefa.getText()), 2, 2);
+                System.out.println(procd);
+                if (procd <= 0) {
+                   try {
+                    Connection con = DriverManager.getConnection(coneccionbd);
+                    Statement stm = con.createStatement();
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        try {
-            String Clavefa;
-            Clavefa = clavefa.getText();
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("select * from Farmacia where ID_Farmac='" + Clavefa + "'");
-            if (rs.next()) {
-                clavefa.setText(String.valueOf(rs.getString(1)));
-                claveci.setText(String.valueOf(rs.getString(2)));
-                claveco.setText(String.valueOf(rs.getString(3)));
-                claveca.setText(String.valueOf(rs.getString(4)));
-
-                clavefa.setEnabled(false);
-                claveci.setEnabled(true);
-                claveco.setEnabled(true);
-                claveca.setEnabled(true);
-
-                stm.close();
+                    int act = stm.executeUpdate("update farmacia set "
+                            + "nom_f='" + nombre.getText() + "',"
+                            + "cal_f='" + calle.getText() + "',"
+                            + "col_f='" + colonia.getText() + "',"
+                            + "cp_f='" + cp.getText() + "',"
+                            + "gua_f='" + guardias.getText() + "',"
+                            + "cod_c1='" + ciudad+ "',"
+                            + "cod_fa1='" + farmaceutico + "'"
+                            + "where cod_f='" + clavefa.getText() + "'");
+                    if (act >= 1) {
+                        JOptionPane.showMessageDialog(rootPane, "Actualizado");
+                        consultarTodo();
+                        clearfields();
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "no se puede actualizar");
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                }
             }
-        } catch (SQLException e) {
-
         }
-    }//GEN-LAST:event_jButton7ActionPerformed
-
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        try {
-            String Clavefa, Claveci, Claveco, Claveca;
-            Clavefa = clavefa.getText();
-            Claveci = claveci.getText();
-            Claveco = claveco.getText();
-            Claveca = claveca.getText();
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("ACT12 " + Clavefa + ",'" + Claveci + "','" + Claveco + "','" + Claveca + "'");
-
-        } catch (Exception e) {
-        }
-    }//GEN-LAST:event_jButton8ActionPerformed
+    }//GEN-LAST:event_editarActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         try {
             String clave;
-            clave=clavefa.getText();
+            clave = clavefa.getText();
             DefaultTableModel tabla = new DefaultTableModel();
             Connection con;
             con = DriverManager.getConnection(coneccionbd);
@@ -664,7 +555,7 @@ public class Farma extends javax.swing.JFrame {
                     + "FROM FARMACIA INNER JOIN Ciudad ON ID_Ciu1=ID_Ciu INNER JOIN Colonia ON ID_Col1=ID_Col INNER JOIN Calle ON ID_Calle1=ID_Calle INNER JOIN FarmacMed ON ID_Farmac=ID_Farmac2 INNER JOIN Medicamento ON ID_Medic4=ID_Medic\n"
                     + "INNER JOIN  MedUniPresViaFarm ON ID_Medic=ID_Medic INNER JOIN UnidadMed ON ID_Umed1=ID_Umed INNER JOIN Presentacion ON ID_Pres1=ID_Pres INNER JOIN \n"
                     + "ViAdmon ON ID_Admon1=ID_Admon INNER JOIN MedAcTera ON ID_Medic=ID_Medic3 INNER JOIN AccionTera on ID_AccTera1=ID_AccTera INNER JOIN MediMono ON ID_Medic=ID_Medic2 INNER JOIN Monodroga ON ID_Mon1=ID_Mon INNER JOIN Laboratorio ON ID_Lab1=ID_Lab\n"
-                    + "WHERE ID_Farmac='"+clave+"'");
+                    + "WHERE ID_Farmac='" + clave + "'");
             tabla.addColumn("ID Farmacia");
             tabla.addColumn("Ciudad");
             tabla.addColumn("Colonia");
@@ -728,6 +619,37 @@ public class Farma extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
+    private void Tabla1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tabla1MouseClicked
+        DefaultTableModel model = (DefaultTableModel) Tabla1.getModel();
+        int selectedRowIndex = Tabla1.getSelectedRow();
+        int ponerFarma = 0;
+
+        clavefa.setText(model.getValueAt(selectedRowIndex, 0).toString());
+        nombre.setText(model.getValueAt(selectedRowIndex, 1).toString());
+        guardias.setText(model.getValueAt(selectedRowIndex, 5).toString());
+        colonia.setText(model.getValueAt(selectedRowIndex, 3).toString());
+        calle.setText(model.getValueAt(selectedRowIndex, 2).toString());
+        cp.setText(model.getValueAt(selectedRowIndex, 4).toString());
+        String compararFarmaceutico = (String) model.getValueAt(selectedRowIndex, 7);
+        String compararCiudad = (String) model.getValueAt(selectedRowIndex, 6);
+        System.out.println(compararFarmaceutico);
+        ponerFarma = (listaFarmaceuticos.indexOf(compararFarmaceutico)) / 2;
+        boxFarmaceutico.setSelectedIndex(ponerFarma);
+        boxCiudad.setSelectedIndex((listaCiudades.indexOf(compararCiudad)) / 2);
+        /*for(int bandera=0;bandera<listaFarmaceuticos.size();bandera++){   
+           System.out.println(listaFarmaceuticos.get(bandera));
+            if(compararFarmaceutico.equalsIgnoreCase(listaFarmaceuticos.get(bandera)))
+             ponerFarma=(listaFarmaceuticos.indexOf(compararFarmaceutico))/2;
+       }*/
+        //System.out.println(ponerFarma);
+
+        /*int nf=((int) model.getValueAt(selectedRowIndex,6)/2);
+        int nc=((int) model.getValueAt(selectedRowIndex,7)/2);
+        boxFarmaceutico.setSelectedIndex(nf);
+        boxCiudad.setSelectedIndex(nc);*/
+
+    }//GEN-LAST:event_Tabla1MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -763,30 +685,166 @@ public class Farma extends javax.swing.JFrame {
         });
     }
 
+    /*----------------------------------------------------------------------------------------------------------------*/
+ /*----------------------------------------------------------------------------------------------------------------*/
+    //MY METHOD´S 
+    //Consultar tabla, usando views en DB 
+    private void consultarTodo() {
+        try {
+            DefaultTableModel tabla = new DefaultTableModel();
+            Connection con;
+            con = DriverManager.getConnection(coneccionbd);
+            Statement stm = con.createStatement();
+            ResultSet rs = stm.executeQuery("Select * from farmacias ");
+            tabla.addColumn("ID Farmacia");
+            tabla.addColumn("Nombre");
+            tabla.addColumn("Calle");
+            tabla.addColumn("Colonia");
+            tabla.addColumn("CP");
+            tabla.addColumn("Dias de guardias");
+            tabla.addColumn("Ciudad");
+            tabla.addColumn("Farmaceutico ");
+            while (rs.next()) {
+                Object dato[] = new Object[8];
+                for (int i = 0; i < 8; i++) {
+                    dato[i] = rs.getString(i + 1).toUpperCase();
+                }
+                tabla.addRow(dato);
+            }
+            this.Tabla1.setModel(tabla);
+        } catch (Exception e) {
+        }
+    }
+
+    //Actualizar cajas
+    private void actualizarList() {
+        boxFarmaceutico.removeAllItems();
+
+        listaFarmaceuticos = farmaceuticos();
+        //ciclo del arreglo, recorriendo posiciones par para obtener el nombre, las
+        //claves pertenecen a las posiciones non
+        for (int i = 1; i < listaFarmaceuticos.size(); i += 2) {
+            boxFarmaceutico.addItem(listaFarmaceuticos.get(i));
+            //  System.out.println(listaFarmaceuticos.get(i - 1));
+        }
+        boxCiudad.removeAllItems();
+
+        listaCiudades = ciudades();
+        //ciclo del arreglo, recorriendo posiciones par para obtener el nombre, las
+        //claves pertenecen a las posiciones non
+        for (int j = 1; j < listaCiudades.size(); j += 2) {
+            boxCiudad.addItem(listaCiudades.get(j));
+            // System.out.println(listaCiudades.get(j - 1));
+            int ciucod = boxCiudad.getSelectedIndex();
+            // System.out.println(boxCiudad.getSelectedIndex());
+            //System.out.println(listaCiudades.get(ciucod * 2));
+        }
+        //TRansformacion de nombre a codigo con el index del item seleccionado
+        String ciucod = (String) boxCiudad.getSelectedItem();
+        //String codigoCiudad=listaCiudades.get(ciucod);
+        // System.out.println(ciucod);
+    }
+
+    // Caja farmaceuticos
+    public ArrayList<String> farmaceuticos() {
+        ArrayList<String> farmaceuticos = new ArrayList<>();
+        try {
+            Connection con = DriverManager.getConnection(coneccionbd);
+            Statement stm = con.createStatement();
+            String q = "select cod_fa,nom_fa from farmaceutico";
+            ResultSet res = stm.executeQuery(q);
+            while (res.next()) {
+                //farmaceuticos.add(res.getString("nom_fa"));
+                Object dato[] = new Object[2];
+                for (int i = 0; i < 2; i++) {
+                    //LLenado de array para el arraylist
+                    dato[i] = res.getString(i + 1).toUpperCase();
+                    farmaceuticos.add((String) dato[i]);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return farmaceuticos;
+    }
+
+    //Caja ciudades
+    public ArrayList<String> ciudades() {
+        ArrayList<String> ciudades = new ArrayList<>();
+        try {
+            Connection con = DriverManager.getConnection(coneccionbd);
+            Statement stm = con.createStatement();
+            String q = "select cod_c,nom_c from ciudad";
+            ResultSet res = stm.executeQuery(q);
+            while (res.next()) {
+                // ciudades.add(res.getString("nom_c"));
+                Object dato[] = new Object[2];
+                for (int i = 0; i < 2; i++) {
+                    //LLenado de array para el arraylist
+                    dato[i] = res.getString(i + 1).toUpperCase();
+                    ciudades.add((String) dato[i]);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ciudades;
+    }
+
+    //Limpiar campos
+    public void clearfields() {
+        clavefa.setText("");
+        nombre.setText("");
+        boxFarmaceutico.setSelectedIndex(0);
+        guardias.setText("");
+        boxCiudad.setSelectedIndex(0);
+        colonia.setText("");
+        calle.setText("");
+        cp.setText("");
+    }
+
+    //verificarID
+    private boolean verificarID() {
+        String buscar = clavefa.getText();
+        try {
+            Connection con;
+            con = DriverManager.getConnection(coneccionbd);
+            Statement stm = con.createStatement();
+            ResultSet rs = stm.executeQuery("Select * from farmacia where cod_f='" + buscar + "'");
+            while (rs.next()) {
+                clavefa.setText(String.valueOf(rs.getString(1)));
+                return true;
+            }
+
+        } catch (Exception e) {
+        }
+        return false; //si no encontro nada falso
+
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Agregar;
     private javax.swing.JButton Borrar;
     private javax.swing.JButton Consultar;
     private javax.swing.JTable Tabla1;
-    private javax.swing.JTextField claveca;
-    private javax.swing.JTextField claveci;
-    private javax.swing.JTextField claveco;
+    private javax.swing.JComboBox<String> boxCiudad;
+    private javax.swing.JComboBox<String> boxFarmaceutico;
+    private javax.swing.JButton buscarNombre;
+    private javax.swing.JTextField calle;
     private javax.swing.JTextField clavefa;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JTextField colonia;
+    private javax.swing.JTextField cp;
+    private javax.swing.JButton editar;
+    private javax.swing.JTextField guardias;
     private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -801,5 +859,6 @@ public class Farma extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField nombre;
     // End of variables declaration//GEN-END:variables
 }

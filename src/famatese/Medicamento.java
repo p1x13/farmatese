@@ -10,13 +10,15 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-
 public class Medicamento extends javax.swing.JFrame {
 
-    String coneccionbd = ("jdbc:sqlserver://localhost:1433;databaseName=FARMATEC2;user=sa;password=sasa");
+    String coneccionbd = ("jdbc:sqlserver://localhost:1433;databaseName=farmacia_tese;user=sa;password=sasa");
+    ArrayList<String> listaAcciones = new ArrayList<>();
+    ArrayList<String> listaMonodrogas = new ArrayList<>();
 
     public Medicamento() {
         initComponents();
@@ -31,35 +33,26 @@ public class Medicamento extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        clavemed = new javax.swing.JTextField();
         nombre = new javax.swing.JTextField();
-        clavelab = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         Tabla1 = new javax.swing.JTable();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        Consultar = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        descripcion = new javax.swing.JTextField();
+        editar = new javax.swing.JButton();
+        eliminar = new javax.swing.JButton();
+        agregar = new javax.swing.JButton();
+        consultar = new javax.swing.JButton();
+        buscar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
+        boxAccion = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
+        pre = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        costo = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        boxMono = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox<>();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -67,23 +60,9 @@ public class Medicamento extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
-        jLabel1.setText("ID Medicamento");
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(10, 50, 90, 20);
-
         jLabel2.setText("Nombre");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(10, 80, 100, 40);
-
-        jLabel3.setText("Descripcion");
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(10, 120, 100, 40);
-
-        jLabel4.setText("ID Laboratorio");
-        getContentPane().add(jLabel4);
-        jLabel4.setBounds(10, 170, 110, 20);
-        getContentPane().add(clavemed);
-        clavemed.setBounds(130, 40, 440, 30);
+        jLabel2.setBounds(20, 40, 100, 40);
 
         nombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -91,29 +70,7 @@ public class Medicamento extends javax.swing.JFrame {
             }
         });
         getContentPane().add(nombre);
-        nombre.setBounds(130, 80, 440, 30);
-        getContentPane().add(clavelab);
-        clavelab.setBounds(130, 160, 440, 30);
-
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/8OJO.png"))); // NOI18N
-        jButton1.setToolTipText("Consultar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton1);
-        jButton1.setBounds(580, 170, 30, 20);
-
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/9 AGREGAR.png"))); // NOI18N
-        jButton2.setToolTipText("Agregar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton2);
-        jButton2.setBounds(620, 170, 30, 20);
+        nombre.setBounds(100, 40, 130, 30);
 
         Tabla1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -131,132 +88,95 @@ public class Medicamento extends javax.swing.JFrame {
         jScrollPane1.setViewportView(Tabla1);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(20, 210, 650, 101);
+        jScrollPane1.setBounds(20, 210, 580, 101);
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/7modificar.png"))); // NOI18N
-        jButton3.setToolTipText("Modificar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        editar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/7modificar.png"))); // NOI18N
+        editar.setToolTipText("Modificar");
+        editar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                editarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3);
-        jButton3.setBounds(50, 330, 44, 39);
+        getContentPane().add(editar);
+        editar.setBounds(400, 320, 70, 60);
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/6actualizar.png"))); // NOI18N
-        jButton4.setToolTipText("Actualizar");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        eliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/5eliminar.png"))); // NOI18N
+        eliminar.setToolTipText("Eliminar");
+        eliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                eliminarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4);
-        jButton4.setBounds(140, 330, 44, 39);
+        getContentPane().add(eliminar);
+        eliminar.setBounds(510, 320, 70, 60);
 
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/5eliminar.png"))); // NOI18N
-        jButton5.setToolTipText("Eliminar");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        agregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/4agregar.png"))); // NOI18N
+        agregar.setToolTipText("Agregar");
+        agregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                agregarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton5);
-        jButton5.setBounds(240, 330, 44, 39);
+        getContentPane().add(agregar);
+        agregar.setBounds(40, 320, 70, 60);
 
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/4agregar.png"))); // NOI18N
-        jButton6.setToolTipText("Agregar");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        consultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/3consultar.png"))); // NOI18N
+        consultar.setToolTipText("Consultar");
+        consultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                consultarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton6);
-        jButton6.setBounds(340, 330, 44, 39);
+        getContentPane().add(consultar);
+        consultar.setBounds(280, 320, 70, 60);
 
-        Consultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/3consultar.png"))); // NOI18N
-        Consultar.setToolTipText("Consultar");
-        Consultar.addActionListener(new java.awt.event.ActionListener() {
+        buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/2buscarr.png"))); // NOI18N
+        buscar.setToolTipText("Buscar");
+        buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ConsultarActionPerformed(evt);
+                buscarActionPerformed(evt);
             }
         });
-        getContentPane().add(Consultar);
-        Consultar.setBounds(440, 330, 44, 39);
-
-        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/2buscarr.png"))); // NOI18N
-        jButton8.setToolTipText("Buscar");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton8);
-        jButton8.setBounds(520, 330, 44, 39);
-
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/1limpiar.png"))); // NOI18N
-        jButton7.setToolTipText("Limpiar");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton7);
-        jButton7.setBounds(610, 330, 44, 39);
-        getContentPane().add(descripcion);
-        descripcion.setBounds(130, 120, 440, 30);
+        getContentPane().add(buscar);
+        buscar.setBounds(160, 320, 70, 60);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("MEDICAMENTO");
         getContentPane().add(jLabel5);
-        jLabel5.setBounds(0, 10, 690, 20);
+        jLabel5.setBounds(130, 10, 350, 20);
+
+        boxAccion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        getContentPane().add(boxAccion);
+        boxAccion.setBounds(420, 100, 140, 26);
+
+        jLabel6.setText("presentacion");
+        getContentPane().add(jLabel6);
+        jLabel6.setBounds(310, 50, 80, 20);
+        getContentPane().add(pre);
+        pre.setBounds(410, 40, 150, 30);
+
+        jLabel1.setText("costo");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(30, 110, 50, 20);
+        getContentPane().add(costo);
+        costo.setBounds(100, 100, 130, 30);
+
+        jLabel3.setText("accion");
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(340, 110, 41, 16);
+
+        jLabel4.setText("monodroga");
+        getContentPane().add(jLabel4);
+        jLabel4.setBounds(20, 170, 70, 20);
+
+        boxMono.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        getContentPane().add(boxMono);
+        boxMono.setBounds(100, 160, 130, 30);
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 204));
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(-10, -20, 580, 440);
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        getContentPane().add(jComboBox1);
-        jComboBox1.setBounds(580, 120, 110, 20);
-
-        jMenu1.setText("Busqueda avanzada");
-
-        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.ALT_MASK));
-        jMenuItem3.setText("Avanzada");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuItem3);
-
-        jMenu4.setText("Buesqueda por");
-
-        jMenuItem5.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_MASK));
-        jMenuItem5.setText("Laboratorio");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
-            }
-        });
-        jMenu4.add(jMenuItem5);
-
-        jMenu1.add(jMenu4);
-
-        jMenuBar1.add(jMenu1);
-
-        jMenu3.setText("Consulta Avanzada");
-
-        jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_MASK));
-        jMenuItem4.setText("Avanzada");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jMenuItem4);
-
-        jMenuBar1.add(jMenu3);
+        jPanel1.setBounds(-10, 0, 630, 420);
 
         jMenu2.setText("Exit");
 
@@ -282,103 +202,114 @@ public class Medicamento extends javax.swing.JFrame {
 
         setJMenuBar(jMenuBar1);
 
-        setSize(new java.awt.Dimension(702, 449));
+        setSize(new java.awt.Dimension(632, 449));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        Laboratorio obj = new Laboratorio();
-        obj.show();
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        String clave;
-        clave = clavemed.getText();
-        try {
-            DefaultTableModel tabla = new DefaultTableModel();
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("Select * from Medicamento where ID_Medic='" + clave + "'");
-            tabla.addColumn("ID Medicamento");
-            tabla.addColumn("Nombre");
-            tabla.addColumn("Descripcion");
-            tabla.addColumn("ID Laboratorio");
-            while (rs.next()) {
-                Object dato[] = new Object[4];
-                for (int i = 0; i < 4; i++) {
-                    dato[i] = rs.getString(i + 1);
+    private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
+        String clave = nombre.getText();
+        if (clave.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Ingrese un nombre para buscar");
+        } else {
+            try {
+                DefaultTableModel tabla = new DefaultTableModel();
+                Connection con;
+                con = DriverManager.getConnection(coneccionbd);
+                Statement stm = con.createStatement();
+                ResultSet rs = stm.executeQuery("Select * from medicamentos where nom_m='" + clave + "'");
+       tabla.addColumn("Nombre");
+            tabla.addColumn("Presentacion");
+            tabla.addColumn("Csto");
+            tabla.addColumn("Accion");
+            tabla.addColumn("Monodroga");
+                while (rs.next()) {
+                    Object dato[] = new Object[5];
+                    for (int i = 0; i < 5; i++) {
+                        dato[i] = rs.getString(i + 1);
+                    }
+                    tabla.addRow(dato);
                 }
-                tabla.addRow(dato);
+                this.Tabla1.setModel(tabla);                
+                clearfields();
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(rootPane, "No se encontraron resultados");
             }
-            this.Tabla1.setModel(tabla);
-        } catch (Exception e) {
         }
-    }//GEN-LAST:event_jButton8ActionPerformed
+    }//GEN-LAST:event_buscarActionPerformed
 
-    private void ConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConsultarActionPerformed
-        try {
-            DefaultTableModel tabla = new DefaultTableModel();
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("Select * from Medicamento");
-            tabla.addColumn("ID Medicamento");
-            tabla.addColumn("Nombre");
-            tabla.addColumn("Descripcion");
-            tabla.addColumn("ID Laboratorio");
-            while (rs.next()) {
-                Object dato[] = new Object[4];
-                for (int i = 0; i < 4; i++) {
-                    dato[i] = rs.getString(i + 1);
-                }
-                tabla.addRow(dato);
-            }
-            this.Tabla1.setModel(tabla);
-        } catch (Exception e) {
-        }
-    }//GEN-LAST:event_ConsultarActionPerformed
+    private void consultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarActionPerformed
+        consultarTodo();
+        actualizarList();
+    }//GEN-LAST:event_consultarActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        if (clavemed.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Ingrese un ID");
-        }
+    private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
         if (nombre.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Ingrese el nombre ");
+            JOptionPane.showMessageDialog(null, "Ingrese un ID de farmacia");
+        } else if (pre.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Ingrese el nombre");
+        } else if (costo.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Ingrese el horario");
+        } else if (!verificarID()) { //Si no existe el ID entra en la creaci+on
+            String n = nombre.getText();
+            String p = pre.getText();
+            String c = costo.getText();
+            int idAcc = (boxAccion.getSelectedIndex() * 2);
+            String accion = (String) listaAcciones.get(idAcc);
+            int idMono = (boxMono.getSelectedIndex() * 2);
+            String mono = (String) listaMonodrogas.get(idMono);
+            try {
+                DefaultTableModel tabla = new DefaultTableModel();
+                Connection con;
+                con = DriverManager.getConnection(coneccionbd);
+                Statement stm = con.createStatement();
+                ResultSet rs = stm.executeQuery("insert into medicamento values ('" + n + "','"
+                        + p + "','"
+                        + c + "','"
+                        + accion + "','"
+                        + mono + "')");
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(rootPane, "No se pudo crear", "Compruebe los datos", 2);
+            }
         }
-        if (descripcion.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Ingrese la descripcion");
-        }
-        if (clavelab.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Ingrese el ID del laboratorio");
-        }
-        String Clavemed, Nombre, Descripcion, Clavelab;
-        Clavemed = clavemed.getText();
-        Nombre = nombre.getText();
-        Descripcion = descripcion.getText();
-        Clavelab = clavelab.getText();
-        try {
-            DefaultTableModel tabla = new DefaultTableModel();
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("insert into Medicamento values ('" + Clavemed + "','" + Nombre + "','" + Descripcion + "','" + Clavelab + "')");
-        } catch (Exception e) {
-        }
-    }//GEN-LAST:event_jButton6ActionPerformed
+        consultarTodo();
+        clearfields();
+    }//GEN-LAST:event_agregarActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
         String clave;
-        clave = clavemed.getText();
-        try {
-            DefaultTableModel tabla = new DefaultTableModel();
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("delete from Medicamento where ID_Medic='" + clave + "'");
-        } catch (Exception e) {
+        clave = nombre.getText();
+        int idAccion = (boxAccion.getSelectedIndex() * 2);
+        int idMono = (boxMono.getSelectedIndex() * 2);
+        String acc= (String) listaAcciones.get(idAccion);
+        String mon= (String) listaMonodrogas.get(idMono);
+        String eliminar = "Presentacion= '" + pre.getText() + "' \n"
+                + "Costo= '" + costo.getText() + "'\n"
+                + "Accion= '" + acc + "'\n"
+                + "Monodroga= '" + mon + "'";
+        int procd = JOptionPane.showConfirmDialog(rootPane, eliminar, ("Se eliminara la informacion para: " + nombre.getText()), 2, 2);
+        System.out.println(procd);
+        if (procd <= 0) {
+            try {
+                DefaultTableModel tabla = new DefaultTableModel();
+                Connection con;
+                con = DriverManager.getConnection(coneccionbd);
+                Statement stm = con.createStatement();
+                int act = stm.executeUpdate("delete from medicamento where nom_m='" + clave + "'");
+                if (act >= 1) {
+                            JOptionPane.showMessageDialog(rootPane, "Eliminado");
+                            consultarTodo();
+                            clearfields();
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "no se puede eliminar");
+                        }
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_eliminarActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         this.setVisible(false);
@@ -390,172 +321,51 @@ public class Medicamento extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        try {
-            String clave;
-            clave = clavemed.getText();
-            DefaultTableModel tabla = new DefaultTableModel();
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("Select ID_Medic,Nom_Medic,Tipo_Lab,No_Exis,Stock,Precio,Tipo_Pres,Tipo_Umed,Tipo_Admon,Tipo_Mon,Tipo_AccTera\n"
-                    + "From Medicamento INNER JOIN MedUniPresViaFarm ON ID_Medic=ID_Medic INNER JOIN UnidadMed ON ID_Umed1=ID_Umed INNER JOIN Presentacion ON ID_Pres1=ID_Pres INNER JOIN ViAdmon ON ID_Admon1=ID_Admon INNER JOIN MedAcTera ON ID_Medic=ID_Medic3\n"
-                    + " INNER JOIN AccionTera on ID_AccTera1=ID_AccTera INNER JOIN MediMono ON ID_Medic=ID_Medic2 INNER JOIN Monodroga ON ID_Mon1=ID_Mon INNER JOIN Laboratorio ON ID_Lab1=ID_Lab\n"
-                    + " where ID_Medic='" + clave + "' ");
-            tabla.addColumn("ID Medicamento");
-            tabla.addColumn("Nombre Medicamento");
-            tabla.addColumn("Laboratorio");
-            tabla.addColumn("Numero de existencias");
-            tabla.addColumn("Stock");
-            tabla.addColumn("Precio");
-            tabla.addColumn("Tipo Presentacion");
-            tabla.addColumn("Tipo Unidad de Medida");
-            tabla.addColumn("Tipo Administracion");
-            tabla.addColumn("Tipo Monodroga");
-            tabla.addColumn("Tipo Accion Terapeutica");
-            while (rs.next()) {
-                Object dato[] = new Object[11];
-                for (int i = 0; i < 11; i++) {
-                    dato[i] = rs.getString(i + 1);
+    private void editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarActionPerformed
+        if (!(nombre.getText().equals(""))) {
+            System.out.println("paso 1 no esta vacia la clave");
+            if (verificarID()) {
+                System.out.println("paso2");
+                int idAccion = (boxAccion.getSelectedIndex() * 2);
+                int idMono = (boxMono.getSelectedIndex() * 2);
+                String acc = (String) listaAcciones.get(idAccion);
+                String mon = (String) listaMonodrogas.get(idMono);
+                String actualizar = "Nombre= '" + nombre.getText() + "' \n"
+                        + "presentacion= '" + pre.getText() + "'\n"
+                        + "costo= '" + costo.getText() + "'\n"
+                        + "Accion= '" + acc + "'\n"
+                        + "Monodroga= '" + mon + "'";
+                int procd = JOptionPane.showConfirmDialog(rootPane, actualizar, ("Se actualizara la informacion para: " + nombre.getText()), 2, 2);
+                System.out.println(procd);
+                if (procd <= 0) {
+                    try {
+                        Connection con = DriverManager.getConnection(coneccionbd);
+                        Statement stm = con.createStatement();
+
+                        int act = stm.executeUpdate("update medicamento set "                              
+                                + "pre_m='" + pre.getText() + "',"
+                                + "costo='" + costo.getText() + "',"
+                                + "cod_a1='" + acc + "',"
+                                + "cod_m1='" + mon + "'"
+                                + "where nom_M='" + nombre.getText() + "'");
+                        if (act >= 1) {
+                            JOptionPane.showMessageDialog(rootPane, "Actualizado");
+                            consultarTodo();
+                            clearfields();
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "no se puede actualizar");
+                        }
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                 }
-                tabla.addRow(dato);
             }
-            this.Tabla1.setModel(tabla);
-        } catch (Exception e) {
         }
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
-
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        try {
-            DefaultTableModel tabla = new DefaultTableModel();
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("Select ID_Medic,Nom_Medic,Tipo_Lab,No_Exis,Stock,Precio,Tipo_Pres,Tipo_Umed,Tipo_Admon,Tipo_Mon,Tipo_AccTera\n"
-                    + "From Medicamento INNER JOIN MedUniPresViaFarm ON ID_Medic=ID_Medic INNER JOIN UnidadMed ON ID_Umed1=ID_Umed INNER JOIN Presentacion ON ID_Pres1=ID_Pres\n"
-                    + " INNER JOIN ViAdmon ON ID_Admon1=ID_Admon INNER JOIN MedAcTera ON ID_Medic=ID_Medic3 INNER JOIN AccionTera on ID_AccTera1=ID_AccTera INNER JOIN MediMono ON ID_Medic=ID_Medic2 INNER JOIN Monodroga ON ID_Mon1=ID_Mon INNER JOIN Laboratorio ON ID_Lab1=ID_Lab");
-            tabla.addColumn("ID Medicamento");
-            tabla.addColumn("Nombre Medicamento");
-            tabla.addColumn("Laboratorio");
-            tabla.addColumn("Numero de existencias");
-            tabla.addColumn("Stock");
-            tabla.addColumn("Precio");
-            tabla.addColumn("Tipo Presentacion");
-            tabla.addColumn("Tipo Unidad de Medida");
-            tabla.addColumn("Tipo Administracion");
-            tabla.addColumn("Tipo Monodroga");
-            tabla.addColumn("Tipo Accion Terapeutica");
-            while (rs.next()) {
-                Object dato[] = new Object[11];
-                for (int i = 0; i < 11; i++) {
-                    dato[i] = rs.getString(i + 1);
-                }
-                tabla.addRow(dato);
-            }
-            this.Tabla1.setModel(tabla);
-        } catch (Exception e) {
-        }
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
-
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        clavemed.setText("");
-        nombre.setText("");
-        descripcion.setText("");
-        clavelab.setText("");
-        clavemed.setEnabled(true);
-    }//GEN-LAST:event_jButton7ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        try {
-            String Clavemed;
-            Clavemed = clavemed.getText();
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("select * from Medicamento where ID_Medic='" + Clavemed + "'");
-            if (rs.next()) {
-                clavemed.setText(String.valueOf(rs.getString(1)));
-                nombre.setText(String.valueOf(rs.getString(2)));
-                descripcion.setText(String.valueOf(rs.getString(3)));
-                clavelab.setText(String.valueOf(rs.getString(4)));
-
-                clavemed.setEnabled(false);
-                nombre.setEnabled(true);
-                descripcion.setEnabled(true);
-                clavelab.setEnabled(true);
-
-                stm.close();
-            }
-        } catch (SQLException e) {
-
-        }
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        try {
-            String Clavemed, Nombre, Descripcion, Clavelab;
-            Clavemed = clavemed.getText();
-            Nombre = nombre.getText();
-            Descripcion = descripcion.getText();
-            Clavelab = clavelab.getText();
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("ACT15 " + Clavemed + ",'" + Nombre + "','" + Descripcion + "','" + Clavelab + "'");
-
-        } catch (Exception e) {
-        }
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-            DefaultTableModel tabla = new DefaultTableModel();
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("Select * from Laboratorio");
-            tabla.addColumn("ID Laboratorio");
-            tabla.addColumn("Nombre Laboratorio");
-            while (rs.next()) {
-                Object dato[] = new Object[2];
-                for (int i = 0; i < 2; i++) {
-                    dato[i] = rs.getString(i + 1);
-                }
-                tabla.addRow(dato);
-            }
-            this.Tabla1.setModel(tabla);
-        } catch (Exception e) {
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_editarActionPerformed
 
     private void nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nombreActionPerformed
-
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        String clave;
-        clave = clavelab.getText();
-        try {
-            DefaultTableModel tabla = new DefaultTableModel();
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("Select * from Medicamento INNER JOIN Laboratorio on ID_lab1=ID_Lab where ID_Lab='" + clave + "'");
-            tabla.addColumn("ID Medicamento");
-            tabla.addColumn("Nombre");
-            tabla.addColumn("Descripcion");
-            tabla.addColumn("ID Laboratorio");
-            while (rs.next()) {
-                Object dato[] = new Object[4];
-                for (int i = 0; i < 4; i++) {
-                    dato[i] = rs.getString(i + 1);
-                }
-                tabla.addRow(dato);
-            }
-            this.Tabla1.setModel(tabla);
-        } catch (Exception e) {
-        }
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -592,38 +402,141 @@ public class Medicamento extends javax.swing.JFrame {
         });
     }
 
+    /*----------------------------------------------------------------------------------------------------------------*/
+ /*----------------------------------------------------------------------------------------------------------------*/
+    //MY METHOD´S 
+    //Consultar tabla, usando views en DB 
+    private void consultarTodo() {
+        try {
+            DefaultTableModel tabla = new DefaultTableModel();
+            Connection con;
+            con = DriverManager.getConnection(coneccionbd);
+            Statement stm = con.createStatement();
+            ResultSet rs = stm.executeQuery("Select * from medicamentos");
+            tabla.addColumn("Nombre");
+            tabla.addColumn("Presentacion");
+            tabla.addColumn("Csto");
+            tabla.addColumn("Accion");
+            tabla.addColumn("Monodroga");
+            while (rs.next()) {
+                Object dato[] = new Object[5];
+                for (int i = 0; i < 5; i++) {
+                    dato[i] = rs.getString(i + 1).toUpperCase();
+                }
+                tabla.addRow(dato);
+            }
+            this.Tabla1.setModel(tabla);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    //Actualizar cajas
+    private void actualizarList() {
+        boxAccion.removeAllItems();
+        listaAcciones = acciones();
+        for (int i = 1; i < listaAcciones.size(); i += 2) {
+            boxAccion.addItem(listaAcciones.get(i));
+        }
+        boxMono.removeAllItems();
+        listaMonodrogas = monodrogas();
+        for (int j = 1; j < listaMonodrogas.size(); j += 2) {
+            boxMono.addItem(listaMonodrogas.get(j));
+        }
+    }
+
+    // Caja farmaceuticos
+    public ArrayList<String> monodrogas() {
+        ArrayList<String> monodrogas = new ArrayList<>();
+        try {
+            Connection con = DriverManager.getConnection(coneccionbd);
+            Statement stm = con.createStatement();
+            String q = "select cod_m,nci_m from monodroga";
+            ResultSet res = stm.executeQuery(q);
+            while (res.next()) {
+                Object dato[] = new Object[2];
+                for (int i = 0; i < 2; i++) {
+                    dato[i] = res.getString(i + 1).toUpperCase();
+                    monodrogas.add((String) dato[i]);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return monodrogas;
+    }
+
+    //Caja acciones
+    public ArrayList<String> acciones() {
+        ArrayList<String> acciones = new ArrayList<>();
+        try {
+            Connection con = DriverManager.getConnection(coneccionbd);
+            Statement stm = con.createStatement();
+            String q = "select cod_a,nom_a from accion";
+            ResultSet res = stm.executeQuery(q);
+            while (res.next()) {
+                Object dato[] = new Object[2];
+                for (int i = 0; i < 2; i++) {
+                    dato[i] = res.getString(i + 1).toUpperCase();
+                    acciones.add((String) dato[i]);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return acciones;
+    }
+
+    //Limpiar campos
+    public void clearfields() {
+        nombre.setText("");
+        pre.setText("");
+        costo.setText("");
+        boxAccion.setSelectedIndex(0);
+        boxMono.setSelectedIndex(0);
+    }
+
+    //verificarID
+    private boolean verificarID() {
+        String buscar = nombre.getText();
+        try {
+            Connection con;
+            con = DriverManager.getConnection(coneccionbd);
+            Statement stm = con.createStatement();
+            ResultSet rs = stm.executeQuery("Select * from medicamento where nom_m='" + buscar + "'");
+            while (rs.next()) {
+                nombre.setText(String.valueOf(rs.getString(1)));
+                return true;
+            }
+
+        } catch (Exception e) {
+        }
+        return false; //si no encontro nada falso
+
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Consultar;
     private javax.swing.JTable Tabla1;
-    private javax.swing.JTextField clavelab;
-    private javax.swing.JTextField clavemed;
-    private javax.swing.JTextField descripcion;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton agregar;
+    private javax.swing.JComboBox<String> boxAccion;
+    private javax.swing.JComboBox<String> boxMono;
+    private javax.swing.JButton buscar;
+    private javax.swing.JButton consultar;
+    private javax.swing.JTextField costo;
+    private javax.swing.JButton editar;
+    private javax.swing.JButton eliminar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JMenu jMenu1;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField nombre;
+    private javax.swing.JTextField pre;
     // End of variables declaration//GEN-END:variables
 }

@@ -14,14 +14,13 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-
 public class Accion extends javax.swing.JFrame {
 
-    String coneccionbd = ("jdbc:sqlserver://localhost:1433;databaseName=FARMATEC2;user=sa;password=sasa");
+    String coneccionbd = ("jdbc:sqlserver://localhost:1433;databaseName=farmacia_tese;user=sa;password=sasa");
+
     public Accion() {
         initComponents();
-        
-       
+        consultarTodo();
     }
 
     /**
@@ -35,18 +34,20 @@ public class Accion extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        Clavec = new javax.swing.JTextField();
-        Tipo = new javax.swing.JTextField();
+        claveA = new javax.swing.JTextField();
+        accion = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         Tabla1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        editar = new javax.swing.JButton();
+        eliminar = new javax.swing.JButton();
+        agregar = new javax.swing.JButton();
+        consultar = new javax.swing.JButton();
+        buscar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        tiempoAccion = new javax.swing.JTextField();
+        desc = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -58,15 +59,15 @@ public class Accion extends javax.swing.JFrame {
 
         jLabel1.setText("ID Accion Terapeutica");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(10, 50, 120, 14);
+        jLabel1.setBounds(10, 50, 120, 16);
 
-        jLabel2.setText("Tipo Accion Terapeutica");
+        jLabel2.setText("Accion Terapeutica");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(10, 100, 140, 14);
-        getContentPane().add(Clavec);
-        Clavec.setBounds(170, 40, 280, 30);
-        getContentPane().add(Tipo);
-        Tipo.setBounds(170, 80, 280, 30);
+        jLabel2.setBounds(10, 100, 120, 16);
+        getContentPane().add(claveA);
+        claveA.setBounds(140, 40, 90, 30);
+        getContentPane().add(accion);
+        accion.setBounds(140, 90, 90, 30);
 
         Tabla1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -79,81 +80,65 @@ public class Accion extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        Tabla1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Tabla1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(Tabla1);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(10, 130, 440, 98);
+        jScrollPane1.setBounds(10, 130, 480, 98);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/7modificar.png"))); // NOI18N
-        jButton1.setToolTipText("Modificar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        editar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/7modificar.png"))); // NOI18N
+        editar.setToolTipText("Modificar");
+        editar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                editarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1);
-        jButton1.setBounds(20, 240, 50, 50);
+        getContentPane().add(editar);
+        editar.setBounds(320, 240, 60, 60);
 
-        jButton7.setBackground(new java.awt.Color(255, 255, 102));
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/1limpiar.png"))); // NOI18N
-        jButton7.setToolTipText("Limpiar");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        eliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/5eliminar.png"))); // NOI18N
+        eliminar.setToolTipText("Eliminar");
+        eliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                eliminarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton7);
-        jButton7.setBounds(400, 240, 60, 50);
+        getContentPane().add(eliminar);
+        eliminar.setBounds(400, 240, 60, 60);
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/6actualizar.png"))); // NOI18N
-        jButton2.setToolTipText("Actualizar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        agregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/4agregar.png"))); // NOI18N
+        agregar.setToolTipText("Agregar");
+        agregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                agregarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2);
-        jButton2.setBounds(80, 240, 50, 50);
+        getContentPane().add(agregar);
+        agregar.setBounds(30, 240, 60, 64);
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/5eliminar.png"))); // NOI18N
-        jButton3.setToolTipText("Eliminar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        consultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/3consultar.png"))); // NOI18N
+        consultar.setToolTipText("Consultar");
+        consultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                consultarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3);
-        jButton3.setBounds(140, 240, 40, 50);
+        getContentPane().add(consultar);
+        consultar.setBounds(220, 240, 60, 60);
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/4agregar.png"))); // NOI18N
-        jButton4.setToolTipText("Agregar");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/2buscarr.png"))); // NOI18N
+        buscar.setToolTipText("Buscar");
+        buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                buscarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4);
-        jButton4.setBounds(200, 240, 50, 50);
-
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/3consultar.png"))); // NOI18N
-        jButton5.setToolTipText("Consultar");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton5);
-        jButton5.setBounds(260, 240, 50, 40);
-
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/2buscarr.png"))); // NOI18N
-        jButton6.setToolTipText("Buscar");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton6);
-        jButton6.setBounds(330, 240, 50, 50);
+        getContentPane().add(buscar);
+        buscar.setBounds(130, 240, 60, 60);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -161,9 +146,21 @@ public class Accion extends javax.swing.JFrame {
         getContentPane().add(jLabel3);
         jLabel3.setBounds(0, 10, 470, 20);
 
+        jLabel4.setText("Tiempo acción");
+        getContentPane().add(jLabel4);
+        jLabel4.setBounds(250, 50, 90, 16);
+
+        jLabel5.setText("Descripción");
+        getContentPane().add(jLabel5);
+        jLabel5.setBounds(260, 100, 70, 16);
+        getContentPane().add(tiempoAccion);
+        tiempoAccion.setBounds(350, 40, 110, 24);
+        getContentPane().add(desc);
+        desc.setBounds(350, 90, 110, 24);
+
         jPanel1.setBackground(new java.awt.Color(204, 255, 204));
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, -20, 490, 330);
+        jPanel1.setBounds(0, -20, 500, 330);
 
         jMenu1.setText("Exit");
 
@@ -189,86 +186,106 @@ public class Accion extends javax.swing.JFrame {
 
         setJMenuBar(jMenuBar1);
 
-        setSize(new java.awt.Dimension(506, 374));
+        setSize(new java.awt.Dimension(518, 374));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-         try {
-            DefaultTableModel tabla = new DefaultTableModel();
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("Select * from AccionTera");
-            tabla.addColumn("ID Accion Terapeutica");
-            tabla.addColumn("Tipo Accion Terapeutica");
-            while (rs.next()) {
-                Object dato[] = new Object[2];
-                for (int i = 0; i < 2; i++) {
-                    dato[i] = rs.getString(i + 1);
+    private void consultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarActionPerformed
+        consultarTodo();
+    }//GEN-LAST:event_consultarActionPerformed
+
+    private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
+        String buscar = accion.getText();
+        if (buscar.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "¿Qué accion busca?");
+        } else {
+            try {
+                DefaultTableModel tabla = new DefaultTableModel();
+                Connection con;
+                con = DriverManager.getConnection(coneccionbd);
+                Statement stm = con.createStatement();
+                ResultSet rs = stm.executeQuery("Select * from accion where nom_a='" + buscar + "'");
+                tabla.addColumn("ID Accion");
+                tabla.addColumn("Tipo de accion");
+                tabla.addColumn("Teimpo de accion");
+                tabla.addColumn("Descripcion");
+                while (rs.next()) {
+                    Object dato[] = new Object[4];
+                    for (int i = 0; i < 4; i++) {
+                        dato[i] = rs.getString(i + 1).toUpperCase();
+                    }
+                    tabla.addRow(dato);
                 }
-                tabla.addRow(dato);
+                this.Tabla1.setModel(tabla);
+            } catch (Exception e) {
             }
-            this.Tabla1.setModel(tabla);
-        } catch (Exception e) {
         }
-    }//GEN-LAST:event_jButton5ActionPerformed
+        clearfields();
+    }//GEN-LAST:event_buscarActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        String clave;
-        clave=Clavec.getText();
-        try {
-            DefaultTableModel tabla = new DefaultTableModel();
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("Select * from AccionTera where ID_AccTera='"+clave+"'");
-            tabla.addColumn("ID Accion Terapeutica");
-            tabla.addColumn("Tipo Accion Terapeutica");
-            while (rs.next()) {
-                Object dato[] = new Object[2];
-                for (int i = 0; i < 2; i++) {
-                    dato[i] = rs.getString(i + 1);
+    private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
+        if (claveA.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Ingrese un ID");
+        } else if (accion.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Ingrese la accion");
+        } else if (tiempoAccion.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Ingrese tiempo de accion");
+        } else if (desc.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Ingrese descripción");
+        } else if (!verificarID()) { //Si no existe el ID entra en la creaci+on
+            String ClaveA, tA, aC, dS;
+            ClaveA = claveA.getText();
+            aC = accion.getText();
+            tA = tiempoAccion.getText();
+            dS = desc.getText();
+            try {
+                DefaultTableModel tabla = new DefaultTableModel();
+                Connection con;
+                con = DriverManager.getConnection(coneccionbd);
+                Statement stm = con.createStatement();
+                int stt = stm.executeUpdate("insert into accion values "
+                        + "('" + ClaveA
+                        + "','" + aC
+                        + "','" + tA
+                        + "','" + dS
+                        + "')");
+                if (stt >= 1) {
+                    JOptionPane.showMessageDialog(rootPane, "Registro creado");
+                    clearfields();
+                    consultarTodo();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "no se  pudo crear");
                 }
-                tabla.addRow(dato);
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(rootPane, " No se  pudo crear");
             }
-            this.Tabla1.setModel(tabla);
-        } catch (Exception e) {
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "YA EXISTE LA CLAVE QUE INTENTA ASIGNAR", "No se puede crear", 2);
         }
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_agregarActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-if(Clavec.getText().equals("")){
-            JOptionPane.showMessageDialog(null,"Ingrese un ID");
+    private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
+        String clave = claveA.getText();
+        if (clave.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Por favor ingrese al clave del elemento que desea eliminar");
+        } else if (buscarID()) {
+            int i = JOptionPane.showConfirmDialog(rootPane, "Confirma la eliminación?", "Eliminar elemento", 2, 2);
+            if (i <= 0) {
+                try {
+                    Connection con;
+                    con = DriverManager.getConnection(coneccionbd);
+                    Statement stm = con.createStatement();
+                    stm.executeUpdate("delete from accion where cod_a='" + clave + "'");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                consultarTodo();
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, ("No existe: " + clave));
         }
-        if(Tipo.getText().equals("")){
-            JOptionPane.showMessageDialog(null,"Ingrese Un tipo de Accion Terapeutica");
-        }
-        String clave, tipoa;
-        clave = Clavec.getText();
-        tipoa = Tipo.getText();
-        try {
-            DefaultTableModel tabla = new DefaultTableModel();
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("insert into AccionTera values ('"+clave+"','"+tipoa+"')");
-        } catch (Exception e) {
-        }        
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        String clave;
-        clave=Clavec.getText();
-        try {
-            DefaultTableModel tabla = new DefaultTableModel();
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("delete from AccionTera where ID_AccTera='"+clave+"'");
-        } catch (Exception e) {
-        }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_eliminarActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         System.exit(0);
@@ -280,47 +297,54 @@ if(Clavec.getText().equals("")){
         obj.show();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-      Clavec.setText("");
-      Tipo.setText("");
-      Clavec.setEnabled(true);
-    }//GEN-LAST:event_jButton7ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-           try {
-         String clave_c;
-         clave_c=Clavec.getText();
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("select * from AccionTera where ID_AccTera='" +clave_c + "'");
-           if(rs.next()){
-               Clavec.setText(String.valueOf(rs.getString(1)));
-               Tipo.setText(String.valueOf(rs.getString(2)));
-               
-               Clavec.setEnabled(false);
-               Tipo.setEnabled(true);
-               
-               stm.close();
-           }
-        } catch (SQLException e) {
-          
+    private void editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarActionPerformed
+        if (!(claveA.getText().equals(""))) {
+            System.out.println("paso1");
+            if (verificarID() || !(accion.getText().equals("") || tiempoAccion.getText().equals("") || desc.getText().equals(""))) {
+                System.out.println("paso2");
+                String actualizar = "Accion terapeutica= '" + accion.getText() + "' \n"
+                        + "Tipo de acción= '" + tiempoAccion.getText() + "'\n"
+                        + "Descripción= '" + desc.getText() + "'";
+                int procd = JOptionPane.showConfirmDialog(rootPane, actualizar, ("Se actualizara la informacion para: " + claveA.getText()), 2, 2);
+                System.out.println(procd);
+                if (procd <= 0) {
+                    try {
+                        Connection con = DriverManager.getConnection(coneccionbd);
+                        Statement stm = con.createStatement();
+                        int act = stm.executeUpdate("update accion set "
+                                + "nom_a='" + accion.getText() + "',"
+                                + "tie_a='" + tiempoAccion.getText() + "',"
+                                + "des_a='" + desc.getText() + "'"
+                                + "where cod_a='" + claveA.getText() + "'");
+                        if (act >= 1) {
+                            JOptionPane.showMessageDialog(rootPane, "Actualizado");
+                            consultarTodo();
+                            clearfields();
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "no se puede actualizar");
+                        }
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, ("No se encontro el id: " + claveA.getText()));
+            consultarTodo();
+            clearfields();
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+        System.out.println("paso0");
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       try {
-        String clavec, tipo;
-        clavec = Clavec.getText();
-        tipo = Tipo.getText(); 
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("ACT "+clavec+",'"+tipo+"'");
-           
-        } catch (Exception e) {
-        }    
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_editarActionPerformed
+
+    private void Tabla1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tabla1MouseClicked
+        DefaultTableModel model = (DefaultTableModel) Tabla1.getModel();
+        int selectedRowIndex = Tabla1.getSelectedRow();
+        claveA.setText(model.getValueAt(selectedRowIndex, 0).toString());
+        accion.setText(model.getValueAt(selectedRowIndex, 1).toString());
+        tiempoAccion.setText(model.getValueAt(selectedRowIndex, 2).toString());
+        desc.setText(model.getValueAt(selectedRowIndex, 3).toString());
+    }//GEN-LAST:event_Tabla1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -357,25 +381,96 @@ if(Clavec.getText().equals("")){
         });
     }
 
+    //Grunditses:
+    private void clearfields() {
+        claveA.setText("");
+        accion.setText("");
+        tiempoAccion.setText("");
+        desc.setText("");
+    }
+
+    private boolean verificarID() {
+        String buscar = claveA.getText();
+        try {
+            Connection con;
+            con = DriverManager.getConnection(coneccionbd);
+            Statement stm = con.createStatement();
+            ResultSet rs = stm.executeQuery("Select * from accion where cad_a='" + buscar + "'");
+            while (rs.next()) {
+                claveA.setText(String.valueOf(rs.getString(1)));
+                return true;
+            }
+
+        } catch (Exception e) {
+        }
+        return false; //si no encontro nada falso
+
+    }
+
+    private void consultarTodo() {
+        try {
+            DefaultTableModel tabla = new DefaultTableModel();
+            Connection con;
+            con = DriverManager.getConnection(coneccionbd);
+            Statement stm = con.createStatement();
+            ResultSet rs = stm.executeQuery("Select * from accion");
+            tabla.addColumn("ID Accion");
+            tabla.addColumn("Tipo de accion");
+            tabla.addColumn("Teimpo de accion");
+            tabla.addColumn("Descripcion");
+            while (rs.next()) {
+                Object dato[] = new Object[4];
+                for (int i = 0; i < 4; i++) {
+                    //convertir a mayusculas del lado de la app
+                    dato[i] = rs.getString(i + 1).toUpperCase();
+                }
+                tabla.addRow(dato);
+            }
+            this.Tabla1.setModel(tabla);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private boolean buscarID() {
+        String buscar = claveA.getText();
+        try {
+            Connection con;
+            con = DriverManager.getConnection(coneccionbd);
+            Statement stm = con.createStatement();
+            ResultSet rs = stm.executeQuery("Select * from accion where cod_a='" + buscar + "'");
+            while (rs.next()) {
+                claveA.setText(String.valueOf(rs.getString(1)));
+                return true;
+            }
+
+        } catch (Exception e) {
+        }
+        return false; //si no encontro nada falso
+
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField Clavec;
     private javax.swing.JTable Tabla1;
-    private javax.swing.JTextField Tipo;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
+    private javax.swing.JTextField accion;
+    private javax.swing.JButton agregar;
+    private javax.swing.JButton buscar;
+    private javax.swing.JTextField claveA;
+    private javax.swing.JButton consultar;
+    private javax.swing.JTextField desc;
+    private javax.swing.JButton editar;
+    private javax.swing.JButton eliminar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField tiempoAccion;
     // End of variables declaration//GEN-END:variables
 }

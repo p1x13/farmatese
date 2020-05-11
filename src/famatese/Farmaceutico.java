@@ -544,8 +544,9 @@ public class Farmaceutico extends javax.swing.JFrame {
                 Connection con;
                 con = DriverManager.getConnection(coneccionbd);
                 Statement stm = con.createStatement();
-                stm.executeUpdate("delete from famaceutico where cod_fa='" + clave + "'");
+                stm.executeUpdate("delete from farmaceutico where cod_fa='" + clave + "'");
             } catch (Exception e) {
+                e.printStackTrace();
             }
             consultarTodo();
             }

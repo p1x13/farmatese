@@ -16,9 +16,10 @@ import javax.swing.table.DefaultTableModel;
 
 public class Laboratorio extends javax.swing.JFrame {
 
-      String coneccionbd = ("jdbc:sqlserver://localhost:1433;databaseName=FARMATEC2;user=sa;password=sasa");
+      String coneccionbd = ("jdbc:sqlserver://localhost:1433;databaseName=farmacia_tese;user=sa;password=sasa");
     public Laboratorio() {
         initComponents();
+        consultarTodo();
     }
 
     /**
@@ -30,18 +31,28 @@ public class Laboratorio extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        clavela = new javax.swing.JTextField();
         nombre = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         Tabla1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        editar = new javax.swing.JButton();
+        eliminar = new javax.swing.JButton();
+        agregar = new javax.swing.JButton();
+        consultar = new javax.swing.JButton();
+        buscar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        calle = new javax.swing.JTextField();
+        colonia = new javax.swing.JTextField();
+        cp = new javax.swing.JTextField();
+        estado = new javax.swing.JTextField();
+        nD = new javax.swing.JTextField();
+        aD = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -52,23 +63,11 @@ public class Laboratorio extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
-        jLabel1.setText("ID Laboratorio");
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(10, 40, 100, 20);
-
         jLabel2.setText("Nombre Laboratorio");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(10, 74, 140, 30);
-
-        clavela.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                clavelaActionPerformed(evt);
-            }
-        });
-        getContentPane().add(clavela);
-        clavela.setBounds(130, 30, 310, 30);
+        jLabel2.setBounds(150, 50, 140, 30);
         getContentPane().add(nombre);
-        nombre.setBounds(130, 70, 310, 30);
+        nombre.setBounds(270, 50, 310, 30);
 
         Tabla1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -81,70 +80,111 @@ public class Laboratorio extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        Tabla1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Tabla1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(Tabla1);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(20, 220, 430, 100);
+        jScrollPane1.setBounds(20, 210, 700, 130);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/7modificar.png"))); // NOI18N
-        jButton1.setToolTipText("Modificar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        editar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/7modificar.png"))); // NOI18N
+        editar.setToolTipText("Modificar");
+        editar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                editarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1);
-        jButton1.setBounds(290, 320, 60, 60);
+        getContentPane().add(editar);
+        editar.setBounds(440, 360, 60, 60);
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/5eliminar.png"))); // NOI18N
-        jButton3.setToolTipText("Eliminar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        eliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/5eliminar.png"))); // NOI18N
+        eliminar.setToolTipText("Eliminar");
+        eliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                eliminarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3);
-        jButton3.setBounds(380, 320, 60, 60);
+        getContentPane().add(eliminar);
+        eliminar.setBounds(530, 360, 60, 60);
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/4agregar.png"))); // NOI18N
-        jButton4.setToolTipText("Agregar");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        agregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/4agregar.png"))); // NOI18N
+        agregar.setToolTipText("Agregar");
+        agregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                agregarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4);
-        jButton4.setBounds(20, 320, 70, 60);
+        getContentPane().add(agregar);
+        agregar.setBounds(170, 360, 70, 60);
 
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/3consultar.png"))); // NOI18N
-        jButton5.setToolTipText("Consultar");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        consultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/3consultar.png"))); // NOI18N
+        consultar.setToolTipText("Consultar");
+        consultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                consultarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton5);
-        jButton5.setBounds(200, 320, 60, 60);
+        getContentPane().add(consultar);
+        consultar.setBounds(350, 360, 60, 60);
 
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/2buscarr.png"))); // NOI18N
-        jButton6.setToolTipText("Buscar");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/2buscarr.png"))); // NOI18N
+        buscar.setToolTipText("Buscar");
+        buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                buscarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton6);
-        jButton6.setBounds(110, 320, 70, 60);
+        getContentPane().add(buscar);
+        buscar.setBounds(260, 360, 70, 60);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("LABORATORIO");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(0, 4, 460, 20);
+        jLabel3.setBounds(150, 10, 460, 20);
+
+        jLabel4.setText("Calle");
+        getContentPane().add(jLabel4);
+        jLabel4.setBounds(40, 100, 28, 30);
+
+        jLabel5.setText("Colonia");
+        getContentPane().add(jLabel5);
+        jLabel5.setBounds(400, 100, 60, 30);
+
+        jLabel6.setText("CP");
+        getContentPane().add(jLabel6);
+        jLabel6.setBounds(40, 130, 41, 30);
+
+        jLabel7.setText("Estado");
+        getContentPane().add(jLabel7);
+        jLabel7.setBounds(410, 130, 39, 30);
+
+        jLabel8.setText("Nombre dueño");
+        getContentPane().add(jLabel8);
+        jLabel8.setBounds(10, 160, 110, 30);
+
+        jLabel9.setText("Apellido dueño");
+        getContentPane().add(jLabel9);
+        jLabel9.setBounds(370, 160, 90, 30);
+        getContentPane().add(calle);
+        calle.setBounds(120, 100, 210, 30);
+        getContentPane().add(colonia);
+        colonia.setBounds(480, 100, 210, 30);
+        getContentPane().add(cp);
+        cp.setBounds(120, 130, 210, 30);
+        getContentPane().add(estado);
+        estado.setBounds(480, 130, 210, 30);
+        getContentPane().add(nD);
+        nD.setBounds(120, 160, 210, 30);
+        getContentPane().add(aD);
+        aD.setBounds(480, 160, 210, 30);
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 204));
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(320, 0, 170, 170);
+        jPanel1.setBounds(0, -20, 760, 460);
 
         jMenu1.setText("Exit");
 
@@ -179,86 +219,121 @@ public class Laboratorio extends javax.swing.JFrame {
 
         setJMenuBar(jMenuBar1);
 
-        setSize(new java.awt.Dimension(489, 452));
+        setSize(new java.awt.Dimension(752, 498));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        String clave;
-        clave=clavela.getText();
-        try {
-            DefaultTableModel tabla = new DefaultTableModel();
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("Select * from Laboratorio where ID_Lab='"+clave+"'");
-            tabla.addColumn("ID Laboratorio");
-            tabla.addColumn("Nombre Laboratorio");
-            while (rs.next()) {
-                Object dato[] = new Object[2];
-                for (int i = 0; i < 2; i++) {
-                    dato[i] = rs.getString(i + 1);
+    private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
+        String buscar = nombre.getText();
+        if (buscar.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "¿Qué laboratorio busca?");
+        } else {
+            try {
+                DefaultTableModel tabla = new DefaultTableModel();
+                Connection con;
+                con = DriverManager.getConnection(coneccionbd);
+                Statement stm = con.createStatement();
+                ResultSet rs = stm.executeQuery("Select * from laboratorio where nom_l='" + buscar + "'");
+                tabla.addColumn("Laboratorio");
+            tabla.addColumn("Calle");
+            tabla.addColumn("Colonia");
+            tabla.addColumn("CP");
+            tabla.addColumn("Estado");
+            tabla.addColumn("NombreD");
+            tabla.addColumn("ApellidoD");
+                while (rs.next()) {
+                    Object dato[] = new Object[7];
+                    for (int i = 0; i < 7; i++) {
+                        dato[i] = rs.getString(i + 1).toUpperCase();
+                    }
+                    tabla.addRow(dato);
                 }
-                tabla.addRow(dato);
+                this.Tabla1.setModel(tabla);
+            } catch (Exception e) {
             }
-            this.Tabla1.setModel(tabla);
-        } catch (Exception e) {
         }
-    }//GEN-LAST:event_jButton6ActionPerformed
+        clearfields();
+    }//GEN-LAST:event_buscarActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-          try {
-            DefaultTableModel tabla = new DefaultTableModel();
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("Select * from Laboratorio");
-            tabla.addColumn("ID Laboratorio");
-            tabla.addColumn("Nombre Laboratorio");
-            while (rs.next()) {
-                Object dato[] = new Object[2];
-                for (int i = 0; i < 2; i++) {
-                    dato[i] = rs.getString(i + 1);
+    private void consultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarActionPerformed
+consultarTodo();
+    }//GEN-LAST:event_consultarActionPerformed
+
+    private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
+      if (nombre.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Ingrese un nombre");
+        } else if (calle.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Ingrese la calle");
+        } else if (colonia.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Ingrese la colonia");
+        } else if (cp.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Ingrese CP");
+        } else if (estado.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Ingrese estado");
+        } else if (nD.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Ingrese nombre dueño");
+        } else if (aD.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Ingrese apellido dueño");
+        } else if (!verificarID()) { //Si no existe el ID entra en la creaci+on
+            String nom,ca,co,cP,es,nd,ad;
+            nom=nombre.getText();
+            ca=calle.getText();
+            co= colonia.getText();
+            cP = cp.getText();
+            es= estado.getText();
+            nd = nD.getText();
+            ad = aD.getText();
+            try {
+                DefaultTableModel tabla = new DefaultTableModel();
+                Connection con;
+                con = DriverManager.getConnection(coneccionbd);
+                Statement stm = con.createStatement();
+                int stt = stm.executeUpdate("insert into laboratorio values "
+                        + "('" + nom
+                        + "','" + ca
+                        + "','" + co
+                        + "','" + cP
+                        + "','" + es
+                        + "','" + nd
+                        + "','" + ad
+                        + "')");
+                if (stt >= 1) {
+                    JOptionPane.showMessageDialog(rootPane, "Registro creado");
+                    clearfields();
+                    consultarTodo();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "no se  pudo crear");
                 }
-                tabla.addRow(dato);
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(rootPane, " No se  pudo crear");
             }
-            this.Tabla1.setModel(tabla);
-        } catch (Exception e) {
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "YA EXISTE LA CLAVE QUE INTENTA ASIGNAR", "No se puede crear", 2);
         }
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_agregarActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-       if(clavela.getText().equals("")){
-            JOptionPane.showMessageDialog(null,"Ingrese un ID");
+    private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
+        String clave = cp.getText();
+        if (clave.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Por favor ingrese al clave del elemento que desea eliminar");
+        } else if (buscarID()) {
+            int i = JOptionPane.showConfirmDialog(rootPane, "Confirma la eliminación?", "Eliminar elemento", 2, 2);
+            if (i <= 0) {
+                try {
+                    Connection con;
+                    con = DriverManager.getConnection(coneccionbd);
+                    Statement stm = con.createStatement();
+                    stm.executeUpdate("delete from laboratorio where cp='" + clave + "'");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                consultarTodo();
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, ("No existe: " + clave));
         }
-        if(nombre.getText().equals("")){
-            JOptionPane.showMessageDialog(null,"Ingrese el nombre del laboratorio");
-        }
-        String clave, nomla;
-        clave = clavela.getText();
-        nomla = nombre.getText();
-        try {
-            DefaultTableModel tabla = new DefaultTableModel();
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("insert into Laboratorio values ('"+clave+"','"+nomla+"')");
-        } catch (Exception e) {
-        } 
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        String clave;
-        clave=clavela.getText();
-        try {
-            DefaultTableModel tabla = new DefaultTableModel();
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("delete from Laboratorio where ID_Lab='"+clave+"'");
-        } catch (Exception e) {
-        }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_eliminarActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
     this.setVisible(false);
@@ -276,31 +351,65 @@ public class Laboratorio extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-         try {
-         String Clavela;
-         Clavela=clavela.getText();
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("select * from Laboratorio where ID_Lab='" +Clavela + "'");
-           if(rs.next()){
-               clavela.setText(String.valueOf(rs.getString(1)));
-               nombre.setText(String.valueOf(rs.getString(2)));
-               
-               clavela.setEnabled(false);
-               nombre.setEnabled(true);
-               
-               stm.close();
-           }
-        } catch (SQLException e) {
-          
+    private void editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarActionPerformed
+         if (!(cp.getText().equals(""))) {
+            System.out.println("paso1");
+            if (verificarID() || !(nombre.getText().equals("") || calle.getText().equals("") || colonia.getText().equals("")
+                    ||estado.getText().equals("")||nD.getText().equals("")||aD.getText().equals(""))) {
+                System.out.println("paso2");
+                String actualizar = "Nombre = '" + nombre.getText() + "' \n"
+                        + "calle= '" + calle.getText() + "'\n"
+                        + "colonia= '" + colonia.getText() + "'\n"
+                        + "estado= '" + estado.getText() + "'\n"
+                        + "nombre dueño= '" + nD.getText() + "'\n"                      
+                        + "apellido dueño= '" + aD.getText() + "'";
+                int procd = JOptionPane.showConfirmDialog(rootPane, actualizar, ("Se actualizara la informacion para: " + nombre.getText()), 2, 2);
+                System.out.println(procd);
+                if (procd <= 0) {
+                    try {
+                        Connection con = DriverManager.getConnection(coneccionbd);
+                        Statement stm = con.createStatement();
+                        int act = stm.executeUpdate("update laboratorio set "
+                                + "nom_l='" + nombre.getText() + "',"
+                                + "cal_l='" + calle.getText() + "',"
+                                + "col_l='" + colonia.getText() + "',"
+                                + "est_l='" + estado.getText() + "',"
+                                + "nomd_l='" + nD.getText() + "',"
+                                + "apd_l='" + aD.getText() + "'"
+                                + "where cp_l='" + cp.getText() + "'");
+                        if (act >= 1) {
+                            JOptionPane.showMessageDialog(rootPane, "Actualizado");
+                            consultarTodo();
+                            clearfields();
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "no se puede actualizar");
+                        }
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, ("No se encontro el cp: " + cp.getText()));
+            consultarTodo();
+            clearfields();
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+        System.out.println("paso0");
 
-    private void clavelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clavelaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_clavelaActionPerformed
+    }//GEN-LAST:event_editarActionPerformed
+
+    private void Tabla1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tabla1MouseClicked
+        DefaultTableModel model = (DefaultTableModel) Tabla1.getModel();
+        int selectedRowIndex = Tabla1.getSelectedRow();
+        nombre.setText(model.getValueAt(selectedRowIndex, 0).toString());
+        calle.setText(model.getValueAt(selectedRowIndex, 1).toString());
+        colonia.setText(model.getValueAt(selectedRowIndex, 2).toString());
+        cp.setText(model.getValueAt(selectedRowIndex, 3).toString());
+        estado.setText(model.getValueAt(selectedRowIndex, 4).toString());
+        nD.setText(model.getValueAt(selectedRowIndex, 5).toString());
+        aD.setText(model.getValueAt(selectedRowIndex, 6).toString());
+        
+    }//GEN-LAST:event_Tabla1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -336,18 +445,102 @@ public class Laboratorio extends javax.swing.JFrame {
             }
         });
     }
+    
+    //Grunditses:
+    private void clearfields() {
+        nombre.setText("");
+        calle.setText("");
+        colonia.setText("");
+        cp.setText("");
+        estado.setText("");
+        nD.setText("");
+        aD.setText("");
+    }
+
+    private boolean verificarID() {
+        String buscar = cp.getText();
+        try {
+            Connection con;
+            con = DriverManager.getConnection(coneccionbd);
+            Statement stm = con.createStatement();
+            ResultSet rs = stm.executeQuery("Select * from laboratorio where cp_l='" + buscar + "'");
+            while (rs.next()) {
+                cp.setText(String.valueOf(rs.getString(4)));
+                return true;
+            }
+
+        } catch (Exception e) {
+        }
+        return false; //si no encontro nada falso
+
+    }
+
+    private void consultarTodo() {
+        try {
+            DefaultTableModel tabla = new DefaultTableModel();
+            Connection con;
+            con = DriverManager.getConnection(coneccionbd);
+            Statement stm = con.createStatement();
+            ResultSet rs = stm.executeQuery("Select * from laboratorio");
+            tabla.addColumn("Laboratorio");
+            tabla.addColumn("Calle");
+            tabla.addColumn("Colonia");
+            tabla.addColumn("CP");
+            tabla.addColumn("Estado");
+            tabla.addColumn("NombreD");
+            tabla.addColumn("ApellidoD");
+            while (rs.next()) {
+                Object dato[] = new Object[7];
+                for (int i = 0; i < 7; i++) {
+                    //convertir a mayusculas del lado de la app
+                    dato[i] = rs.getString(i + 1).toUpperCase();
+                }
+                tabla.addRow(dato);
+            }
+            this.Tabla1.setModel(tabla);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private boolean buscarID() {
+        String buscar = cp.getText();
+        try {
+            Connection con;
+            con = DriverManager.getConnection(coneccionbd);
+            Statement stm = con.createStatement();
+            ResultSet rs = stm.executeQuery("Select * from laboratorio where cp_l='" + buscar + "'");
+            while (rs.next()) {
+                cp.setText(String.valueOf(rs.getString(1)));
+                return true;
+            }
+
+        } catch (Exception e) {
+        }
+        return false; //si no encontro nada falso
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable Tabla1;
-    private javax.swing.JTextField clavela;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JTextField aD;
+    private javax.swing.JButton agregar;
+    private javax.swing.JButton buscar;
+    private javax.swing.JTextField calle;
+    private javax.swing.JTextField colonia;
+    private javax.swing.JButton consultar;
+    private javax.swing.JTextField cp;
+    private javax.swing.JButton editar;
+    private javax.swing.JButton eliminar;
+    private javax.swing.JTextField estado;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
@@ -355,6 +548,7 @@ public class Laboratorio extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField nD;
     private javax.swing.JTextField nombre;
     // End of variables declaration//GEN-END:variables
 }

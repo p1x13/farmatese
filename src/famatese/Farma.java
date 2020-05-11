@@ -46,7 +46,7 @@ public class Farma extends javax.swing.JFrame {
         Tabla1 = new javax.swing.JTable();
         editar = new javax.swing.JButton();
         Borrar = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
+        agregar = new javax.swing.JButton();
         Consultar = new javax.swing.JButton();
         buscarNombre = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
@@ -145,15 +145,15 @@ public class Farma extends javax.swing.JFrame {
         getContentPane().add(Borrar);
         Borrar.setBounds(490, 310, 70, 60);
 
-        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/4agregar.png"))); // NOI18N
-        jButton10.setToolTipText("Agregar");
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
+        agregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/4agregar.png"))); // NOI18N
+        agregar.setToolTipText("Agregar");
+        agregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
+                agregarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton10);
-        jButton10.setBounds(50, 310, 70, 60);
+        getContentPane().add(agregar);
+        agregar.setBounds(50, 310, 70, 60);
 
         Consultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/3consultar.png"))); // NOI18N
         Consultar.setToolTipText("Consultar");
@@ -347,7 +347,7 @@ public class Farma extends javax.swing.JFrame {
         actualizarList();
     }//GEN-LAST:event_ConsultarActionPerformed
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+    private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
         if (clavefa.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Ingrese un ID de farmacia");
         } else if (nombre.getText().equals("")) {
@@ -391,7 +391,7 @@ public class Farma extends javax.swing.JFrame {
         }
         consultarTodo();
         clearfields();
-    }//GEN-LAST:event_jButton10ActionPerformed
+    }//GEN-LAST:event_agregarActionPerformed
 
     private void BorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BorrarActionPerformed
         String clave;
@@ -853,6 +853,7 @@ public class Farma extends javax.swing.JFrame {
     private javax.swing.JButton Borrar;
     private javax.swing.JButton Consultar;
     private javax.swing.JTable Tabla1;
+    private javax.swing.JButton agregar;
     private javax.swing.JComboBox<String> boxCiudad;
     private javax.swing.JComboBox<String> boxFarmaceutico;
     private javax.swing.JButton buscarNombre;
@@ -862,7 +863,6 @@ public class Farma extends javax.swing.JFrame {
     private javax.swing.JTextField cp;
     private javax.swing.JButton editar;
     private javax.swing.JTextField guardias;
-    private javax.swing.JButton jButton10;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -390,19 +390,43 @@ public class Farma extends javax.swing.JFrame {
             }
         }
         consultarTodo();
-        //clearfields();
+        clearfields();
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void BorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BorrarActionPerformed
         String clave;
         clave = clavefa.getText();
-        try {
-            DefaultTableModel tabla = new DefaultTableModel();
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("delete from Farmacia where ID_Farmac='" + clave + "'");
-        } catch (Exception e) {
+        int idFarmaceutico = (boxFarmaceutico.getSelectedIndex() * 2);
+        int idCiudad = (boxCiudad.getSelectedIndex() * 2);
+        String farmaceutico = (String) listaFarmaceuticos.get(idFarmaceutico);
+        String ciudad = (String) listaCiudades.get(idCiudad);
+        String eliminar = "Nombre= '" + nombre.getText() + "' \n"
+                + "dias de guardia= '" + guardias.getText() + "'\n"
+                + "colonia= '" + colonia.getText() + "'\n"
+                + "calle= '" + calle.getText() + "'\n"
+                + "codigo postal= '" + cp.getText() + "'\n"
+                + "farmaceutico= '" + farmaceutico + "'\n"
+                + "ciudad= '" + ciudad + "'";
+        int procd = JOptionPane.showConfirmDialog(rootPane, eliminar, ("Se eliminara la informacion para: " + clavefa.getText()), 2, 2);
+        System.out.println(procd);
+        if (procd <= 0) {
+            try {
+                DefaultTableModel tabla = new DefaultTableModel();
+                Connection con;
+                con = DriverManager.getConnection(coneccionbd);
+                Statement stm = con.createStatement();
+                int act = stm.executeUpdate("delete from Farmacia where cod_f='" + clave + "'");
+                if (act >= 1) {
+                            JOptionPane.showMessageDialog(rootPane, "Eliminado");
+                            consultarTodo();
+                            clearfields();
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "no se puede eliminar");
+                        }
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }//GEN-LAST:event_BorrarActionPerformed
 
@@ -502,7 +526,7 @@ public class Farma extends javax.swing.JFrame {
                 System.out.println("paso2");
                 // listaFarmaceuticos;
                 int idFarmaceutico = (boxFarmaceutico.getSelectedIndex() * 2);
-                int idCiudad = (boxCiudad.getSelectedIndex()*2);
+                int idCiudad = (boxCiudad.getSelectedIndex() * 2);
                 String farmaceutico = (String) listaFarmaceuticos.get(idFarmaceutico);
                 String ciudad = (String) listaCiudades.get(idCiudad);
                 String actualizar = "Nombre= '" + nombre.getText() + "' \n"
@@ -515,29 +539,29 @@ public class Farma extends javax.swing.JFrame {
                 int procd = JOptionPane.showConfirmDialog(rootPane, actualizar, ("Se actualizara la informacion para: " + clavefa.getText()), 2, 2);
                 System.out.println(procd);
                 if (procd <= 0) {
-                   try {
-                    Connection con = DriverManager.getConnection(coneccionbd);
-                    Statement stm = con.createStatement();
+                    try {
+                        Connection con = DriverManager.getConnection(coneccionbd);
+                        Statement stm = con.createStatement();
 
-                    int act = stm.executeUpdate("update farmacia set "
-                            + "nom_f='" + nombre.getText() + "',"
-                            + "cal_f='" + calle.getText() + "',"
-                            + "col_f='" + colonia.getText() + "',"
-                            + "cp_f='" + cp.getText() + "',"
-                            + "gua_f='" + guardias.getText() + "',"
-                            + "cod_c1='" + ciudad+ "',"
-                            + "cod_fa1='" + farmaceutico + "'"
-                            + "where cod_f='" + clavefa.getText() + "'");
-                    if (act >= 1) {
-                        JOptionPane.showMessageDialog(rootPane, "Actualizado");
-                        consultarTodo();
-                        clearfields();
-                    } else {
-                        JOptionPane.showMessageDialog(rootPane, "no se puede actualizar");
+                        int act = stm.executeUpdate("update farmacia set "
+                                + "nom_f='" + nombre.getText() + "',"
+                                + "cal_f='" + calle.getText() + "',"
+                                + "col_f='" + colonia.getText() + "',"
+                                + "cp_f='" + cp.getText() + "',"
+                                + "gua_f='" + guardias.getText() + "',"
+                                + "cod_c1='" + ciudad + "',"
+                                + "cod_fa1='" + farmaceutico + "'"
+                                + "where cod_f='" + clavefa.getText() + "'");
+                        if (act >= 1) {
+                            JOptionPane.showMessageDialog(rootPane, "Actualizado");
+                            consultarTodo();
+                            clearfields();
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "no se puede actualizar");
+                        }
+                    } catch (SQLException e) {
+                        e.printStackTrace();
                     }
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
                 }
             }
         }
@@ -633,9 +657,9 @@ public class Farma extends javax.swing.JFrame {
         String compararFarmaceutico = (String) model.getValueAt(selectedRowIndex, 7);
         String compararCiudad = (String) model.getValueAt(selectedRowIndex, 6);
         System.out.println(compararFarmaceutico);
-        ponerFarma = (listaFarmaceuticos.indexOf(compararFarmaceutico))/2;
+        ponerFarma = (listaFarmaceuticos.indexOf(compararFarmaceutico)) / 2;
         boxFarmaceutico.setSelectedIndex(ponerFarma);
-        boxCiudad.setSelectedIndex((listaCiudades.indexOf(compararCiudad))/2);
+        boxCiudad.setSelectedIndex((listaCiudades.indexOf(compararCiudad)) / 2);
         /*for(int bandera=0;bandera<listaFarmaceuticos.size();bandera++){   
            System.out.println(listaFarmaceuticos.get(bandera));
             if(compararFarmaceutico.equalsIgnoreCase(listaFarmaceuticos.get(bandera)))
@@ -695,7 +719,9 @@ public class Farma extends javax.swing.JFrame {
             Connection con;
             con = DriverManager.getConnection(coneccionbd);
             Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("Select * from farmacias ");
+            //Si se elimina alguna foranea no mostratra el registro por la limitación, investigar
+            //como cambiar a otra clave, parece ser ondelete set default...
+            ResultSet rs = stm.executeQuery("Select * from farmacias");
             tabla.addColumn("ID Farmacia");
             tabla.addColumn("Nombre");
             tabla.addColumn("Calle");
@@ -713,6 +739,7 @@ public class Farma extends javax.swing.JFrame {
             }
             this.Tabla1.setModel(tabla);
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

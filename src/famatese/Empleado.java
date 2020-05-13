@@ -10,16 +10,20 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-
 public class Empleado extends javax.swing.JFrame {
 
-   String coneccionbd = ("jdbc:sqlserver://localhost:1433;databaseName=FARMATEC2;user=sa;password=sasa");
+    String coneccionbd = ("jdbc:sqlserver://localhost:1433;databaseName=farmacia_tese;user=sa;password=sasa");
+    ArrayList<String> listaFarmacias = new ArrayList<>();
+
     public Empleado() {
         initComponents();
+        consultarTodo();
+        actualizarList();
     }
 
     /**
@@ -35,38 +39,28 @@ public class Empleado extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        claveemp = new javax.swing.JTextField();
+        claveE = new javax.swing.JTextField();
         nombre = new javax.swing.JTextField();
         ap = new javax.swing.JTextField();
         am = new javax.swing.JTextField();
-        fecha = new javax.swing.JTextField();
-        idci = new javax.swing.JTextField();
-        idco = new javax.swing.JTextField();
-        idca = new javax.swing.JTextField();
+        fn = new javax.swing.JTextField();
+        fi = new javax.swing.JTextField();
+        enf = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         Tabla1 = new javax.swing.JTable();
-        jButton11 = new javax.swing.JButton();
-        jButton13 = new javax.swing.JButton();
-        jButton14 = new javax.swing.JButton();
-        jButton15 = new javax.swing.JButton();
-        jButton16 = new javax.swing.JButton();
+        editar = new javax.swing.JButton();
+        eliminar = new javax.swing.JButton();
+        agregar = new javax.swing.JButton();
+        consultar = new javax.swing.JButton();
+        buscar = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        boxFarmacia = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem8 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
-        jMenuItem9 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
@@ -80,59 +74,53 @@ public class Empleado extends javax.swing.JFrame {
 
         jLabel2.setText("Nombre");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(20, 90, 80, 20);
+        jLabel2.setBounds(330, 50, 80, 20);
 
         jLabel3.setText("Apellido Paterno");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(20, 120, 100, 40);
+        jLabel3.setBounds(20, 80, 100, 40);
 
         jLabel4.setText("Apellido Materno");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(20, 170, 100, 20);
+        jLabel4.setBounds(330, 90, 100, 20);
 
-        jLabel5.setText("Fecha Nacimiento");
-        getContentPane().add(jLabel5);
-        jLabel5.setBounds(350, 50, 100, 20);
-
-        jLabel7.setText("fnac");
+        jLabel7.setText("Fecha Nac");
         getContentPane().add(jLabel7);
-        jLabel7.setBounds(350, 80, 70, 30);
+        jLabel7.setBounds(40, 120, 70, 30);
 
-        jLabel8.setText("enfer");
+        jLabel8.setText("fechaInicio");
         getContentPane().add(jLabel8);
-        jLabel8.setBounds(350, 130, 70, 20);
+        jLabel8.setBounds(350, 130, 80, 20);
 
-        jLabel9.setText("cod farmac");
+        jLabel9.setText("Enfermedades?");
         getContentPane().add(jLabel9);
-        jLabel9.setBounds(350, 170, 70, 20);
+        jLabel9.setBounds(40, 170, 70, 20);
 
-        claveemp.addActionListener(new java.awt.event.ActionListener() {
+        claveE.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                claveempActionPerformed(evt);
+                claveEActionPerformed(evt);
             }
         });
-        getContentPane().add(claveemp);
-        claveemp.setBounds(150, 40, 133, 30);
+        getContentPane().add(claveE);
+        claveE.setBounds(150, 40, 133, 30);
         getContentPane().add(nombre);
-        nombre.setBounds(150, 80, 133, 30);
+        nombre.setBounds(460, 40, 133, 30);
         getContentPane().add(ap);
-        ap.setBounds(150, 120, 133, 30);
+        ap.setBounds(150, 80, 133, 30);
         getContentPane().add(am);
-        am.setBounds(150, 160, 133, 30);
-        getContentPane().add(fecha);
-        fecha.setBounds(460, 40, 133, 30);
+        am.setBounds(460, 80, 133, 30);
 
-        idci.addActionListener(new java.awt.event.ActionListener() {
+        fn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                idciActionPerformed(evt);
+                fnActionPerformed(evt);
             }
         });
-        getContentPane().add(idci);
-        idci.setBounds(460, 80, 130, 30);
-        getContentPane().add(idco);
-        idco.setBounds(460, 120, 130, 30);
-        getContentPane().add(idca);
-        idca.setBounds(460, 160, 130, 30);
+        getContentPane().add(fn);
+        fn.setBounds(150, 120, 130, 30);
+        getContentPane().add(fi);
+        fi.setBounds(460, 120, 130, 30);
+        getContentPane().add(enf);
+        enf.setBounds(150, 160, 130, 30);
 
         Tabla1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -148,57 +136,57 @@ public class Empleado extends javax.swing.JFrame {
         jScrollPane1.setViewportView(Tabla1);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(10, 250, 650, 103);
+        jScrollPane1.setBounds(10, 220, 650, 120);
 
-        jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/7modificar.png"))); // NOI18N
-        jButton11.setToolTipText("Modificar");
-        jButton11.addActionListener(new java.awt.event.ActionListener() {
+        editar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/7modificar.png"))); // NOI18N
+        editar.setToolTipText("Modificar");
+        editar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton11ActionPerformed(evt);
+                editarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton11);
-        jButton11.setBounds(40, 370, 44, 39);
+        getContentPane().add(editar);
+        editar.setBounds(390, 350, 90, 60);
 
-        jButton13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/5eliminar.png"))); // NOI18N
-        jButton13.setToolTipText("Eliminar");
-        jButton13.addActionListener(new java.awt.event.ActionListener() {
+        eliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/5eliminar.png"))); // NOI18N
+        eliminar.setToolTipText("Eliminar");
+        eliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton13ActionPerformed(evt);
+                eliminarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton13);
-        jButton13.setBounds(230, 370, 44, 39);
+        getContentPane().add(eliminar);
+        eliminar.setBounds(490, 350, 90, 60);
 
-        jButton14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/4agregar.png"))); // NOI18N
-        jButton14.setToolTipText("Agregar");
-        jButton14.addActionListener(new java.awt.event.ActionListener() {
+        agregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/4agregar.png"))); // NOI18N
+        agregar.setToolTipText("Agregar");
+        agregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton14ActionPerformed(evt);
+                agregarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton14);
-        jButton14.setBounds(320, 370, 44, 39);
+        getContentPane().add(agregar);
+        agregar.setBounds(80, 350, 90, 60);
 
-        jButton15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/3consultar.png"))); // NOI18N
-        jButton15.setToolTipText("Consultar");
-        jButton15.addActionListener(new java.awt.event.ActionListener() {
+        consultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/3consultar.png"))); // NOI18N
+        consultar.setToolTipText("Consultar");
+        consultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton15ActionPerformed(evt);
+                consultarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton15);
-        jButton15.setBounds(420, 370, 44, 39);
+        getContentPane().add(consultar);
+        consultar.setBounds(290, 350, 90, 60);
 
-        jButton16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/2buscarr.png"))); // NOI18N
-        jButton16.setToolTipText("Buscar");
-        jButton16.addActionListener(new java.awt.event.ActionListener() {
+        buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/2buscarr.png"))); // NOI18N
+        buscar.setToolTipText("Buscar");
+        buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton16ActionPerformed(evt);
+                buscarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton16);
-        jButton16.setBounds(520, 370, 44, 39);
+        getContentPane().add(buscar);
+        buscar.setBounds(180, 350, 90, 60);
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -206,84 +194,17 @@ public class Empleado extends javax.swing.JFrame {
         getContentPane().add(jLabel11);
         jLabel11.setBounds(0, 0, 670, 30);
 
+        jLabel6.setText("Farmacia");
+        getContentPane().add(jLabel6);
+        jLabel6.setBounds(360, 170, 70, 20);
+
+        boxFarmacia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        getContentPane().add(boxFarmacia);
+        boxFarmacia.setBounds(460, 170, 130, 30);
+
         jPanel1.setBackground(new java.awt.Color(204, 255, 204));
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 240, 720, 190);
-
-        jMenu1.setText("Busqueda Avanzada");
-
-        jMenuItem8.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.ALT_MASK));
-        jMenuItem8.setText("Avanzada");
-        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem8ActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuItem8);
-
-        jMenu3.setText("Buscar por ");
-
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK));
-        jMenuItem1.setText("Puesto");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jMenuItem1);
-
-        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK));
-        jMenuItem2.setText("Ciudad");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jMenuItem2);
-
-        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_MASK));
-        jMenuItem3.setText("Colonia");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jMenuItem3);
-
-        jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_MASK));
-        jMenuItem4.setText("Calle");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jMenuItem4);
-
-        jMenuItem5.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.ALT_MASK));
-        jMenuItem5.setText("Horario");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jMenuItem5);
-
-        jMenu1.add(jMenu3);
-
-        jMenuBar1.add(jMenu1);
-
-        jMenu4.setText("Consulta Avanzada");
-
-        jMenuItem9.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_MASK));
-        jMenuItem9.setText("Avanzada");
-        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem9ActionPerformed(evt);
-            }
-        });
-        jMenu4.add(jMenuItem9);
-
-        jMenuBar1.add(jMenu4);
+        jPanel1.setBounds(0, 0, 680, 430);
 
         jMenu2.setText("Exit");
 
@@ -313,284 +234,141 @@ public class Empleado extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void idciActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idciActionPerformed
+    private void fnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_idciActionPerformed
+    }//GEN-LAST:event_fnActionPerformed
 
-    private void claveempActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_claveempActionPerformed
+    private void claveEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_claveEActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_claveempActionPerformed
+    }//GEN-LAST:event_claveEActionPerformed
 
-    private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
-         String clave;
-        clave=claveemp.getText();
-        try {
-            DefaultTableModel tabla = new DefaultTableModel();
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("Select * from Empleado where ID_Emp='"+clave+"'");
-            tabla.addColumn("ID Empleado");
+    private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
+        String clave = nombre.getText();
+        if (clave.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Ingrese un nombre para buscar");
+        } else {
+            try {
+                DefaultTableModel tabla = new DefaultTableModel();
+                Connection con;
+                con = DriverManager.getConnection(coneccionbd);
+                Statement stm = con.createStatement();
+                ResultSet rs = stm.executeQuery("Select * from emplado where cod_e='" + clave + "'");
+          tabla.addColumn("Id Empleado");
             tabla.addColumn("Nombre");
-            tabla.addColumn("Apellido Paterno");
-            tabla.addColumn("Apellido materno");
-            tabla.addColumn("Fecha Nacimiento");
-            tabla.addColumn("ID Puesto");
-            tabla.addColumn("ID Ciudad");
-            tabla.addColumn("ID Colonia");
-            tabla.addColumn("ID Calle");
-            tabla.addColumn("ID Horario");
-            while (rs.next()) {
-                Object dato[] = new Object[10];
-                for (int i = 0; i < 10; i++) {
-                    dato[i] = rs.getString(i + 1);
+            tabla.addColumn("A. paterno");
+            tabla.addColumn("A. materno");
+            tabla.addColumn("F. Nac.");
+            tabla.addColumn("F. Ingreso");
+            tabla.addColumn("¿Enfermedad?");
+            tabla.addColumn("Farmacia");
+                while (rs.next()) {
+                    Object dato[] = new Object[8];
+                    for (int i = 0; i <8; i++) {
+                        dato[i] = rs.getString(i + 1);
+                    }
+                    tabla.addRow(dato);
                 }
-                tabla.addRow(dato);
+                this.Tabla1.setModel(tabla);
+                int claveSelected = (boxFarmacia.getSelectedIndex()) * 2;
+                boxFarmacia.setSelectedIndex(claveSelected);
+                //listaCiudades.get(claveSelected);
+                System.out.println(listaFarmacias.get(claveSelected));
+                // System.out.println(listaCiudades.get(ciucod * 2));
+                clearfields();
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(rootPane, "No se encontraron resultados");
             }
-            this.Tabla1.setModel(tabla);
-        } catch (Exception e) {
         }
-    }//GEN-LAST:event_jButton16ActionPerformed
+    }//GEN-LAST:event_buscarActionPerformed
 
-    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
-         try {
-            DefaultTableModel tabla = new DefaultTableModel();
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("Select * from Empleado");
-            tabla.addColumn("ID Empleado");
-            tabla.addColumn("Nombre");
-            tabla.addColumn("Apellido Paterno");
-            tabla.addColumn("Apellido materno");
-            tabla.addColumn("Fecha Nacimiento");
-            tabla.addColumn("ID Puesto");
-            tabla.addColumn("ID Ciudad");
-            tabla.addColumn("ID Colonia");
-            tabla.addColumn("ID Calle");
-            tabla.addColumn("ID Horario");
-            while (rs.next()) {
-                Object dato[] = new Object[10];
-                for (int i = 0; i < 10; i++) {
-                    dato[i] = rs.getString(i + 1);
-                }
-                tabla.addRow(dato);
+    private void consultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarActionPerformed
+        consultarTodo();
+    }//GEN-LAST:event_consultarActionPerformed
+
+    private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
+        if (claveE.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Ingrese un ID de empleado");
+        } else if (nombre.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Ingrese la nombre");
+        } else if (ap.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Ingrese el apellido paterno");
+        } else if (am.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Ingrese el apellido materno");
+        } else if (fn.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Ingrese fecha de nacimiento");
+        } else if (fi.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Ingrese fecha de inicio");
+        } else if (enf.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "¿Padece enfermedad?");
+        } else if (!verificarID()) { //Si no existe el ID entra en la creaci+on
+            String cE = claveE.getText();                               
+            String n = nombre.getText();
+            String aP = ap.getText();
+            String aM = am.getText();
+            String fN= fn.getText();
+            String fI= fi.getText();
+            String E= enf.getText();
+            int idFarmaceutico = (boxFarmacia.getSelectedIndex() * 2);
+            String farma = (String) listaFarmacias.get(idFarmaceutico);  
+            try {
+                DefaultTableModel tabla = new DefaultTableModel();
+                Connection con;
+                con = DriverManager.getConnection(coneccionbd);
+                Statement stm = con.createStatement();
+                ResultSet rs = stm.executeQuery("insert into empleado values ('" + cE + "','"
+                        + n + "','"
+                        + aP + "','"
+                        + aM + "','"
+                        + fN + "','"
+                        + fI + "','"
+                        + E + "','"
+                        + farma + "')");
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(rootPane, "No se pudo crear", "Compruebe los datos", 2);
             }
-            this.Tabla1.setModel(tabla);
-        } catch (Exception e) {
         }
-    }//GEN-LAST:event_jButton15ActionPerformed
+        consultarTodo();
+        clearfields();
+    }//GEN-LAST:event_agregarActionPerformed
 
-    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
-       if(claveemp.getText().equals("")){
-            JOptionPane.showMessageDialog(null,"Ingrese un ID");
-        }
-        if(nombre.getText().equals("")){
-            JOptionPane.showMessageDialog(null,"Ingrese el nombre");
-        }
-        if(ap.getText().equals("")){
-            JOptionPane.showMessageDialog(null,"Ingrese el apellido paterno");
-        }
-        if(am.getText().equals("")){
-            JOptionPane.showMessageDialog(null,"Ingrese el apellido materno");
-        }
-        if(fecha.getText().equals("")){
-            JOptionPane.showMessageDialog(null,"Ingrese la fecha");
-        }
-        if(idci.getText().equals("")){
-            JOptionPane.showMessageDialog(null,"Ingrese el id de la ciudad");
-        }
-        if(idco.getText().equals("")){
-            JOptionPane.showMessageDialog(null,"Ingrese el id de la colonia");
-        }
-        if(idca.getText().equals("")){
-            JOptionPane.showMessageDialog(null,"Ingrese el id de la calle");
-        }
-        String Claveemp,Nombre,Ap,Am,Fecha,Idci,Idp,Idco,Idca,Idho ;
-        Claveemp=claveemp.getText();
-        Nombre=nombre.getText();
-        Ap=ap.getText();
-        Am=am.getText();
-        Fecha=fecha.getText();
-        Idci=idci.getText();
-        Idco=idco.getText();
-        Idca=idca.getText();
-        try {
-            DefaultTableModel tabla = new DefaultTableModel();
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("insert into Empleado values ('"+Claveemp+"','"+Nombre+"','"+Ap+"','"+Am+"','"+Fecha+"','"+"','"+Idci+"','"+Idco+"','"+Idca+"','"+"')");
-        } catch (Exception e) {
-        }        
-    }//GEN-LAST:event_jButton14ActionPerformed
-
-    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-       String clave;
-        clave=claveemp.getText();
-        try {
-            DefaultTableModel tabla = new DefaultTableModel();
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("delete from Empleado where ID_Emp='"+clave+"'");
-        } catch (Exception e) {
-        }
-    }//GEN-LAST:event_jButton13ActionPerformed
-
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-       String clave;
-        clave=idca.getText();
-        try {
-            DefaultTableModel tabla = new DefaultTableModel();
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("Select * from Empleado INNER JOIN Calle ON ID_Calle2=ID_Calle where ID_Calle='"+clave+"'");
-            tabla.addColumn("ID Empleado");
-            tabla.addColumn("Nombre");
-            tabla.addColumn("Apellido Paterno");
-            tabla.addColumn("Apellido materno");
-            tabla.addColumn("Fecha Nacimiento");
-            tabla.addColumn("ID Puesto");
-            tabla.addColumn("ID Ciudad");
-            tabla.addColumn("ID Colonia");
-            tabla.addColumn("ID Calle");
-            tabla.addColumn("ID Horario");
-            while (rs.next()) {
-                Object dato[] = new Object[10];
-                for (int i = 0; i < 10; i++) {
-                    dato[i] = rs.getString(i + 1);
-                }
-                tabla.addRow(dato);
-            }
-            this.Tabla1.setModel(tabla);
-        } catch (Exception e) {
-        }
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
-
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
         String clave;
-        try {
-            DefaultTableModel tabla = new DefaultTableModel();
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("Select * from Empleado INNER JOIN Puesto ON ID_Puesto1=ID_Puesto where ID_Puesto='"+"'");
-            tabla.addColumn("ID Empleado");
-            tabla.addColumn("Nombre");
-            tabla.addColumn("Apellido Paterno");
-            tabla.addColumn("Apellido materno");
-            tabla.addColumn("Fecha Nacimiento");
-            tabla.addColumn("ID Puesto");
-            tabla.addColumn("ID Ciudad");
-            tabla.addColumn("ID Colonia");
-            tabla.addColumn("ID Calle");
-            tabla.addColumn("ID Horario");
-            while (rs.next()) {
-                Object dato[] = new Object[10];
-                for (int i = 0; i < 10; i++) {
-                    dato[i] = rs.getString(i + 1);
-                }
-                tabla.addRow(dato);
+        clave = claveE.getText();
+        int idLabo = (boxFarmacia.getSelectedIndex() * 2);
+      
+        String farma = (String) listaFarmacias.get(idLabo);
+   
+        String eliminar = "Empleado= '" + nombre.getText()+ "' \n"
+                + "Apellido paterno= '" + ap.getText() + "'\n"
+                + "Apellido materno= '" + am.getText() + "'\n"
+                + "Fecha de nacimiento= '" + fn.getText() + "'\n"
+                + "Fecha de inicio= '" + fi.getText() + "'\n"
+                + "Enfermedad= '" + enf.getText() + "'\n"
+                + "Farmacia = '" + farma+ "'";
+        int procd = JOptionPane.showConfirmDialog(rootPane, eliminar, ("Se eliminara la informacion para: " + claveE.getText()), 2, 2);
+        System.out.println(procd);
+        if (procd <= 0) {
+            try {
+                DefaultTableModel tabla = new DefaultTableModel();
+                Connection con;
+                con = DriverManager.getConnection(coneccionbd);
+                Statement stm = con.createStatement();
+                int act = stm.executeUpdate("delete from empleado where cod_e='" + clave + "'");
+                if (act >= 1) {
+                            JOptionPane.showMessageDialog(rootPane, "Eliminado");
+                            consultarTodo();
+                            clearfields();
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "no se puede eliminar");
+                        }
+                
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            this.Tabla1.setModel(tabla);
-        } catch (Exception e) {
         }
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
-
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-          String clave;
-        clave=idci.getText();
-        try {
-            DefaultTableModel tabla = new DefaultTableModel();
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("Select * from Empleado INNER JOIN Ciudad ON ID_Ciu2=ID_Ciu where ID_Ciu='"+clave+"'");
-            tabla.addColumn("ID Empleado");
-            tabla.addColumn("Nombre");
-            tabla.addColumn("Apellido Paterno");
-            tabla.addColumn("Apellido materno");
-            tabla.addColumn("Fecha Nacimiento");
-            tabla.addColumn("ID Puesto");
-            tabla.addColumn("ID Ciudad");
-            tabla.addColumn("ID Colonia");
-            tabla.addColumn("ID Calle");
-            tabla.addColumn("ID Horario");
-            while (rs.next()) {
-                Object dato[] = new Object[10];
-                for (int i = 0; i < 10; i++) {
-                    dato[i] = rs.getString(i + 1);
-                }
-                tabla.addRow(dato);
-            }
-            this.Tabla1.setModel(tabla);
-        } catch (Exception e) {
-        }
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
-
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-          String clave;
-        clave=idco.getText();
-        try {
-            DefaultTableModel tabla = new DefaultTableModel();
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("Select * from Empleado INNER JOIN Colonia ON ID_Col2=ID_Col where ID_Col='"+clave+"'");
-            tabla.addColumn("ID Empleado");
-            tabla.addColumn("Nombre");
-            tabla.addColumn("Apellido Paterno");
-            tabla.addColumn("Apellido materno");
-            tabla.addColumn("Fecha Nacimiento");
-            tabla.addColumn("ID Puesto");
-            tabla.addColumn("ID Ciudad");
-            tabla.addColumn("ID Colonia");
-            tabla.addColumn("ID Calle");
-            tabla.addColumn("ID Horario");
-            while (rs.next()) {
-                Object dato[] = new Object[10];
-                for (int i = 0; i < 10; i++) {
-                    dato[i] = rs.getString(i + 1);
-                }
-                tabla.addRow(dato);
-            }
-            this.Tabla1.setModel(tabla);
-        } catch (Exception e) {
-        }
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
-
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-    String clave;
-       
-        try {
-            DefaultTableModel tabla = new DefaultTableModel();
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("Select * from Empleado INNER JOIN Horario ON ID_Horario2=ID_Horario where ID_Horario='"+"'");
-            tabla.addColumn("ID Empleado");
-            tabla.addColumn("Nombre");
-            tabla.addColumn("Apellido Paterno");
-            tabla.addColumn("Apellido materno");
-            tabla.addColumn("Fecha Nacimiento");
-            tabla.addColumn("ID Puesto");
-            tabla.addColumn("ID Ciudad");
-            tabla.addColumn("ID Colonia");
-            tabla.addColumn("ID Calle");
-            tabla.addColumn("ID Horario");
-            while (rs.next()) {
-                Object dato[] = new Object[10];
-                for (int i = 0; i < 10; i++) {
-                    dato[i] = rs.getString(i + 1);
-                }
-                tabla.addRow(dato);
-            }
-            this.Tabla1.setModel(tabla);
-        } catch (Exception e) {
-        }
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
+    }//GEN-LAST:event_eliminarActionPerformed
 
     //Ir a inicio
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
@@ -604,116 +382,51 @@ public class Empleado extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
-    
-    
     //Buscar empleado por id
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-      try {
-         String Claveemp;
-         Claveemp=claveemp.getText();
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("select * from Empleado where ID_Emp='" +Claveemp + "'");
-           if(rs.next()){
-               claveemp.setText(String.valueOf(rs.getString(1)));
-               nombre.setText(String.valueOf(rs.getString(2)));
-               ap.setText(String.valueOf(rs.getString(3)));
-               am.setText(String.valueOf(rs.getString(4)));
-               fecha.setText(String.valueOf(rs.getString(5)));
-    
-               idci.setText(String.valueOf(rs.getString(7)));
-               idco.setText(String.valueOf(rs.getString(8)));
-               idca.setText(String.valueOf(rs.getString(9)));
-               
-               
-               claveemp.setEnabled(false);
-               nombre.setEnabled(true);
-               ap.setEnabled(true);
-               am.setEnabled(true);
-               fecha.setEnabled(true);
-          
-               idci.setEnabled(true);
-               idco.setEnabled(true);
-               idca.setEnabled(true);
-            
-               
-               stm.close();
-           }
-        } catch (SQLException e) {
-          
-        }
-    }//GEN-LAST:event_jButton11ActionPerformed
-
-    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-         try {
-            DefaultTableModel tabla = new DefaultTableModel();
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("SELECT ID_Emp,Nom_Emp,AP_Emp,AM_Emp,Fecha_Nac,Nom_Puesto,Nom_Ciu,Nom_Col,Nom_Calle,Tipo_Horario,NumTelf,Tipo_Telf\n" +
-"FROM Empleado INNER JOIN TelfEMple ON ID_Emp=ID_Emp1 INNER JOIN TipoTelf ON ID_Telf1=ID_Telf INNER JOIN Puesto ON ID_Puesto1=ID_Puesto "
-                    + "INNER JOIN Ciudad ON ID_Ciu2=ID_Ciu INNER JOIN Colonia ON ID_Col2=ID_Col\n" +
-"INNER JOIN Calle ON ID_Calle2=ID_Calle INNER JOIN Horario ON ID_Horario2=ID_Horario");
-            tabla.addColumn("ID Empleado");
-            tabla.addColumn("Nombre Empleado");
-            tabla.addColumn("Apellido Paterno");
-            tabla.addColumn("Apellido Materno");
-            tabla.addColumn("Fecha Nacimiento");
-            tabla.addColumn("Puesto");
-            tabla.addColumn("Ciudad");
-            tabla.addColumn("Colonia");
-            tabla.addColumn("Calle");
-            tabla.addColumn("Horario");
-            tabla.addColumn("Numero Telefono");
-            tabla.addColumn("Tipo Telefono");
-            while (rs.next()) {
-                Object dato[] = new Object[12];
-                for (int i = 0; i < 12; i++) {
-                    dato[i] = rs.getString(i + 1);
+    private void editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarActionPerformed
+        if (!(claveE.getText().equals(""))) {
+            System.out.println("paso 1 no esta vacia la clave");
+            if (verificarID()) {
+                System.out.println("paso2");
+                // listaLabos;
+                int idLabo = (boxFarmacia.getSelectedIndex() * 2);               
+                String farma = (String) listaFarmacias.get(idLabo);     
+                String actualizar = "Nombre= '" + nombre.getText() + "' \n"
+                        + "Apellido paterno= '" + ap.getText() + "'\n"
+                        + "Apellido materno= '" + am.getText() + "'\n"
+                        + "Fecha de nacimiento= '" + fn.getText() + "'\n"                        
+                        + "Fecha de inicio= '" + fi.getText() + "'\n"                        
+                        + "¿Enfermedad?= '" + enf.getText() + "'\n"                                                
+                        + "Farmacia= '" + farma + "'";
+                int procd = JOptionPane.showConfirmDialog(rootPane, actualizar, ("Se actualizara la informacion para: " + claveE.getText()), 2, 2);
+                System.out.println(procd);
+                if (procd <= 0) {
+                    try {
+                        Connection con = DriverManager.getConnection(coneccionbd);
+                        Statement stm = con.createStatement();
+                        int act = stm.executeUpdate("update empleado set "
+                                + "nom_e='" + nombre.getText() + "',"
+                                + "app_e='" + ap.getText() + "',"
+                                + "apm_e='" + am.getText() + "',"
+                                + "fna_e='" + fn.getText() + "',"
+                                + "fin_e='" + fi.getText() + "',"
+                                + "enf_e='" + enf.getText() + "',"                              
+                                + "codf_1='" + farma + "'"
+                                + "where cod_f='" + claveE.getText() + "'");
+                        if (act >= 1) {
+                            JOptionPane.showMessageDialog(rootPane, "Actualizado");
+                            consultarTodo();
+                            clearfields();
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "no se puede actualizar");
+                        }
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                 }
-                tabla.addRow(dato);
             }
-            this.Tabla1.setModel(tabla);
-        } catch (Exception e) {
         }
-    }//GEN-LAST:event_jMenuItem9ActionPerformed
-
-    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
-        try {
-            String clave;
-            clave=claveemp.getText();
-            DefaultTableModel tabla = new DefaultTableModel();
-            Connection con;
-            con = DriverManager.getConnection(coneccionbd);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("SELECT ID_Emp,Nom_Emp,AP_Emp,AM_Emp,Fecha_Nac,Nom_Puesto,Nom_Ciu,Nom_Col,Nom_Calle,Tipo_Horario,NumTelf,Tipo_Telf\n" +
-"FROM Empleado INNER JOIN TelfEMple ON ID_Emp=ID_Emp1 INNER JOIN TipoTelf ON ID_Telf1=ID_Telf INNER JOIN Puesto ON ID_Puesto1=ID_Puesto INNER JOIN Ciudad ON ID_Ciu2=ID_Ciu INNER JOIN Colonia ON ID_Col2=ID_Col\n" +
-"INNER JOIN Calle ON ID_Calle2=ID_Calle INNER JOIN Horario ON ID_Horario2=ID_Horario\n"
-                    + "where ID_Emp='"+clave+"'");
-            tabla.addColumn("ID Empleado");
-            tabla.addColumn("Nombre Empleado");
-            tabla.addColumn("Apellido Paterno");
-            tabla.addColumn("Apellido Materno");
-            tabla.addColumn("Fecha Nacimiento");
-            tabla.addColumn("Puesto");
-            tabla.addColumn("Ciudad");
-            tabla.addColumn("Colonia");
-            tabla.addColumn("Calle");
-            tabla.addColumn("Horario");
-            tabla.addColumn("Numero Telefono");
-            tabla.addColumn("Tipo Telefono");
-            while (rs.next()) {
-                Object dato[] = new Object[12];
-                for (int i = 0; i < 12; i++) {
-                    dato[i] = rs.getString(i + 1);
-                }
-                tabla.addRow(dato);
-            }
-            this.Tabla1.setModel(tabla);
-        } catch (Exception e) {
-        }
-    }//GEN-LAST:event_jMenuItem8ActionPerformed
+    }//GEN-LAST:event_editarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -750,43 +463,133 @@ public class Empleado extends javax.swing.JFrame {
         });
     }
 
+    /*----------------------------------------------------------------------------------------------------------------*/
+ /*----------------------------------------------------------------------------------------------------------------*/
+    //MY METHOD´S 
+    //Consultar tabla, usando views en DB 
+    private void consultarTodo() {
+        try {
+            DefaultTableModel tabla = new DefaultTableModel();
+            Connection con;
+            con = DriverManager.getConnection(coneccionbd);
+            Statement stm = con.createStatement();
+            ResultSet rs = stm.executeQuery("Select * from empleado");
+            tabla.addColumn("Id Empleado");
+            tabla.addColumn("Nombre");
+            tabla.addColumn("A. paterno");
+            tabla.addColumn("A. materno");
+            tabla.addColumn("F. Nac.");
+            tabla.addColumn("F. Ingreso");
+            tabla.addColumn("¿Enfermedad?");
+            tabla.addColumn("Farmacia");
+            while (rs.next()) {
+                Object dato[] = new Object[8];
+                for (int i = 0; i < 8; i++) {
+                    dato[i] = rs.getString(i + 1).toUpperCase();
+                }
+                tabla.addRow(dato);
+            }
+            this.Tabla1.setModel(tabla);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    //Actualizar cajas
+    private void actualizarList() {
+        boxFarmacia.removeAllItems();
+
+        listaFarmacias = farmacias();
+        //ciclo del arreglo, recorriendo posiciones par para obtener el nombre, las
+        //claves pertenecen a las posiciones non
+        for (int i = 1; i < listaFarmacias.size(); i += 2) {
+            boxFarmacia.addItem(listaFarmacias.get(i));
+            //  System.out.println(listaFarmaceuticos.get(i - 1));
+        }
+
+    }
+
+    //Caja labos
+    public ArrayList<String> farmacias() {
+        ArrayList<String> farmacias = new ArrayList<>();
+        try {
+            Connection con = DriverManager.getConnection(coneccionbd);
+            Statement stm = con.createStatement();
+            String q = "select cod_f,nom_f from farmacia";
+            ResultSet res = stm.executeQuery(q);
+            while (res.next()) {
+
+                Object dato[] = new Object[2];
+                for (int i = 0; i < 2; i++) {
+                    dato[i] = res.getString(i + 1).toUpperCase();
+                    farmacias.add((String) dato[i]);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return farmacias;
+    }
+
+    //Limpiar campos
+    public void clearfields() {
+        claveE.setText("");
+        nombre.setText("");
+        ap.setText("");
+        am.setText("");
+        fn.setText("");
+        fi.setText("");
+        enf.setText("");
+        boxFarmacia.setSelectedIndex(0);
+
+    }
+
+    //verificarID
+    private boolean verificarID() {
+        String buscar = claveE.getText();
+        try {
+            Connection con;
+            con = DriverManager.getConnection(coneccionbd);
+            Statement stm = con.createStatement();
+            ResultSet rs = stm.executeQuery("Select * from empleado where cod_e='" + buscar + "'");
+            while (rs.next()) {
+                claveE.setText(String.valueOf(rs.getString(1)));
+                return true;
+            }
+
+        } catch (Exception e) {
+        }
+        return false; //si no encontro nada falso
+
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable Tabla1;
+    private javax.swing.JButton agregar;
     private javax.swing.JTextField am;
     private javax.swing.JTextField ap;
-    private javax.swing.JTextField claveemp;
-    private javax.swing.JTextField fecha;
-    private javax.swing.JTextField idca;
-    private javax.swing.JTextField idci;
-    private javax.swing.JTextField idco;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton14;
-    private javax.swing.JButton jButton15;
-    private javax.swing.JButton jButton16;
+    private javax.swing.JComboBox<String> boxFarmacia;
+    private javax.swing.JButton buscar;
+    private javax.swing.JTextField claveE;
+    private javax.swing.JButton consultar;
+    private javax.swing.JButton editar;
+    private javax.swing.JButton eliminar;
+    private javax.swing.JTextField enf;
+    private javax.swing.JTextField fi;
+    private javax.swing.JTextField fn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField nombre;

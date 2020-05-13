@@ -23,7 +23,7 @@ apm_fa varchar(30), -- apellido materno farmaceutico
 constraint pk_cod_fa primary key (cod_fa),
 check (cod_fa like 'FAR[0-9][0-9][0-9]'))
 go
-
+select * from accion
 create table accion( --acción
 cod_a varchar(6), -- codigo accion 
 nom_a varchar(30),  -- accion ej. "analgesico" ----correcto
@@ -33,6 +33,7 @@ constraint pk_cod_a primary key (cod_a),
 check (cod_a like 'ACC[0-9][0-9][0-9]'))
 go
 
+select * from laboratorio
 create table laboratorio(--laboratorio
 nom_l varchar(30), --nombre laboratorio  -- como llave primaria basado en el diagrama
 cal_l varchar(30), --calle
@@ -47,7 +48,6 @@ go
 
 create table monodroga( --monodroga
 cod_m varchar(6), --codigo monodroga
-lab_m varchar(30), -- laboratorio --basado en el diagrama
 acc_m varchar(30), --accion
 nci_m varchar(30),--nombre cientifico
 nco_m varchar(30),--nombre comercial
@@ -59,6 +59,7 @@ check (cod_m like 'MON[0-9][0-9][0-9]'))
 go
 
 ----ordena medicamento------------
+select * from Medicamento
 create table medicamento( --medicamento
 nom_m varchar(30),-- nombre del medicamento 
 pre_m varchar(30), --presentacion del medicamento
@@ -80,9 +81,9 @@ gua_f int, -- dias asignados de los guardias, basado al ejercicio, respetando el
 cod_c1 varchar(6), --codigo ciudad
 cod_fa1 varchar(6), --codigo farmaceutico
 constraint pk_cod_f1 primary key (cod_f),
-constraint fk_ciuf foreign key (cod_c1) references ciudad(cod_c) on delete set null,
+constraint fk_ciuf foreign key (cod_c1) references ciudad(cod_c) on delete set default,
 constraint fk_cfar foreign key (cod_fa1) references farmaceutico(cod_fa) on delete set null,
-check (cod_f like 'FARM[0-9][0-9]'),
+check (cod_f like 'FARM[0-9][0-9]'), 
 check (cp_f like '[0-9][0-9][0-9][0-9][0-9]'))
 go
 
@@ -114,7 +115,7 @@ go*/
 									-------------
 go
 insert into ciudad values(upper('ciu001'),upper('mexico'),12345)
-insert into farmaceutico values(upper('far001'),upper('nombre'),upper('apellido'),upper('apellido'))
+insert into farmaceutico values(null,upper('nombre'),upper('apellido'),upper('apellido'))
 insert into accion values(upper('acc001'),upper('nom'),'4 horas',upper('descripcion'))
 insert into laboratorio values(upper('unico'),upper('calle'),upper('colonia'),50505,upper('estado'),upper('nom dueño'),upper('ap dueño'))
 insert into monodroga values(upper('mon001'),upper('lab'),upper('24 horas'),upper('cientifico'),upper('comercial'),20,upper('unico'))
@@ -141,18 +142,31 @@ select*from laboratorio
 									--------------
 
 insert into farmacia values(upper('farm04'),upper('Stiglitz'),upper('deLaRue'),upper('Fontain'),'16661','3',upper('ciu007'),upper('far003'))
+select *from farmacia
 
-
-alter view farmacias
+create view farmacias
 as
 select cod_f, nom_f,cal_f,col_f,cp_f, gua_f,
 nom_c, nom_fa
-from farmacia where nom_f='esperanza'
+from farmacia 
 inner join ciudad on cod_c= cod_c1 
 inner join farmaceutico on cod_fa=cod_fa1
 
-Select * from farmacias where nom_f='esperanza'
+create view monodrogas 
+as select cod_m, acc_m,nci_m,nco_m,can_m,nom_l
+from monodroga
+inner join laboratorio on nom_l=nom_ll
+select * from monodroga
 
+alter view medicamentos
+as 
+select nom_m,pre_m,costo,nom_a,nci_m
+from medicamento
+inner join accion on cod_a=cod_a1
+inner join monodroga on cod_m=cod_m1
+
+select * from medicamentos
+		
 	--estos los dejo para que ya no te cuentesn trabajo humano
 
 /*ciudad inner join farmacia on cod_c=cod_c1

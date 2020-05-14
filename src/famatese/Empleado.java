@@ -49,12 +49,9 @@ public class Empleado extends javax.swing.JFrame {
         fn = new javax.swing.JTextField();
         fi = new javax.swing.JTextField();
         enf = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        Tabla1 = new javax.swing.JTable();
         editar = new javax.swing.JButton();
         eliminar = new javax.swing.JButton();
         agregar = new javax.swing.JButton();
-        consultar = new javax.swing.JButton();
         buscar = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -122,22 +119,6 @@ public class Empleado extends javax.swing.JFrame {
         getContentPane().add(enf);
         enf.setBounds(150, 160, 130, 30);
 
-        Tabla1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(Tabla1);
-
-        getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(10, 220, 650, 120);
-
         editar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/7modificar.png"))); // NOI18N
         editar.setToolTipText("Modificar");
         editar.addActionListener(new java.awt.event.ActionListener() {
@@ -146,7 +127,7 @@ public class Empleado extends javax.swing.JFrame {
             }
         });
         getContentPane().add(editar);
-        editar.setBounds(390, 350, 90, 60);
+        editar.setBounds(340, 230, 90, 60);
 
         eliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/5eliminar.png"))); // NOI18N
         eliminar.setToolTipText("Eliminar");
@@ -156,7 +137,7 @@ public class Empleado extends javax.swing.JFrame {
             }
         });
         getContentPane().add(eliminar);
-        eliminar.setBounds(490, 350, 90, 60);
+        eliminar.setBounds(440, 230, 90, 60);
 
         agregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/4agregar.png"))); // NOI18N
         agregar.setToolTipText("Agregar");
@@ -166,17 +147,7 @@ public class Empleado extends javax.swing.JFrame {
             }
         });
         getContentPane().add(agregar);
-        agregar.setBounds(80, 350, 90, 60);
-
-        consultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/3consultar.png"))); // NOI18N
-        consultar.setToolTipText("Consultar");
-        consultar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                consultarActionPerformed(evt);
-            }
-        });
-        getContentPane().add(consultar);
-        consultar.setBounds(290, 350, 90, 60);
+        agregar.setBounds(140, 230, 90, 60);
 
         buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/2buscarr.png"))); // NOI18N
         buscar.setToolTipText("Buscar");
@@ -186,7 +157,7 @@ public class Empleado extends javax.swing.JFrame {
             }
         });
         getContentPane().add(buscar);
-        buscar.setBounds(180, 350, 90, 60);
+        buscar.setBounds(240, 230, 90, 60);
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -204,7 +175,7 @@ public class Empleado extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 204));
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 680, 430);
+        jPanel1.setBounds(-10, 0, 690, 320);
 
         jMenu2.setText("Exit");
 
@@ -230,7 +201,7 @@ public class Empleado extends javax.swing.JFrame {
 
         setJMenuBar(jMenuBar1);
 
-        setSize(new java.awt.Dimension(687, 487));
+        setSize(new java.awt.Dimension(687, 381));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -243,6 +214,7 @@ public class Empleado extends javax.swing.JFrame {
     }//GEN-LAST:event_claveEActionPerformed
 
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
+        Object dato[] = new Object[8];
         String clave = nombre.getText();
         if (clave.equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Ingrese un nombre para buscar");
@@ -252,7 +224,7 @@ public class Empleado extends javax.swing.JFrame {
                 Connection con;
                 con = DriverManager.getConnection(coneccionbd);
                 Statement stm = con.createStatement();
-                ResultSet rs = stm.executeQuery("Select * from emplado where cod_e='" + clave + "'");
+                ResultSet rs = stm.executeQuery("Select * from empleado where nom_e='" + clave + "'");
           tabla.addColumn("Id Empleado");
             tabla.addColumn("Nombre");
             tabla.addColumn("A. paterno");
@@ -262,29 +234,29 @@ public class Empleado extends javax.swing.JFrame {
             tabla.addColumn("¿Enfermedad?");
             tabla.addColumn("Farmacia");
                 while (rs.next()) {
-                    Object dato[] = new Object[8];
+                    
                     for (int i = 0; i <8; i++) {
-                        dato[i] = rs.getString(i + 1);
+                        dato[i] = rs.getString(i + 1).toUpperCase();
                     }
                     tabla.addRow(dato);
                 }
-                this.Tabla1.setModel(tabla);
-                int claveSelected = (boxFarmacia.getSelectedIndex()) * 2;
-                boxFarmacia.setSelectedIndex(claveSelected);
-                //listaCiudades.get(claveSelected);
-                System.out.println(listaFarmacias.get(claveSelected));
-                // System.out.println(listaCiudades.get(ciucod * 2));
-                clearfields();
+
             } catch (Exception e) {
                 e.printStackTrace();
                 JOptionPane.showMessageDialog(rootPane, "No se encontraron resultados");
             }
         }
+        claveE.setText((String)dato[0]);
+        nombre.setText((String)dato[1]);
+        ap.setText((String)dato[2]);
+        am.setText((String)dato[3]);
+        fn.setText((String)dato[4]);
+        fi.setText((String)dato[5]);
+        enf.setText((String)dato[6]);
+        String compararFarma = (String) dato[7];
+        boxFarmacia.setSelectedIndex((listaFarmacias.indexOf(compararFarma)) / 2);
+        System.out.println(((listaFarmacias.indexOf(compararFarma)) / 2));
     }//GEN-LAST:event_buscarActionPerformed
-
-    private void consultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarActionPerformed
-        consultarTodo();
-    }//GEN-LAST:event_consultarActionPerformed
 
     private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
         if (claveE.getText().equals("")) {
@@ -489,7 +461,7 @@ public class Empleado extends javax.swing.JFrame {
                 }
                 tabla.addRow(dato);
             }
-            this.Tabla1.setModel(tabla);
+         
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -564,14 +536,12 @@ public class Empleado extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable Tabla1;
     private javax.swing.JButton agregar;
     private javax.swing.JTextField am;
     private javax.swing.JTextField ap;
     private javax.swing.JComboBox<String> boxFarmacia;
     private javax.swing.JButton buscar;
     private javax.swing.JTextField claveE;
-    private javax.swing.JButton consultar;
     private javax.swing.JButton editar;
     private javax.swing.JButton eliminar;
     private javax.swing.JTextField enf;
@@ -591,7 +561,6 @@ public class Empleado extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField nombre;
     // End of variables declaration//GEN-END:variables
 }

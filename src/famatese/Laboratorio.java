@@ -33,12 +33,9 @@ public class Laboratorio extends javax.swing.JFrame {
 
         jLabel2 = new javax.swing.JLabel();
         nombre = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        Tabla1 = new javax.swing.JTable();
         editar = new javax.swing.JButton();
         eliminar = new javax.swing.JButton();
         agregar = new javax.swing.JButton();
-        consultar = new javax.swing.JButton();
         buscar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -69,27 +66,6 @@ public class Laboratorio extends javax.swing.JFrame {
         getContentPane().add(nombre);
         nombre.setBounds(270, 50, 310, 30);
 
-        Tabla1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        Tabla1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Tabla1MouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(Tabla1);
-
-        getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(20, 210, 700, 130);
-
         editar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/7modificar.png"))); // NOI18N
         editar.setToolTipText("Modificar");
         editar.addActionListener(new java.awt.event.ActionListener() {
@@ -98,7 +74,7 @@ public class Laboratorio extends javax.swing.JFrame {
             }
         });
         getContentPane().add(editar);
-        editar.setBounds(440, 360, 60, 60);
+        editar.setBounds(400, 240, 60, 60);
 
         eliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/5eliminar.png"))); // NOI18N
         eliminar.setToolTipText("Eliminar");
@@ -108,7 +84,7 @@ public class Laboratorio extends javax.swing.JFrame {
             }
         });
         getContentPane().add(eliminar);
-        eliminar.setBounds(530, 360, 60, 60);
+        eliminar.setBounds(510, 240, 60, 60);
 
         agregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/4agregar.png"))); // NOI18N
         agregar.setToolTipText("Agregar");
@@ -118,17 +94,7 @@ public class Laboratorio extends javax.swing.JFrame {
             }
         });
         getContentPane().add(agregar);
-        agregar.setBounds(170, 360, 70, 60);
-
-        consultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/3consultar.png"))); // NOI18N
-        consultar.setToolTipText("Consultar");
-        consultar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                consultarActionPerformed(evt);
-            }
-        });
-        getContentPane().add(consultar);
-        consultar.setBounds(350, 360, 60, 60);
+        agregar.setBounds(170, 240, 70, 60);
 
         buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/2buscarr.png"))); // NOI18N
         buscar.setToolTipText("Buscar");
@@ -138,7 +104,7 @@ public class Laboratorio extends javax.swing.JFrame {
             }
         });
         getContentPane().add(buscar);
-        buscar.setBounds(260, 360, 70, 60);
+        buscar.setBounds(280, 240, 70, 60);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -184,7 +150,7 @@ public class Laboratorio extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 204));
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, -20, 760, 460);
+        jPanel1.setBounds(0, -20, 760, 340);
 
         jMenu1.setText("Exit");
 
@@ -219,13 +185,14 @@ public class Laboratorio extends javax.swing.JFrame {
 
         setJMenuBar(jMenuBar1);
 
-        setSize(new java.awt.Dimension(752, 498));
+        setSize(new java.awt.Dimension(752, 385));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
         String buscar = nombre.getText();
-        if (buscar.equals("")) {
+         Object dato[] = new Object[7];
+         if (buscar.equals("")) {
             JOptionPane.showMessageDialog(rootPane, "¿Qué laboratorio busca?");
         } else {
             try {
@@ -242,22 +209,24 @@ public class Laboratorio extends javax.swing.JFrame {
             tabla.addColumn("NombreD");
             tabla.addColumn("ApellidoD");
                 while (rs.next()) {
-                    Object dato[] = new Object[7];
+                   
                     for (int i = 0; i < 7; i++) {
                         dato[i] = rs.getString(i + 1).toUpperCase();
                     }
                     tabla.addRow(dato);
                 }
-                this.Tabla1.setModel(tabla);
+             
             } catch (Exception e) {
             }
         }
-        clearfields();
+       nombre.setText((String)dato[0]);
+       calle.setText((String)dato[1]);
+       colonia.setText((String)dato[2]);
+       cp.setText((String)dato[3]);
+       estado.setText((String)dato[4]);
+       nD.setText((String)dato[5]);
+       aD.setText((String)dato[6]);
     }//GEN-LAST:event_buscarActionPerformed
-
-    private void consultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarActionPerformed
-consultarTodo();
-    }//GEN-LAST:event_consultarActionPerformed
 
     private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
       if (nombre.getText().equals("")) {
@@ -398,19 +367,6 @@ consultarTodo();
 
     }//GEN-LAST:event_editarActionPerformed
 
-    private void Tabla1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tabla1MouseClicked
-        DefaultTableModel model = (DefaultTableModel) Tabla1.getModel();
-        int selectedRowIndex = Tabla1.getSelectedRow();
-        nombre.setText(model.getValueAt(selectedRowIndex, 0).toString());
-        calle.setText(model.getValueAt(selectedRowIndex, 1).toString());
-        colonia.setText(model.getValueAt(selectedRowIndex, 2).toString());
-        cp.setText(model.getValueAt(selectedRowIndex, 3).toString());
-        estado.setText(model.getValueAt(selectedRowIndex, 4).toString());
-        nD.setText(model.getValueAt(selectedRowIndex, 5).toString());
-        aD.setText(model.getValueAt(selectedRowIndex, 6).toString());
-        
-    }//GEN-LAST:event_Tabla1MouseClicked
-
     /**
      * @param args the command line arguments
      */
@@ -497,7 +453,7 @@ consultarTodo();
                 }
                 tabla.addRow(dato);
             }
-            this.Tabla1.setModel(tabla);
+    
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -522,13 +478,11 @@ consultarTodo();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable Tabla1;
     private javax.swing.JTextField aD;
     private javax.swing.JButton agregar;
     private javax.swing.JButton buscar;
     private javax.swing.JTextField calle;
     private javax.swing.JTextField colonia;
-    private javax.swing.JButton consultar;
     private javax.swing.JTextField cp;
     private javax.swing.JButton editar;
     private javax.swing.JButton eliminar;
@@ -547,7 +501,6 @@ consultarTodo();
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField nD;
     private javax.swing.JTextField nombre;
     // End of variables declaration//GEN-END:variables

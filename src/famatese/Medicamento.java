@@ -22,6 +22,8 @@ public class Medicamento extends javax.swing.JFrame {
 
     public Medicamento() {
         initComponents();
+        consultarTodo();
+        actualizarList();
     }
 
     /**
@@ -35,12 +37,9 @@ public class Medicamento extends javax.swing.JFrame {
 
         jLabel2 = new javax.swing.JLabel();
         nombre = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        Tabla1 = new javax.swing.JTable();
         editar = new javax.swing.JButton();
         eliminar = new javax.swing.JButton();
         agregar = new javax.swing.JButton();
-        consultar = new javax.swing.JButton();
         buscar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         boxAccion = new javax.swing.JComboBox<>();
@@ -72,24 +71,6 @@ public class Medicamento extends javax.swing.JFrame {
         getContentPane().add(nombre);
         nombre.setBounds(100, 40, 130, 30);
 
-        Tabla1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3"
-            }
-        ));
-        Tabla1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        Tabla1.setRowMargin(3);
-        Tabla1.setRowSelectionAllowed(false);
-        jScrollPane1.setViewportView(Tabla1);
-
-        getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(20, 210, 580, 101);
-
         editar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/7modificar.png"))); // NOI18N
         editar.setToolTipText("Modificar");
         editar.addActionListener(new java.awt.event.ActionListener() {
@@ -98,7 +79,7 @@ public class Medicamento extends javax.swing.JFrame {
             }
         });
         getContentPane().add(editar);
-        editar.setBounds(400, 320, 70, 60);
+        editar.setBounds(350, 220, 70, 60);
 
         eliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/5eliminar.png"))); // NOI18N
         eliminar.setToolTipText("Eliminar");
@@ -108,7 +89,7 @@ public class Medicamento extends javax.swing.JFrame {
             }
         });
         getContentPane().add(eliminar);
-        eliminar.setBounds(510, 320, 70, 60);
+        eliminar.setBounds(460, 220, 70, 60);
 
         agregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/4agregar.png"))); // NOI18N
         agregar.setToolTipText("Agregar");
@@ -118,17 +99,7 @@ public class Medicamento extends javax.swing.JFrame {
             }
         });
         getContentPane().add(agregar);
-        agregar.setBounds(40, 320, 70, 60);
-
-        consultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/3consultar.png"))); // NOI18N
-        consultar.setToolTipText("Consultar");
-        consultar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                consultarActionPerformed(evt);
-            }
-        });
-        getContentPane().add(consultar);
-        consultar.setBounds(280, 320, 70, 60);
+        agregar.setBounds(100, 220, 70, 60);
 
         buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/2buscarr.png"))); // NOI18N
         buscar.setToolTipText("Buscar");
@@ -138,7 +109,7 @@ public class Medicamento extends javax.swing.JFrame {
             }
         });
         getContentPane().add(buscar);
-        buscar.setBounds(160, 320, 70, 60);
+        buscar.setBounds(220, 220, 70, 60);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -176,7 +147,7 @@ public class Medicamento extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 204));
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(-10, 0, 630, 420);
+        jPanel1.setBounds(0, 0, 620, 310);
 
         jMenu2.setText("Exit");
 
@@ -202,11 +173,12 @@ public class Medicamento extends javax.swing.JFrame {
 
         setJMenuBar(jMenuBar1);
 
-        setSize(new java.awt.Dimension(632, 449));
+        setSize(new java.awt.Dimension(632, 374));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
+        Object dato[] = new Object[5];
         String clave = nombre.getText();
         if (clave.equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Ingrese un nombre para buscar");
@@ -223,25 +195,27 @@ public class Medicamento extends javax.swing.JFrame {
             tabla.addColumn("Accion");
             tabla.addColumn("Monodroga");
                 while (rs.next()) {
-                    Object dato[] = new Object[5];
+                    
                     for (int i = 0; i < 5; i++) {
-                        dato[i] = rs.getString(i + 1);
+                        dato[i] = rs.getString(i + 1).toUpperCase();
                     }
                     tabla.addRow(dato);
                 }
-                this.Tabla1.setModel(tabla);                
+              
                 clearfields();
             } catch (Exception e) {
                 e.printStackTrace();
                 JOptionPane.showMessageDialog(rootPane, "No se encontraron resultados");
             }
         }
+        nombre.setText((String)dato[0]);
+        pre.setText((String)dato[1]);
+        costo.setText((String)dato[2]);
+        String compararAcc = (String) dato[3];
+        boxAccion.setSelectedIndex((listaAcciones.indexOf(compararAcc)) / 2);
+        String compararMono = (String) dato[4];
+        boxMono.setSelectedIndex((listaMonodrogas.indexOf(compararMono)) / 2);
     }//GEN-LAST:event_buscarActionPerformed
-
-    private void consultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarActionPerformed
-        consultarTodo();
-        actualizarList();
-    }//GEN-LAST:event_consultarActionPerformed
 
     private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
         if (nombre.getText().equals("")) {
@@ -263,7 +237,7 @@ public class Medicamento extends javax.swing.JFrame {
                 Connection con;
                 con = DriverManager.getConnection(coneccionbd);
                 Statement stm = con.createStatement();
-                ResultSet rs = stm.executeQuery("insert into medicamento values ('" + n + "','"
+                stm.executeUpdate("insert into medicamento values ('" + n + "','"
                         + p + "','"
                         + c + "','"
                         + accion + "','"
@@ -425,7 +399,6 @@ public class Medicamento extends javax.swing.JFrame {
                 }
                 tabla.addRow(dato);
             }
-            this.Tabla1.setModel(tabla);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -515,12 +488,10 @@ public class Medicamento extends javax.swing.JFrame {
 
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable Tabla1;
     private javax.swing.JButton agregar;
     private javax.swing.JComboBox<String> boxAccion;
     private javax.swing.JComboBox<String> boxMono;
     private javax.swing.JButton buscar;
-    private javax.swing.JButton consultar;
     private javax.swing.JTextField costo;
     private javax.swing.JButton editar;
     private javax.swing.JButton eliminar;
@@ -535,7 +506,6 @@ public class Medicamento extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField nombre;
     private javax.swing.JTextField pre;
     // End of variables declaration//GEN-END:variables

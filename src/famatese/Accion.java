@@ -36,12 +36,9 @@ public class Accion extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         claveA = new javax.swing.JTextField();
         accion = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        Tabla1 = new javax.swing.JTable();
         editar = new javax.swing.JButton();
         eliminar = new javax.swing.JButton();
         agregar = new javax.swing.JButton();
-        consultar = new javax.swing.JButton();
         buscar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -59,36 +56,15 @@ public class Accion extends javax.swing.JFrame {
 
         jLabel1.setText("ID Accion Terapeutica");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(10, 50, 120, 16);
+        jLabel1.setBounds(10, 90, 120, 16);
 
         jLabel2.setText("Accion Terapeutica");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(10, 100, 120, 16);
+        jLabel2.setBounds(10, 140, 120, 16);
         getContentPane().add(claveA);
-        claveA.setBounds(140, 40, 90, 30);
+        claveA.setBounds(140, 80, 90, 30);
         getContentPane().add(accion);
-        accion.setBounds(140, 90, 90, 30);
-
-        Tabla1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        Tabla1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Tabla1MouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(Tabla1);
-
-        getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(10, 130, 480, 98);
+        accion.setBounds(140, 130, 90, 30);
 
         editar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/7modificar.png"))); // NOI18N
         editar.setToolTipText("Modificar");
@@ -98,7 +74,7 @@ public class Accion extends javax.swing.JFrame {
             }
         });
         getContentPane().add(editar);
-        editar.setBounds(320, 240, 60, 60);
+        editar.setBounds(290, 210, 60, 60);
 
         eliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/5eliminar.png"))); // NOI18N
         eliminar.setToolTipText("Eliminar");
@@ -108,7 +84,7 @@ public class Accion extends javax.swing.JFrame {
             }
         });
         getContentPane().add(eliminar);
-        eliminar.setBounds(400, 240, 60, 60);
+        eliminar.setBounds(400, 210, 60, 60);
 
         agregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/4agregar.png"))); // NOI18N
         agregar.setToolTipText("Agregar");
@@ -118,17 +94,7 @@ public class Accion extends javax.swing.JFrame {
             }
         });
         getContentPane().add(agregar);
-        agregar.setBounds(30, 240, 60, 64);
-
-        consultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/3consultar.png"))); // NOI18N
-        consultar.setToolTipText("Consultar");
-        consultar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                consultarActionPerformed(evt);
-            }
-        });
-        getContentPane().add(consultar);
-        consultar.setBounds(220, 240, 60, 60);
+        agregar.setBounds(50, 210, 60, 64);
 
         buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/2buscarr.png"))); // NOI18N
         buscar.setToolTipText("Buscar");
@@ -138,7 +104,7 @@ public class Accion extends javax.swing.JFrame {
             }
         });
         getContentPane().add(buscar);
-        buscar.setBounds(130, 240, 60, 60);
+        buscar.setBounds(170, 210, 60, 60);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -148,19 +114,19 @@ public class Accion extends javax.swing.JFrame {
 
         jLabel4.setText("Tiempo acción");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(250, 50, 90, 16);
+        jLabel4.setBounds(250, 90, 90, 16);
 
         jLabel5.setText("Descripción");
         getContentPane().add(jLabel5);
-        jLabel5.setBounds(260, 100, 70, 16);
+        jLabel5.setBounds(260, 140, 70, 16);
         getContentPane().add(tiempoAccion);
-        tiempoAccion.setBounds(350, 40, 110, 24);
+        tiempoAccion.setBounds(350, 80, 110, 24);
         getContentPane().add(desc);
-        desc.setBounds(350, 90, 110, 24);
+        desc.setBounds(350, 130, 110, 24);
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 204));
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, -20, 500, 330);
+        jPanel1.setBounds(0, 0, 510, 310);
 
         jMenu1.setText("Exit");
 
@@ -190,37 +156,31 @@ public class Accion extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void consultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarActionPerformed
-        consultarTodo();
-    }//GEN-LAST:event_consultarActionPerformed
-
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
         String buscar = accion.getText();
+        Object dato[] = new Object[4];
         if (buscar.equals("")) {
             JOptionPane.showMessageDialog(rootPane, "¿Qué accion busca?");
         } else {
             try {
-                DefaultTableModel tabla = new DefaultTableModel();
+
                 Connection con;
                 con = DriverManager.getConnection(coneccionbd);
                 Statement stm = con.createStatement();
                 ResultSet rs = stm.executeQuery("Select * from accion where nom_a='" + buscar + "'");
-                tabla.addColumn("ID Accion");
-                tabla.addColumn("Tipo de accion");
-                tabla.addColumn("Teimpo de accion");
-                tabla.addColumn("Descripcion");
-                while (rs.next()) {
-                    Object dato[] = new Object[4];
+                while (rs.next()) {                   
                     for (int i = 0; i < 4; i++) {
                         dato[i] = rs.getString(i + 1).toUpperCase();
                     }
-                    tabla.addRow(dato);
                 }
-                this.Tabla1.setModel(tabla);
+
             } catch (Exception e) {
             }
         }
-        clearfields();
+        claveA.setText((String) dato[0]);
+        accion.setText((String) dato[1]);
+        tiempoAccion.setText((String) dato[2]);
+        desc.setText((String) dato[3]);
     }//GEN-LAST:event_buscarActionPerformed
 
     private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
@@ -337,15 +297,6 @@ public class Accion extends javax.swing.JFrame {
 
     }//GEN-LAST:event_editarActionPerformed
 
-    private void Tabla1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tabla1MouseClicked
-        DefaultTableModel model = (DefaultTableModel) Tabla1.getModel();
-        int selectedRowIndex = Tabla1.getSelectedRow();
-        claveA.setText(model.getValueAt(selectedRowIndex, 0).toString());
-        accion.setText(model.getValueAt(selectedRowIndex, 1).toString());
-        tiempoAccion.setText(model.getValueAt(selectedRowIndex, 2).toString());
-        desc.setText(model.getValueAt(selectedRowIndex, 3).toString());
-    }//GEN-LAST:event_Tabla1MouseClicked
-
     /**
      * @param args the command line arguments
      */
@@ -426,7 +377,7 @@ public class Accion extends javax.swing.JFrame {
                 }
                 tabla.addRow(dato);
             }
-            this.Tabla1.setModel(tabla);
+       
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -451,12 +402,10 @@ public class Accion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable Tabla1;
     private javax.swing.JTextField accion;
     private javax.swing.JButton agregar;
     private javax.swing.JButton buscar;
     private javax.swing.JTextField claveA;
-    private javax.swing.JButton consultar;
     private javax.swing.JTextField desc;
     private javax.swing.JButton editar;
     private javax.swing.JButton eliminar;
@@ -470,7 +419,6 @@ public class Accion extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField tiempoAccion;
     // End of variables declaration//GEN-END:variables
 }

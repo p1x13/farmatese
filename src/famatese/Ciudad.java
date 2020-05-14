@@ -15,6 +15,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class Ciudad extends javax.swing.JFrame {
 //Comentario para verificar git
+
     String coneccionbd = ("jdbc:sqlserver://localhost:1433;databaseName=farmacia_tese;user=sa;password=sasa");
 
     public Ciudad() {
@@ -35,12 +36,9 @@ public class Ciudad extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         claveci = new javax.swing.JTextField();
         nombre = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        Tabla1 = new javax.swing.JTable();
         editar = new javax.swing.JButton();
         eliminar = new javax.swing.JButton();
         agregar = new javax.swing.JButton();
-        consultar = new javax.swing.JButton();
         Buscar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -59,31 +57,15 @@ public class Ciudad extends javax.swing.JFrame {
 
         jLabel1.setText("ID Ciudad");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(40, 30, 73, 30);
+        jLabel1.setBounds(40, 50, 73, 30);
 
         jLabel2.setText("Nombre Ciudad");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(40, 60, 100, 20);
+        jLabel2.setBounds(40, 80, 100, 20);
         getContentPane().add(claveci);
-        claveci.setBounds(140, 30, 250, 30);
+        claveci.setBounds(140, 50, 250, 30);
         getContentPane().add(nombre);
-        nombre.setBounds(140, 60, 250, 30);
-
-        Tabla1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(Tabla1);
-
-        getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(10, 130, 430, 120);
+        nombre.setBounds(140, 80, 250, 30);
 
         editar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/7modificar.png"))); // NOI18N
         editar.setToolTipText("Modificar");
@@ -94,7 +76,7 @@ public class Ciudad extends javax.swing.JFrame {
             }
         });
         getContentPane().add(editar);
-        editar.setBounds(280, 250, 60, 60);
+        editar.setBounds(250, 180, 60, 60);
 
         eliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/5eliminar.png"))); // NOI18N
         eliminar.setToolTipText("Eliminar");
@@ -105,7 +87,7 @@ public class Ciudad extends javax.swing.JFrame {
             }
         });
         getContentPane().add(eliminar);
-        eliminar.setBounds(360, 250, 60, 64);
+        eliminar.setBounds(330, 180, 60, 64);
 
         agregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/4agregar.png"))); // NOI18N
         agregar.setToolTipText("Agregar");
@@ -116,18 +98,7 @@ public class Ciudad extends javax.swing.JFrame {
             }
         });
         getContentPane().add(agregar);
-        agregar.setBounds(20, 250, 60, 60);
-
-        consultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/3consultar.png"))); // NOI18N
-        consultar.setToolTipText("Consultar");
-        consultar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        consultar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                consultarActionPerformed(evt);
-            }
-        });
-        getContentPane().add(consultar);
-        consultar.setBounds(190, 250, 70, 60);
+        agregar.setBounds(60, 180, 60, 60);
 
         Buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/2buscarr.png"))); // NOI18N
         Buscar.setToolTipText("Buscar");
@@ -138,17 +109,17 @@ public class Ciudad extends javax.swing.JFrame {
             }
         });
         getContentPane().add(Buscar);
-        Buscar.setBounds(100, 250, 70, 60);
+        Buscar.setBounds(140, 180, 70, 60);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("CIUDAD");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(4, 2, 450, 20);
+        jLabel3.setBounds(0, 10, 450, 20);
 
         jLabel4.setText("Codigo postal");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(40, 90, 80, 20);
+        jLabel4.setBounds(40, 110, 80, 20);
 
         cp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -156,11 +127,11 @@ public class Ciudad extends javax.swing.JFrame {
             }
         });
         getContentPane().add(cp);
-        cp.setBounds(140, 90, 250, 30);
+        cp.setBounds(140, 110, 250, 30);
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 204));
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 450, 320);
+        jPanel1.setBounds(0, 0, 450, 280);
 
         jMenu1.setText("Exit");
 
@@ -213,12 +184,13 @@ public class Ciudad extends javax.swing.JFrame {
 
         setJMenuBar(jMenuBar1);
 
-        setSize(new java.awt.Dimension(466, 381));
+        setSize(new java.awt.Dimension(466, 337));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarActionPerformed
         String buscar = nombre.getText();
+        Object dato[] = new Object[3];
         if (buscar.equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Ingrese una nombre para buscar");
         } else {
@@ -232,21 +204,19 @@ public class Ciudad extends javax.swing.JFrame {
                 tabla.addColumn("CIUDAD");
                 tabla.addColumn("CP");
                 while (rs.next()) {
-                    Object dato[] = new Object[3];
                     for (int i = 0; i < 3; i++) {
                         dato[i] = rs.getString(i + 1).toUpperCase();
                     }
                     tabla.addRow(dato);
                 }
-                this.Tabla1.setModel(tabla);
+
             } catch (Exception e) {
             }
+            claveci.setText((String) dato[0]);
+            nombre.setText((String) dato[1]);
+            cp.setText((String) dato[2]);
         }
     }//GEN-LAST:event_BuscarActionPerformed
-
-    private void consultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarActionPerformed
-        consultarTodo();
-    }//GEN-LAST:event_consultarActionPerformed
 
     private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
         if (claveci.getText().equals("")) {
@@ -289,20 +259,21 @@ public class Ciudad extends javax.swing.JFrame {
         String clave = claveci.getText();
         if (clave.equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Por favor ingrese al clave del elemento que desea eliminar");
-        } else if(buscarID()) {
-            int i = JOptionPane.showConfirmDialog(rootPane,"Confirma la eliminación?","Eliminar elemento",2,2);
-            if (i<=0){
-            try {
-                Connection con;
-                con = DriverManager.getConnection(coneccionbd);
-                Statement stm = con.createStatement();
-                stm.executeUpdate("delete from ciudad where cod_c='" + clave + "'");
-            } catch (Exception e) {
+        } else if (buscarID()) {
+            int i = JOptionPane.showConfirmDialog(rootPane, "Confirma la eliminación?", "Eliminar elemento", 2, 2);
+            if (i <= 0) {
+                try {
+                    Connection con;
+                    con = DriverManager.getConnection(coneccionbd);
+                    Statement stm = con.createStatement();
+                    stm.executeUpdate("delete from ciudad where cod_c='" + clave + "'");
+                } catch (Exception e) {
+                }
+                consultarTodo();
             }
-            consultarTodo();
-            }
-        } else
-            JOptionPane.showMessageDialog(rootPane,("No existe: "+clave));
+        } else {
+            JOptionPane.showMessageDialog(rootPane, ("No existe: " + clave));
+        }
     }//GEN-LAST:event_eliminarActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -334,14 +305,14 @@ public class Ciudad extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarActionPerformed
-     if (claveci.getText().equals("")) {
+        if (claveci.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Ingrese una clave para editar elemento");
-        } else if(buscarID()) {
-         this.setVisible(false);
-        editarCiudad obj = new editarCiudad(claveci.getText());
-        obj.show();
-        }else{
-         JOptionPane.showMessageDialog(rootPane,("No se encontro el id: "+claveci.getText()));
+        } else if (buscarID()) {
+            this.setVisible(false);
+            editarCiudad obj = new editarCiudad(claveci.getText());
+            obj.show();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, ("No se encontro el id: " + claveci.getText()));
             consultarTodo();
         }
     }//GEN-LAST:event_editarActionPerformed
@@ -404,7 +375,7 @@ public class Ciudad extends javax.swing.JFrame {
                 }
                 tabla.addRow(dato);
             }
-            this.Tabla1.setModel(tabla);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -412,28 +383,26 @@ public class Ciudad extends javax.swing.JFrame {
 
     private boolean buscarID() {
         String buscar = claveci.getText();
-            try {
-                Connection con;
-                con = DriverManager.getConnection(coneccionbd);
-                Statement stm = con.createStatement();
-                ResultSet rs = stm.executeQuery("Select * from ciudad where cod_c='" + buscar + "'");
-                while (rs.next()) {
-                    claveci.setText(String.valueOf(rs.getString(1)));
+        try {
+            Connection con;
+            con = DriverManager.getConnection(coneccionbd);
+            Statement stm = con.createStatement();
+            ResultSet rs = stm.executeQuery("Select * from ciudad where cod_c='" + buscar + "'");
+            while (rs.next()) {
+                claveci.setText(String.valueOf(rs.getString(1)));
                 return true;
-                }
+            }
 
-            } catch (Exception e) {
-            } 
-            return false; //si no encontro nada falso
-        
+        } catch (Exception e) {
+        }
+        return false; //si no encontro nada falso
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Buscar;
-    private javax.swing.JTable Tabla1;
     private javax.swing.JButton agregar;
     private javax.swing.JTextField claveci;
-    private javax.swing.JButton consultar;
     private javax.swing.JTextField cp;
     private javax.swing.JButton editar;
     private javax.swing.JButton eliminar;
@@ -449,7 +418,6 @@ public class Ciudad extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField nombre;
     // End of variables declaration//GEN-END:variables
 }

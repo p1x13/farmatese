@@ -22,7 +22,7 @@ public class Monodroga extends javax.swing.JFrame {
     public Monodroga() {
         initComponents();
         actualizarList();
-        consultarTodo();
+   
     }
 
     /**
@@ -35,8 +35,6 @@ public class Monodroga extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        Tabla1 = new javax.swing.JTable();
         accion = new javax.swing.JTextField();
         claveM = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -44,7 +42,6 @@ public class Monodroga extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         eliminar = new javax.swing.JButton();
         editar = new javax.swing.JButton();
-        consultar = new javax.swing.JButton();
         buscar = new javax.swing.JButton();
         agregar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
@@ -65,27 +62,6 @@ public class Monodroga extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 204));
         jPanel1.setLayout(null);
-
-        Tabla1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        Tabla1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Tabla1MouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(Tabla1);
-
-        jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(20, 220, 530, 140);
 
         accion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -119,7 +95,7 @@ public class Monodroga extends javax.swing.JFrame {
             }
         });
         jPanel1.add(eliminar);
-        eliminar.setBounds(440, 370, 70, 60);
+        eliminar.setBounds(440, 250, 70, 60);
 
         editar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/7modificar.png"))); // NOI18N
         editar.setToolTipText("Modificar");
@@ -129,17 +105,7 @@ public class Monodroga extends javax.swing.JFrame {
             }
         });
         jPanel1.add(editar);
-        editar.setBounds(350, 370, 70, 60);
-
-        consultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/3consultar.png"))); // NOI18N
-        consultar.setToolTipText("Consultar");
-        consultar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                consultarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(consultar);
-        consultar.setBounds(260, 370, 70, 60);
+        editar.setBounds(330, 250, 70, 60);
 
         buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/2buscarr.png"))); // NOI18N
         buscar.setToolTipText("Buscar");
@@ -149,7 +115,7 @@ public class Monodroga extends javax.swing.JFrame {
             }
         });
         jPanel1.add(buscar);
-        buscar.setBounds(170, 370, 70, 60);
+        buscar.setBounds(210, 250, 70, 60);
 
         agregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/famatese/4agregar.png"))); // NOI18N
         agregar.setToolTipText("Agregar");
@@ -159,7 +125,7 @@ public class Monodroga extends javax.swing.JFrame {
             }
         });
         jPanel1.add(agregar);
-        agregar.setBounds(80, 370, 70, 60);
+        agregar.setBounds(90, 250, 70, 60);
 
         jLabel4.setText("Laboratorio");
         jPanel1.add(jLabel4);
@@ -188,7 +154,7 @@ public class Monodroga extends javax.swing.JFrame {
         c.setBounds(120, 160, 150, 30);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 580, 450);
+        jPanel1.setBounds(0, 0, 590, 450);
 
         jMenu1.setText("Exit");
 
@@ -214,11 +180,12 @@ public class Monodroga extends javax.swing.JFrame {
 
         setJMenuBar(jMenuBar1);
 
-        setSize(new java.awt.Dimension(597, 495));
+        setSize(new java.awt.Dimension(597, 413));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
+        Object dato[] = new Object[6];
         String clave = nC.getText();
         if (clave.equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Ingrese un nombre para buscar");
@@ -228,25 +195,21 @@ public class Monodroga extends javax.swing.JFrame {
                 Connection con;
                 con = DriverManager.getConnection(coneccionbd);
                 Statement stm = con.createStatement();
-                ResultSet rs = stm.executeQuery("Select * from monodroga where cod_m='" + clave + "'");
+                ResultSet rs = stm.executeQuery("Select * from monodroga where nci_m='" + clave + "'");
            tabla.addColumn("ID Monodroga");
             tabla.addColumn("Tipo Accion");
             tabla.addColumn("N. Cientifico");
             tabla.addColumn("N. Comercial");
             tabla.addColumn("Cant.");
             tabla.addColumn("N. Laboratorio");
-                while (rs.next()) {
-                    Object dato[] = new Object[6];
+                while (rs.next()) {                    
                     for (int i = 0; i <6; i++) {
-                        dato[i] = rs.getString(i + 1);
+                        dato[i] = rs.getString(i + 1).toUpperCase();
                     }
                     tabla.addRow(dato);
-                }
-                this.Tabla1.setModel(tabla);
-                int claveSelected = (boxLaboratorio.getSelectedIndex()) * 2;
-                boxLaboratorio.setSelectedIndex(claveSelected);
+                }             
                 //listaCiudades.get(claveSelected);
-                System.out.println(listaLaboratorios.get(claveSelected));
+              
                 // System.out.println(listaCiudades.get(ciucod * 2));
                 clearfields();
             } catch (Exception e) {
@@ -254,11 +217,18 @@ public class Monodroga extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(rootPane, "No se encontraron resultados");
             }
         }
+        claveM.setText((String)dato[0]);
+        accion.setText((String)dato[1]);
+        nC.setText((String)dato[2]);
+        nCo.setText((String)dato[3]);
+        c.setText((String)dato[4]);
+        String compararLabo = (String) dato[5];
+        boxLaboratorio.setSelectedIndex((listaLaboratorios.indexOf(compararLabo)) / 2);
+        System.out.println(((listaLaboratorios.indexOf(compararLabo)) / 2));
+        
+       
+    
     }//GEN-LAST:event_buscarActionPerformed
-
-    private void consultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarActionPerformed
-      consultarTodo();
-    }//GEN-LAST:event_consultarActionPerformed
 
     private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
          if (claveM.getText().equals("")) {
@@ -389,19 +359,6 @@ public class Monodroga extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_accionActionPerformed
 
-    private void Tabla1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tabla1MouseClicked
-         DefaultTableModel model = (DefaultTableModel) Tabla1.getModel();
-        int selectedRowIndex = Tabla1.getSelectedRow();
-        claveM.setText(model.getValueAt(selectedRowIndex, 0).toString());
-        accion.setText(model.getValueAt(selectedRowIndex, 1).toString());
-        nC.setText(model.getValueAt(selectedRowIndex, 2).toString());
-        nCo.setText(model.getValueAt(selectedRowIndex, 3).toString());
-        c.setText(model.getValueAt(selectedRowIndex, 4).toString());
-        String compararLabo = (String) model.getValueAt(selectedRowIndex, 5);
-
-        boxLaboratorio.setSelectedIndex((listaLaboratorios.indexOf(compararLabo)) / 2);
-    }//GEN-LAST:event_Tabla1MouseClicked
-
     /**
      * @param args the command line arguments
      */
@@ -461,7 +418,7 @@ public class Monodroga extends javax.swing.JFrame {
                 }
                 tabla.addRow(dato);
             }
-            this.Tabla1.setModel(tabla);
+         
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -536,14 +493,12 @@ public class Monodroga extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable Tabla1;
     private javax.swing.JTextField accion;
     private javax.swing.JButton agregar;
     private javax.swing.JComboBox<String> boxLaboratorio;
     private javax.swing.JButton buscar;
     private javax.swing.JTextField c;
     private javax.swing.JTextField claveM;
-    private javax.swing.JButton consultar;
     private javax.swing.JButton editar;
     private javax.swing.JButton eliminar;
     private javax.swing.JLabel jLabel1;
@@ -558,7 +513,6 @@ public class Monodroga extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField nC;
     private javax.swing.JTextField nCo;
     // End of variables declaration//GEN-END:variables

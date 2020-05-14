@@ -142,7 +142,7 @@ select*from laboratorio
 									--------------
 
 insert into farmacia values(upper('farm04'),upper('Stiglitz'),upper('deLaRue'),upper('Fontain'),'16661','3',upper('ciu007'),upper('far003'))
-select *from farmacia
+select *from farmacias
 
 create view farmacias
 as
@@ -158,14 +158,17 @@ from monodroga
 inner join laboratorio on nom_l=nom_ll
 select * from monodroga
 
-alter view medicamentos
+create view medicamentos
 as 
 select nom_m,pre_m,costo,nom_a,nci_m
 from medicamento
 inner join accion on cod_a=cod_a1
 inner join monodroga on cod_m=cod_m1
 
-select * from medicamentos
+select * from Farmacia
+select * from Farmacias
+
+select * from empleado
 		
 	--estos los dejo para que ya no te cuentesn trabajo humano
 

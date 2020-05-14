@@ -273,18 +273,19 @@ public class Monodroga extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Ingrese cantidad");
         } else if (!verificarID()) { //Si no existe el ID entra en la creaci+on
             String cM = claveM.getText();          
-            int idFarmaceutico = (boxLaboratorio.getSelectedIndex() * 2);
+            int idFarmaceutico = (boxLaboratorio.getSelectedIndex() * 2)+1;
             String labo = (String) listaLaboratorios.get(idFarmaceutico);
             String a = accion.getText();
             String NC = nC.getText();
             String NCO = nCo.getText();
             String C = c.getText();
+             System.out.println(labo);
             try {
                 DefaultTableModel tabla = new DefaultTableModel();
                 Connection con;
                 con = DriverManager.getConnection(coneccionbd);
                 Statement stm = con.createStatement();
-                ResultSet rs = stm.executeQuery("insert into monodroga values ('" + cM + "','"
+                stm.executeUpdate("insert into monodroga values ('" + cM + "','"
                         + a + "','"
                         + NC + "','"
                         + NCO + "','"
@@ -302,7 +303,7 @@ public class Monodroga extends javax.swing.JFrame {
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
         String clave;
         clave = claveM.getText();
-        int idLabo = (boxLaboratorio.getSelectedIndex() * 2);
+        int idLabo = (boxLaboratorio.getSelectedIndex() * 2)+1;
       
         String labo = (String) listaLaboratorios.get(idLabo);
    
@@ -350,7 +351,7 @@ public class Monodroga extends javax.swing.JFrame {
             if (verificarID()) {
                 System.out.println("paso2");
                 // listaLabos;
-                int idLabo = (boxLaboratorio.getSelectedIndex() * 2);               
+                int idLabo = (boxLaboratorio.getSelectedIndex() * 2)+1;               
                 String labo = (String) listaLaboratorios.get(idLabo);     
                 String actualizar = "Accion= '" + accion.getText() + "' \n"
                         + "Nombre cientifico= '" + nC.getText() + "'\n"

@@ -22,6 +22,8 @@ public class Medicamento extends javax.swing.JFrame {
 
     public Medicamento() {
         initComponents();
+        consultarTodo();
+        actualizarList();
     }
 
     /**
@@ -245,11 +247,11 @@ public class Medicamento extends javax.swing.JFrame {
 
     private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
         if (nombre.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Ingrese un ID de farmacia");
+            JOptionPane.showMessageDialog(null, "Ingrese un nombre");
         } else if (pre.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Ingrese el nombre");
+            JOptionPane.showMessageDialog(null, "Ingrese presentacion");
         } else if (costo.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Ingrese el horario");
+            JOptionPane.showMessageDialog(null, "Ingrese costo");
         } else if (!verificarID()) { //Si no existe el ID entra en la creaci+on
             String n = nombre.getText();
             String p = pre.getText();

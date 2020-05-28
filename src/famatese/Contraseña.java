@@ -7,20 +7,25 @@ package famatese;
 
 import com.sun.glass.events.KeyEvent;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.Locale;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
-import javax.swing.JPasswordField;
+
 
 
 public class Contraseña extends javax.swing.JFrame {
-
+    String coneccionbd = ("jdbc:sqlserver://localhost:1433;databaseName=farmacia_tese;user=sa;password=sasa");
+    private boolean admon = false;
     /**
      * Creates new form Contraseña
      */
     public Contraseña() {
-        initComponents();
-        
+        admon = false;
+        initComponents();        
     }
 
     /**
@@ -34,8 +39,8 @@ public class Contraseña extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        Usuario = new javax.swing.JTextField();
-        Contraseña = new javax.swing.JPasswordField();
+        usuario = new javax.swing.JTextField();
+        psw = new javax.swing.JPasswordField();
         inicioSesion = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -52,17 +57,17 @@ public class Contraseña extends javax.swing.JFrame {
 
         jLabel2.setText("Contraseña");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(40, 340, 70, 14);
-        getContentPane().add(Usuario);
-        Usuario.setBounds(110, 290, 232, 30);
+        jLabel2.setBounds(40, 340, 70, 16);
+        getContentPane().add(usuario);
+        usuario.setBounds(110, 290, 232, 30);
 
-        Contraseña.addKeyListener(new java.awt.event.KeyAdapter() {
+        psw.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                ContraseñaKeyPressed(evt);
+                pswKeyPressed(evt);
             }
         });
-        getContentPane().add(Contraseña);
-        Contraseña.setBounds(110, 330, 232, 30);
+        getContentPane().add(psw);
+        psw.setBounds(110, 330, 232, 30);
 
         inicioSesion.setText("Iniciar Sesión");
         inicioSesion.addActionListener(new java.awt.event.ActionListener() {
@@ -71,7 +76,7 @@ public class Contraseña extends javax.swing.JFrame {
             }
         });
         getContentPane().add(inicioSesion);
-        inicioSesion.setBounds(150, 380, 110, 23);
+        inicioSesion.setBounds(150, 380, 110, 32);
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("FARMATECMX S.A. DE C.V.");
@@ -102,11 +107,11 @@ public class Contraseña extends javax.swing.JFrame {
        login();
     }//GEN-LAST:event_inicioSesionActionPerformed
 
-    private void ContraseñaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ContraseñaKeyPressed
+    private void pswKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pswKeyPressed
         if (evt.getKeyCode()==KeyEvent.VK_ENTER){
             login();
         }
-    }//GEN-LAST:event_ContraseñaKeyPressed
+    }//GEN-LAST:event_pswKeyPressed
 
     /**
      * @param args the command line arguments
@@ -144,8 +149,6 @@ public class Contraseña extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPasswordField Contraseña;
-    private javax.swing.JTextField Usuario;
     private javax.swing.JButton inicioSesion;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
@@ -154,29 +157,54 @@ public class Contraseña extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPasswordField psw;
+    private javax.swing.JTextField usuario;
     // End of variables declaration//GEN-END:variables
 
 //PARA PODER IMPLEMENTAR EL ENTER EN EL CAMPO CONTRASEÑA, Y EVITAR DAR CLICK AL BOTON ENTRAR
 private void login(){
-     if (String.valueOf(Usuario.getText()).compareTo("") == 0 && String.valueOf(Contraseña.getPassword()).compareTo("") == 0) {
+     if (String.valueOf(usuario.getText()).compareTo("") == 0 && String.valueOf(psw.getPassword()).compareTo("") == 0) {
             JOptionPane.showMessageDialog(null, "INGRESE UN USUARIO Y UNA CONTRASEÑA");
         } else {
-            if (String.valueOf(Usuario.getText()).compareTo(Usuario.getText()) == 0 && String.valueOf(Contraseña.getPassword()).compareTo("") == 0) {
+            if (String.valueOf(usuario.getText()).compareTo(usuario.getText()) == 0 && String.valueOf(psw.getPassword()).compareTo("") == 0) {
                 JOptionPane.showMessageDialog(null, "INGRESE UNA CONTRASEÑA");
             } else {
-                if (String.valueOf(Usuario.getText()).compareTo("") == 0 && String.valueOf(Contraseña.getPassword()).compareTo(Contraseña.getText()) == 0) {
+                if (String.valueOf(usuario.getText()).compareTo("") == 0 && String.valueOf(psw.getPassword()).compareTo(psw.getText()) == 0) {
                     JOptionPane.showMessageDialog(null, "INGRESE UN USUARIO");
-                } else {
-                    if (String.valueOf(Usuario.getText()).compareTo("FARMATEC") == 0 && String.valueOf(Contraseña.getPassword()).compareTo("7890") == 0) {
+                } else { //inicio de comparacion
+                    boolean entrar=findUser();
+                    if (entrar) {
                         this.setVisible(false);
-                        Inicio obj = new Inicio();
+                        Inicio obj = new Inicio(admon);
                         obj.show();
                         JOptionPane.showMessageDialog(null, "BIENVENIDO AL SISTEMA");
+                       // Si logra entrar System.out.println(entrar);
+                       // Si es admon System.out.println(admon);
                     } else {
                         JOptionPane.showMessageDialog(null, "USUARIO O CONTRASEÑA INCORRECTOS");
                     }
-                }
+                }//fin else de comparacion
             }
         }
+                        // Admon en false por default System.out.println(admon);
 }
+
+private boolean findUser() {
+        String user = usuario.getText();
+        String pass = psw.getText();
+        try {
+            Connection con;
+            con = DriverManager.getConnection(coneccionbd);
+            Statement stm = con.createStatement();
+            ResultSet rs = stm.executeQuery("Select admon from users where user_u='" + user + "' and psw='"+pass+"'");
+            while (rs.next()) {
+                admon=rs.getBoolean(1);
+                return true;
+            }
+
+        } catch (Exception e) {
+        }
+        return false; //si no encontro nada falso
+
+    }
 }

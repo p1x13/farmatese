@@ -9,11 +9,21 @@ import javax.swing.JOptionPane;
 
 public class Inicio extends javax.swing.JFrame {
 
+    private static boolean admon = false;
+
     /**
      * Creates new form Inicio
+     *
+     * 
      */
     public Inicio() {
         initComponents();
+    }
+
+    public Inicio(boolean admon) {
+        Inicio.admon = admon;
+        initComponents();
+        System.out.println(admon);
     }
 
     /**
@@ -322,9 +332,13 @@ public class Inicio extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Inicio().setVisible(true);
+                new Inicio(admon).setVisible(true);
             }
         });
+    }
+
+    public static boolean getAdmon() {
+        return admon;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

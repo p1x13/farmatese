@@ -177,3 +177,18 @@ inner join accion on cod_a=cod_a1
 inner join monodroga on cod_m=cod_m1
 inner join laboratorio on nom_l=nom_ll
 inner join unifarmed on cod_fa=cod_fa1*/
+
+create table users(
+user_u varchar(20),
+psw varchar(15),
+admon bit 
+constraint pk_user_u primary key (user_u)
+)
+go
+insert into users values('root','toor',1)
+insert into users values('user1','soloq',0)
+insert into users values('Ale','alepmj',0)
+
+select * from users
+
+Select admon from users where user_u='user1' and psw='soloq'

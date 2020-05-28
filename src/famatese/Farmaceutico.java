@@ -195,45 +195,51 @@ public class Farmaceutico extends javax.swing.JFrame {
     }//GEN-LAST:event_apActionPerformed
 
     private void editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarActionPerformed
-        if (!(clavefa.getText().equals(""))) {
-            System.out.println("paso1");
-            if (verificarID() || !(nombre.getText().equals("") || ap.getText().equals("") || am.getText().equals(""))) {
-                System.out.println("paso2");
-                String actualizar = "Nombre= '" + nombre.getText() + "' \n"
-                        + "Apellido paterno= '" + ap.getText() + "'\n"
-                        + "Apellido materno= '" + am.getText() + "'";
-                int procd = JOptionPane.showConfirmDialog(rootPane, actualizar, ("Se actualizara la informacion para: " + clavefa.getText()), 2, 2);
-                System.out.println(procd);
-                if (procd <= 0) {
-                    try {
-                        Connection con = DriverManager.getConnection(coneccionbd);
-                        Statement stm = con.createStatement();
-                        int act = stm.executeUpdate("update farmaceutico set "
-                                + "nom_fa='" + nombre.getText() + "',"
-                                + "app_fa='" + ap.getText() + "',"
-                                + "apm_fa='" + am.getText() + "'"
-                                + "where cod_fa='" + clavefa.getText() + "'");
-                        if (act >= 1) {
-                            JOptionPane.showMessageDialog(rootPane, "Actualizado");
-                            consultarTodo();
-                            clearfields();
-                        } else {
-                            JOptionPane.showMessageDialog(rootPane, "no se puede actualizar");
+        if (Inicio.getAdmon()) {
+            if (!(clavefa.getText().equals(""))) {
+                System.out.println("paso1");
+                if (verificarID() || !(nombre.getText().equals("") || ap.getText().equals("") || am.getText().equals(""))) {
+                    System.out.println("paso2");
+                    String actualizar = "Nombre= '" + nombre.getText() + "' \n"
+                            + "Apellido paterno= '" + ap.getText() + "'\n"
+                            + "Apellido materno= '" + am.getText() + "'";
+                    int procd = JOptionPane.showConfirmDialog(rootPane, actualizar, ("Se actualizara la informacion para: " + clavefa.getText()), 2, 2);
+                    System.out.println(procd);
+                    if (procd <= 0) {
+                        try {
+                            Connection con = DriverManager.getConnection(coneccionbd);
+                            Statement stm = con.createStatement();
+                            int act = stm.executeUpdate("update farmaceutico set "
+                                    + "nom_fa='" + nombre.getText() + "',"
+                                    + "app_fa='" + ap.getText() + "',"
+                                    + "apm_fa='" + am.getText() + "'"
+                                    + "where cod_fa='" + clavefa.getText() + "'");
+                            if (act >= 1) {
+                                JOptionPane.showMessageDialog(rootPane, "Actualizado");
+                                consultarTodo();
+                                clearfields();
+                            } else {
+                                JOptionPane.showMessageDialog(rootPane, "no se puede actualizar");
+                            }
+                        } catch (SQLException e) {
+                            e.printStackTrace();
                         }
-                    } catch (SQLException e) {
-                        e.printStackTrace();
                     }
                 }
+            } else {
+                JOptionPane.showMessageDialog(rootPane, ("No se encontro el id: " + clavefa.getText()));
+                consultarTodo();
+                clearfields();
             }
+            System.out.println("paso0");
         } else {
-            JOptionPane.showMessageDialog(rootPane, ("No se encontro el id: " + clavefa.getText()));
-            consultarTodo();
-            clearfields();
+            JOptionPane.showMessageDialog(rootPane, "No eres administrador");
         }
-        System.out.println("paso0");
+
     }//GEN-LAST:event_editarActionPerformed
 
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
+        if(Inicio.getAdmon()){
         String clave = clavefa.getText();
         if (clave.equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Por favor ingrese al clave del elemento que desea eliminar");
@@ -253,47 +259,54 @@ public class Farmaceutico extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(rootPane, ("No existe: " + clave));
         }
+        }else 
+            JOptionPane.showMessageDialog(rootPane, "No eres administrador");
+        
     }//GEN-LAST:event_eliminarActionPerformed
 
     private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
-        if (clavefa.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Ingrese un ID");
-        } else if (nombre.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Ingrese el nombre");
-        } else if (ap.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Ingrese el apellido paterno");
-        } else if (am.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Ingrese el apellido materno");
-        } else if (!verificarID()) { //Si no existe el ID entra en la creaci+on
-            String Clavefa, Nombre, Ap, Am;
-            Clavefa = clavefa.getText();
-            Nombre = nombre.getText();
-            Ap = ap.getText();
-            Am = am.getText();
-            try {
-                DefaultTableModel tabla = new DefaultTableModel();
-                Connection con;
-                con = DriverManager.getConnection(coneccionbd);
-                Statement stm = con.createStatement();
-                int stt = stm.executeUpdate("insert into farmaceutico values "
-                        + "('" + Clavefa
-                        + "','" + Nombre
-                        + "','" + Ap
-                        + "','" + Am
-                        + "')");
-                if (stt >= 1) {
-                    JOptionPane.showMessageDialog(rootPane, "Registro creado");
-                    clearfields();
-                    consultarTodo();
-                } else {
-                    JOptionPane.showMessageDialog(rootPane, "no se  pudo crear");
+        if (Inicio.getAdmon()) {
+            if (clavefa.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Ingrese un ID");
+            } else if (nombre.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Ingrese el nombre");
+            } else if (ap.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Ingrese el apellido paterno");
+            } else if (am.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Ingrese el apellido materno");
+            } else if (!verificarID()) { //Si no existe el ID entra en la creaci+on
+                String Clavefa, Nombre, Ap, Am;
+                Clavefa = clavefa.getText();
+                Nombre = nombre.getText();
+                Ap = ap.getText();
+                Am = am.getText();
+                try {
+                    DefaultTableModel tabla = new DefaultTableModel();
+                    Connection con;
+                    con = DriverManager.getConnection(coneccionbd);
+                    Statement stm = con.createStatement();
+                    int stt = stm.executeUpdate("insert into farmaceutico values "
+                            + "('" + Clavefa
+                            + "','" + Nombre
+                            + "','" + Ap
+                            + "','" + Am
+                            + "')");
+                    if (stt >= 1) {
+                        JOptionPane.showMessageDialog(rootPane, "Registro creado");
+                        clearfields();
+                        consultarTodo();
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "no se  pudo crear");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    JOptionPane.showMessageDialog(rootPane, " No se  pudo crear");
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-                JOptionPane.showMessageDialog(rootPane, " No se  pudo crear");
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "YA EXISTE LA CLAVE QUE INTENTA ASIGNAR", "No se puede crear", 2);
             }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "YA EXISTE LA CLAVE QUE INTENTA ASIGNAR", "No se puede crear", 2);
+            JOptionPane.showMessageDialog(rootPane, "No eres administrador");
         }
     }//GEN-LAST:event_agregarActionPerformed
 
@@ -324,10 +337,10 @@ public class Farmaceutico extends javax.swing.JFrame {
             } catch (Exception e) {
             }
         }
-       clavefa.setText((String)dato[0]);
-       nombre.setText((String)dato[1]);
-       ap.setText((String)dato[2]);
-       am.setText((String)dato[3]);
+        clavefa.setText((String) dato[0]);
+        nombre.setText((String) dato[1]);
+        ap.setText((String) dato[2]);
+        am.setText((String) dato[3]);
     }//GEN-LAST:event_buscarActionPerformed
 
     private void nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreActionPerformed

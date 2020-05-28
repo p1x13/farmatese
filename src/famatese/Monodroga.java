@@ -231,7 +231,8 @@ public class Monodroga extends javax.swing.JFrame {
     }//GEN-LAST:event_buscarActionPerformed
 
     private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
-         if (claveM.getText().equals("")) {
+        if(Inicio.getAdmon()){ 
+        if (claveM.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Ingrese un ID de monodroga");
         } else if (accion.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Ingrese la acción");
@@ -265,11 +266,14 @@ public class Monodroga extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(rootPane, "No se pudo crear", "Compruebe los datos", 2);
             }
         }
+        } else
+            JOptionPane.showMessageDialog(rootPane, "No eres administrador");
         consultarTodo();
         clearfields();      
     }//GEN-LAST:event_agregarActionPerformed
 
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
+        if ( Inicio.getAdmon()){
         String clave;
         clave = claveM.getText();
         int idLabo = (boxLaboratorio.getSelectedIndex() * 2);
@@ -302,6 +306,8 @@ public class Monodroga extends javax.swing.JFrame {
                 e.printStackTrace();
             }
         }
+        } else
+            JOptionPane.showMessageDialog(rootPane, "No eres administrador");
     }//GEN-LAST:event_eliminarActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
@@ -315,7 +321,8 @@ public class Monodroga extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarActionPerformed
-         if (!(claveM.getText().equals(""))) {
+        if(Inicio.getAdmon()){ 
+        if (!(claveM.getText().equals(""))) {
             System.out.println("paso 1 no esta vacia la clave");
             if (verificarID()) {
                 System.out.println("paso2");
@@ -353,6 +360,8 @@ public class Monodroga extends javax.swing.JFrame {
                 }
             }
         }
+        } else 
+            JOptionPane.showMessageDialog(rootPane, "No eres administrador");
     }//GEN-LAST:event_editarActionPerformed
 
     private void accionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accionActionPerformed

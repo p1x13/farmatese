@@ -229,7 +229,8 @@ public class Laboratorio extends javax.swing.JFrame {
     }//GEN-LAST:event_buscarActionPerformed
 
     private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
-      if (nombre.getText().equals("")) {
+      if(Inicio.getAdmon()){
+        if (nombre.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Ingrese un nombre");
         } else if (calle.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Ingrese la calle");
@@ -280,9 +281,12 @@ public class Laboratorio extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(rootPane, "YA EXISTE LA CLAVE QUE INTENTA ASIGNAR", "No se puede crear", 2);
         }
+      } else
+          JOptionPane.showMessageDialog(rootPane, "No eres administrador");
     }//GEN-LAST:event_agregarActionPerformed
 
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
+        if(Inicio.getAdmon()){
         String clave = cp.getText();
         if (clave.equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Por favor ingrese al clave del elemento que desea eliminar");
@@ -302,6 +306,8 @@ public class Laboratorio extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(rootPane, ("No existe: " + clave));
         }
+        } else
+            JOptionPane.showMessageDialog(rootPane, "No eres administrador");
     }//GEN-LAST:event_eliminarActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -321,7 +327,8 @@ public class Laboratorio extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarActionPerformed
-         if (!(cp.getText().equals(""))) {
+        if(Inicio.getAdmon()){ 
+        if (!(cp.getText().equals(""))) {
             System.out.println("paso1");
             if (verificarID() || !(nombre.getText().equals("") || calle.getText().equals("") || colonia.getText().equals("")
                     ||estado.getText().equals("")||nD.getText().equals("")||aD.getText().equals(""))) {
@@ -364,6 +371,8 @@ public class Laboratorio extends javax.swing.JFrame {
             clearfields();
         }
         System.out.println("paso0");
+        }else
+            JOptionPane.showMessageDialog(rootPane, "No eres administrador");
 
     }//GEN-LAST:event_editarActionPerformed
 

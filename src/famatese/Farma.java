@@ -252,6 +252,7 @@ public class Farma extends javax.swing.JFrame {
     }//GEN-LAST:event_buscarNombreActionPerformed
 
     private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
+        if(Inicio.getAdmon()){
         if (clavefa.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Ingrese un ID de farmacia");
         } else if (nombre.getText().equals("")) {
@@ -295,9 +296,12 @@ public class Farma extends javax.swing.JFrame {
         }
         consultarTodo();
         clearfields();
+        } else 
+            JOptionPane.showMessageDialog(rootPane,"No eres administrador");
     }//GEN-LAST:event_agregarActionPerformed
 
     private void BorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BorrarActionPerformed
+        if(Inicio.getAdmon()){
         String clave;
         clave = clavefa.getText();
         int idFarmaceutico = (boxFarmaceutico.getSelectedIndex() * 2);
@@ -332,6 +336,8 @@ public class Farma extends javax.swing.JFrame {
                 e.printStackTrace();
             }
         }
+        } else
+            JOptionPane.showMessageDialog(rootPane,"No eres administrador");
     }//GEN-LAST:event_BorrarActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
@@ -349,6 +355,7 @@ public class Farma extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarActionPerformed
+        if(Inicio.getAdmon()){
         if (!(clavefa.getText().equals(""))) {
             System.out.println("paso 1 no esta vacia la clave");
             if (verificarID()) {
@@ -394,6 +401,8 @@ public class Farma extends javax.swing.JFrame {
                 }
             }
         }
+        } else
+            JOptionPane.showMessageDialog(rootPane,"No eres administrador");
     }//GEN-LAST:event_editarActionPerformed
 
     /**

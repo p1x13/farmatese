@@ -219,6 +219,7 @@ public class Ciudad extends javax.swing.JFrame {
     }//GEN-LAST:event_BuscarActionPerformed
 
     private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
+        if(Inicio.getAdmon()){
         if (claveci.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Ingrese un ID");
         } else if (nombre.getText().equals("")) {
@@ -253,9 +254,12 @@ public class Ciudad extends javax.swing.JFrame {
             cp.setText("");
         }
         consultarTodo();
+        } else
+            JOptionPane.showMessageDialog(rootPane,"No eres administrador");
     }//GEN-LAST:event_agregarActionPerformed
 
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
+        if(Inicio.getAdmon()){
         String clave = claveci.getText();
         if (clave.equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Por favor ingrese al clave del elemento que desea eliminar");
@@ -274,6 +278,8 @@ public class Ciudad extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(rootPane, ("No existe: " + clave));
         }
+        } else
+            JOptionPane.showMessageDialog(rootPane,"No eres administrador");
     }//GEN-LAST:event_eliminarActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -305,6 +311,7 @@ public class Ciudad extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarActionPerformed
+        if(Inicio.getAdmon()){
         if (claveci.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Ingrese una clave para editar elemento");
         } else if (buscarID()) {
@@ -315,6 +322,8 @@ public class Ciudad extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, ("No se encontro el id: " + claveci.getText()));
             consultarTodo();
         }
+        }else 
+            JOptionPane.showMessageDialog(rootPane,"No eres administrador");
     }//GEN-LAST:event_editarActionPerformed
 
     private void cpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cpActionPerformed

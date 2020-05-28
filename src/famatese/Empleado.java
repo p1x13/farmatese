@@ -259,6 +259,7 @@ public class Empleado extends javax.swing.JFrame {
     }//GEN-LAST:event_buscarActionPerformed
 
     private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
+        if(Inicio.getAdmon()){
         if (claveE.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Ingrese un ID de empleado");
         } else if (nombre.getText().equals("")) {
@@ -303,9 +304,12 @@ public class Empleado extends javax.swing.JFrame {
         }
         consultarTodo();
         clearfields();
+        } else
+            JOptionPane.showMessageDialog(rootPane,"No eres administrador");
     }//GEN-LAST:event_agregarActionPerformed
 
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
+        if(Inicio.getAdmon()){
         String clave;
         clave = claveE.getText();
         int idLabo = (boxFarmacia.getSelectedIndex() * 2);
@@ -340,6 +344,7 @@ public class Empleado extends javax.swing.JFrame {
                 e.printStackTrace();
             }
         }
+        } else JOptionPane.showMessageDialog(rootPane,"No eres administrador");
     }//GEN-LAST:event_eliminarActionPerformed
 
     //Ir a inicio
@@ -356,6 +361,7 @@ public class Empleado extends javax.swing.JFrame {
 
     //Buscar empleado por id
     private void editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarActionPerformed
+        if(Inicio.getAdmon()){
         if (!(claveE.getText().equals(""))) {
             System.out.println("paso 1 no esta vacia la clave");
             if (verificarID()) {
@@ -398,6 +404,8 @@ public class Empleado extends javax.swing.JFrame {
                 }
             }
         }
+        } else 
+            JOptionPane.showMessageDialog(rootPane,"No eres administrador");
     }//GEN-LAST:event_editarActionPerformed
 
     /**

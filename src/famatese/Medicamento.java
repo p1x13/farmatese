@@ -218,6 +218,7 @@ public class Medicamento extends javax.swing.JFrame {
     }//GEN-LAST:event_buscarActionPerformed
 
     private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
+        if (Inicio.getAdmon()){
         if (nombre.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Ingrese un ID de farmacia");
         } else if (pre.getText().equals("")) {
@@ -247,11 +248,14 @@ public class Medicamento extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(rootPane, "No se pudo crear", "Compruebe los datos", 2);
             }
         }
+        } else
+            JOptionPane.showMessageDialog(rootPane, "No eres administrador");
         consultarTodo();
         clearfields();
     }//GEN-LAST:event_agregarActionPerformed
 
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
+        if(Inicio.getAdmon()){
         String clave;
         clave = nombre.getText();
         int idAccion = (boxAccion.getSelectedIndex() * 2);
@@ -283,6 +287,9 @@ public class Medicamento extends javax.swing.JFrame {
                 e.printStackTrace();
             }
         }
+        }
+        else 
+            JOptionPane.showMessageDialog(rootPane, "No eres administrador");
     }//GEN-LAST:event_eliminarActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -296,6 +303,7 @@ public class Medicamento extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarActionPerformed
+        if(Inicio.getAdmon()){
         if (!(nombre.getText().equals(""))) {
             System.out.println("paso 1 no esta vacia la clave");
             if (verificarID()) {
@@ -335,6 +343,8 @@ public class Medicamento extends javax.swing.JFrame {
                 }
             }
         }
+        } else
+            JOptionPane.showMessageDialog(rootPane, "No eres administrador");
     }//GEN-LAST:event_editarActionPerformed
 
     private void nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreActionPerformed

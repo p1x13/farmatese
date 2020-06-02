@@ -19,12 +19,12 @@ import javax.swing.JPasswordField;
 
 public class Contraseña extends javax.swing.JFrame {
     String coneccionbd = ("jdbc:sqlserver://localhost:1433;databaseName=farmacia_tese;user=sa;password=sasa");
-    private boolean admon = false;
+    private String admon = "";
     /**
      * Creates new form Contraseña
      */
     public Contraseña() {
-        admon = false;
+        admon = "";
         initComponents();        
     }
 
@@ -198,7 +198,7 @@ private boolean findUser() {
             Statement stm = con.createStatement();
             ResultSet rs = stm.executeQuery("Select admon from users where user_u='" + user + "' and psw='"+pass+"'");
             while (rs.next()) {
-                admon=rs.getBoolean(1);
+                admon=rs.getString(1); //also can be catched with column name if there´s a Select * 
                 return true;
             }
 

@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 
 public class Inicio extends javax.swing.JFrame {
 
-    private static boolean admon = false;
+    private static String admon = "";
 
     /**
      * Creates new form Inicio
@@ -20,7 +20,7 @@ public class Inicio extends javax.swing.JFrame {
         initComponents();
     }
 
-    public Inicio(boolean admon) {
+    public Inicio(String admon) {
         Inicio.admon = admon;
         initComponents();
         System.out.println(admon);
@@ -337,7 +337,7 @@ public class Inicio extends javax.swing.JFrame {
         });
     }
 
-    public static boolean getAdmon() {
+    public static String getPuesto() {
         return admon;
     }
 

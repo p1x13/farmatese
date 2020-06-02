@@ -202,6 +202,7 @@ public class Farma extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buscarNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarNombreActionPerformed
+        if((Inicio.getPuesto().equals("Administrador"))||(Inicio.getPuesto().equals("Supervisor"))||(Inicio.getPuesto().equals("Vendedor"))){
         Object dato[] = new Object[8];
         String clave = nombre.getText();
         if (clave.equals("")) {
@@ -247,12 +248,14 @@ public class Farma extends javax.swing.JFrame {
         boxFarmaceutico.setSelectedIndex((listaFarmaceuticos.indexOf(compararFarma)) / 2);
         boxCiudad.setSelectedIndex((listaCiudades.indexOf(compararCiudad)) / 2);
         }
+    }else
+    JOptionPane.showMessageDialog(rootPane,"Debe iniciar sesión para poder buscar");
 
 
     }//GEN-LAST:event_buscarNombreActionPerformed
 
     private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
-        if(Inicio.getAdmon()){
+        if((Inicio.getPuesto().equals("Administrador"))||(Inicio.getPuesto().equals("Supervisor"))){
         if (clavefa.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Ingrese un ID de farmacia");
         } else if (nombre.getText().equals("")) {
@@ -297,11 +300,11 @@ public class Farma extends javax.swing.JFrame {
         consultarTodo();
         clearfields();
         } else 
-            JOptionPane.showMessageDialog(rootPane,"No eres administrador");
+             JOptionPane.showMessageDialog(rootPane,"Solo los administradores y supervisores pueden agregar, por favor inicie sesión");
     }//GEN-LAST:event_agregarActionPerformed
 
     private void BorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BorrarActionPerformed
-        if(Inicio.getAdmon()){
+       if(Inicio.getPuesto().equals("Administrador")){
         String clave;
         clave = clavefa.getText();
         int idFarmaceutico = (boxFarmaceutico.getSelectedIndex() * 2);
@@ -337,7 +340,7 @@ public class Farma extends javax.swing.JFrame {
             }
         }
         } else
-            JOptionPane.showMessageDialog(rootPane,"No eres administrador");
+            JOptionPane.showMessageDialog(rootPane,"Solo los administradores pueden eliminar");
     }//GEN-LAST:event_BorrarActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
@@ -355,7 +358,7 @@ public class Farma extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarActionPerformed
-        if(Inicio.getAdmon()){
+       if(Inicio.getPuesto().equals("Administrador")){
         if (!(clavefa.getText().equals(""))) {
             System.out.println("paso 1 no esta vacia la clave");
             if (verificarID()) {
@@ -402,7 +405,7 @@ public class Farma extends javax.swing.JFrame {
             }
         }
         } else
-            JOptionPane.showMessageDialog(rootPane,"No eres administrador");
+           JOptionPane.showMessageDialog(rootPane, "Solo el administrador puede editar");
     }//GEN-LAST:event_editarActionPerformed
 
     /**

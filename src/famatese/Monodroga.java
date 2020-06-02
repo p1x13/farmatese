@@ -185,6 +185,7 @@ public class Monodroga extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
+        if((Inicio.getPuesto().equals("Administrador"))||(Inicio.getPuesto().equals("Supervisor"))||(Inicio.getPuesto().equals("Vendedor"))){
         Object dato[] = new Object[6];
         String clave = nC.getText();
         if (clave.equals("")) {
@@ -225,13 +226,13 @@ public class Monodroga extends javax.swing.JFrame {
         String compararLabo = (String) dato[5];
         boxLaboratorio.setSelectedIndex((listaLaboratorios.indexOf(compararLabo)) / 2);
         System.out.println(((listaLaboratorios.indexOf(compararLabo)) / 2));
-        
-       
+        } else
+       JOptionPane.showMessageDialog(rootPane,"Debe iniciar sesión para poder buscar");
     
     }//GEN-LAST:event_buscarActionPerformed
 
     private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
-        if(Inicio.getAdmon()){ 
+         if((Inicio.getPuesto().equals("Administrador"))||(Inicio.getPuesto().equals("Supervisor"))){
         if (claveM.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Ingrese un ID de monodroga");
         } else if (accion.getText().equals("")) {
@@ -267,13 +268,13 @@ public class Monodroga extends javax.swing.JFrame {
             }
         }
         } else
-            JOptionPane.showMessageDialog(rootPane, "No eres administrador");
+            JOptionPane.showMessageDialog(rootPane,"Solo los administradores y supervisores pueden agregar, por favor inicie sesión");
         consultarTodo();
         clearfields();      
     }//GEN-LAST:event_agregarActionPerformed
 
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
-        if ( Inicio.getAdmon()){
+       if(Inicio.getPuesto().equals("Administrador")){
         String clave;
         clave = claveM.getText();
         int idLabo = (boxLaboratorio.getSelectedIndex() * 2);
@@ -307,7 +308,7 @@ public class Monodroga extends javax.swing.JFrame {
             }
         }
         } else
-            JOptionPane.showMessageDialog(rootPane, "No eres administrador");
+            JOptionPane.showMessageDialog(rootPane,"Solo los administradores pueden eliminar");
     }//GEN-LAST:event_eliminarActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
@@ -321,7 +322,7 @@ public class Monodroga extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarActionPerformed
-        if(Inicio.getAdmon()){ 
+       if(Inicio.getPuesto().equals("Administrador")){
         if (!(claveM.getText().equals(""))) {
             System.out.println("paso 1 no esta vacia la clave");
             if (verificarID()) {
@@ -361,7 +362,7 @@ public class Monodroga extends javax.swing.JFrame {
             }
         }
         } else 
-            JOptionPane.showMessageDialog(rootPane, "No eres administrador");
+           JOptionPane.showMessageDialog(rootPane, "Solo el administrador puede editar");
     }//GEN-LAST:event_editarActionPerformed
 
     private void accionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accionActionPerformed

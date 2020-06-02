@@ -190,6 +190,7 @@ public class Laboratorio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
+        if((Inicio.getPuesto().equals("Administrador"))||(Inicio.getPuesto().equals("Supervisor"))||(Inicio.getPuesto().equals("Vendedor"))){
         String buscar = nombre.getText();
          Object dato[] = new Object[7];
          if (buscar.equals("")) {
@@ -226,10 +227,12 @@ public class Laboratorio extends javax.swing.JFrame {
        estado.setText((String)dato[4]);
        nD.setText((String)dato[5]);
        aD.setText((String)dato[6]);
+        }else
+            JOptionPane.showMessageDialog(rootPane,"Debe iniciar sesión para poder buscar");
     }//GEN-LAST:event_buscarActionPerformed
 
     private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
-      if(Inicio.getAdmon()){
+       if((Inicio.getPuesto().equals("Administrador"))||(Inicio.getPuesto().equals("Supervisor"))){
         if (nombre.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Ingrese un nombre");
         } else if (calle.getText().equals("")) {
@@ -282,11 +285,11 @@ public class Laboratorio extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "YA EXISTE LA CLAVE QUE INTENTA ASIGNAR", "No se puede crear", 2);
         }
       } else
-          JOptionPane.showMessageDialog(rootPane, "No eres administrador");
+          JOptionPane.showMessageDialog(rootPane,"Solo los administradores y supervisores pueden agregar, por favor inicie sesión");
     }//GEN-LAST:event_agregarActionPerformed
 
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
-        if(Inicio.getAdmon()){
+       if(Inicio.getPuesto().equals("Administrador")){
         String clave = cp.getText();
         if (clave.equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Por favor ingrese al clave del elemento que desea eliminar");
@@ -307,7 +310,7 @@ public class Laboratorio extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, ("No existe: " + clave));
         }
         } else
-            JOptionPane.showMessageDialog(rootPane, "No eres administrador");
+            JOptionPane.showMessageDialog(rootPane,"Solo los administradores pueden eliminar");
     }//GEN-LAST:event_eliminarActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -327,7 +330,7 @@ public class Laboratorio extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarActionPerformed
-        if(Inicio.getAdmon()){ 
+       if(Inicio.getPuesto().equals("Administrador")){
         if (!(cp.getText().equals(""))) {
             System.out.println("paso1");
             if (verificarID() || !(nombre.getText().equals("") || calle.getText().equals("") || colonia.getText().equals("")
@@ -372,7 +375,7 @@ public class Laboratorio extends javax.swing.JFrame {
         }
         System.out.println("paso0");
         }else
-            JOptionPane.showMessageDialog(rootPane, "No eres administrador");
+            JOptionPane.showMessageDialog(rootPane, "Solo el administrador puede editar");
 
     }//GEN-LAST:event_editarActionPerformed
 

@@ -214,6 +214,7 @@ public class Empleado extends javax.swing.JFrame {
     }//GEN-LAST:event_claveEActionPerformed
 
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
+        if((Inicio.getPuesto().equals("Administrador"))||(Inicio.getPuesto().equals("Supervisor"))||(Inicio.getPuesto().equals("Vendedor"))){
         Object dato[] = new Object[8];
         String clave = nombre.getText();
         if (clave.equals("")) {
@@ -256,10 +257,12 @@ public class Empleado extends javax.swing.JFrame {
         String compararFarma = (String) dato[7];
         boxFarmacia.setSelectedIndex((listaFarmacias.indexOf(compararFarma)) / 2);
         System.out.println(((listaFarmacias.indexOf(compararFarma)) / 2));
+        } else
+            JOptionPane.showMessageDialog(rootPane,"Debe iniciar sesión para poder buscar");
     }//GEN-LAST:event_buscarActionPerformed
 
     private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
-        if(Inicio.getAdmon()){
+         if((Inicio.getPuesto().equals("Administrador"))||(Inicio.getPuesto().equals("Supervisor"))){
         if (claveE.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Ingrese un ID de empleado");
         } else if (nombre.getText().equals("")) {
@@ -305,11 +308,11 @@ public class Empleado extends javax.swing.JFrame {
         consultarTodo();
         clearfields();
         } else
-            JOptionPane.showMessageDialog(rootPane,"No eres administrador");
+            JOptionPane.showMessageDialog(rootPane,"Solo los administradores y supervisores pueden agregar, por favor inicie sesión");
     }//GEN-LAST:event_agregarActionPerformed
 
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
-        if(Inicio.getAdmon()){
+       if(Inicio.getPuesto().equals("Administrador")){
         String clave;
         clave = claveE.getText();
         int idLabo = (boxFarmacia.getSelectedIndex() * 2);
@@ -344,7 +347,8 @@ public class Empleado extends javax.swing.JFrame {
                 e.printStackTrace();
             }
         }
-        } else JOptionPane.showMessageDialog(rootPane,"No eres administrador");
+        } else 
+           JOptionPane.showMessageDialog(rootPane,"Solo los administradores pueden eliminar");
     }//GEN-LAST:event_eliminarActionPerformed
 
     //Ir a inicio
@@ -361,7 +365,7 @@ public class Empleado extends javax.swing.JFrame {
 
     //Buscar empleado por id
     private void editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarActionPerformed
-        if(Inicio.getAdmon()){
+        if(Inicio.getPuesto().equals("Administrador")){
         if (!(claveE.getText().equals(""))) {
             System.out.println("paso 1 no esta vacia la clave");
             if (verificarID()) {
@@ -405,7 +409,7 @@ public class Empleado extends javax.swing.JFrame {
             }
         }
         } else 
-            JOptionPane.showMessageDialog(rootPane,"No eres administrador");
+           JOptionPane.showMessageDialog(rootPane, "Solo el administrador puede editar");
     }//GEN-LAST:event_editarActionPerformed
 
     /**

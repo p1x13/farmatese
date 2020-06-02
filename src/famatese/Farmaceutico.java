@@ -195,7 +195,7 @@ public class Farmaceutico extends javax.swing.JFrame {
     }//GEN-LAST:event_apActionPerformed
 
     private void editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarActionPerformed
-        if (Inicio.getAdmon()) {
+       if(Inicio.getPuesto().equals("Administrador")){
             if (!(clavefa.getText().equals(""))) {
                 System.out.println("paso1");
                 if (verificarID() || !(nombre.getText().equals("") || ap.getText().equals("") || am.getText().equals(""))) {
@@ -233,13 +233,13 @@ public class Farmaceutico extends javax.swing.JFrame {
             }
             System.out.println("paso0");
         } else {
-            JOptionPane.showMessageDialog(rootPane, "No eres administrador");
+            JOptionPane.showMessageDialog(rootPane, "Solo el administrador puede editar");
         }
 
     }//GEN-LAST:event_editarActionPerformed
 
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
-        if(Inicio.getAdmon()){
+       if(Inicio.getPuesto().equals("Administrador")){
         String clave = clavefa.getText();
         if (clave.equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Por favor ingrese al clave del elemento que desea eliminar");
@@ -260,12 +260,12 @@ public class Farmaceutico extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, ("No existe: " + clave));
         }
         }else 
-            JOptionPane.showMessageDialog(rootPane, "No eres administrador");
+JOptionPane.showMessageDialog(rootPane,"Solo los administradores pueden eliminar");
         
     }//GEN-LAST:event_eliminarActionPerformed
 
     private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
-        if (Inicio.getAdmon()) {
+         if((Inicio.getPuesto().equals("Administrador"))||(Inicio.getPuesto().equals("Supervisor"))){
             if (clavefa.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Ingrese un ID");
             } else if (nombre.getText().equals("")) {
@@ -306,11 +306,12 @@ public class Farmaceutico extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(rootPane, "YA EXISTE LA CLAVE QUE INTENTA ASIGNAR", "No se puede crear", 2);
             }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "No eres administrador");
+           JOptionPane.showMessageDialog(rootPane,"Solo los administradores y supervisores pueden agregar, por favor inicie sesión");
         }
     }//GEN-LAST:event_agregarActionPerformed
 
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
+        if((Inicio.getPuesto().equals("Administrador"))||(Inicio.getPuesto().equals("Supervisor"))||(Inicio.getPuesto().equals("Vendedor"))){
         Object dato[] = new Object[4];
         String buscar = nombre.getText();
         if (buscar.equals("")) {
@@ -341,6 +342,8 @@ public class Farmaceutico extends javax.swing.JFrame {
         nombre.setText((String) dato[1]);
         ap.setText((String) dato[2]);
         am.setText((String) dato[3]);
+        } else
+        JOptionPane.showMessageDialog(rootPane,"Debe iniciar sesión para poder buscar");
     }//GEN-LAST:event_buscarActionPerformed
 
     private void nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreActionPerformed

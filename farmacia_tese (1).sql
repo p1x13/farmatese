@@ -181,14 +181,15 @@ inner join unifarmed on cod_fa=cod_fa1*/
 create table users(
 user_u varchar(20),
 psw varchar(15),
-admon bit 
+admon va 
 constraint pk_user_u primary key (user_u)
 )
 go
-insert into users values('root','toor',1)
-insert into users values('user1','soloq',0)
-insert into users values('Ale','alepmj',0)
+insert into users values('root','toor','Administrador)
+insert into users values('user1','soloq','Supervisor')
+insert into users values('Ale','alepmj','Vendedor')
 
+use farmacia_tese
 select * from users
 
 Select admon from users where user_u='user1' and psw='soloq'

@@ -10,7 +10,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 public class Accion extends javax.swing.JFrame {
@@ -155,6 +154,7 @@ public class Accion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
+        if((Inicio.getPuesto().equals("Administrador"))||(Inicio.getPuesto().equals("Supervisor"))||(Inicio.getPuesto().equals("Vendedor"))){
         String buscar = accion.getText();
         Object dato[] = new Object[4];
         if (buscar.equals("")) {
@@ -179,10 +179,12 @@ public class Accion extends javax.swing.JFrame {
         accion.setText((String) dato[1]);
         tiempoAccion.setText((String) dato[2]);
         desc.setText((String) dato[3]);
+        } else
+            JOptionPane.showMessageDialog(rootPane,"Debe iniciar sesión para poder buscar");
     }//GEN-LAST:event_buscarActionPerformed
 
     private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
-        if(Inicio.getAdmon()){
+        if((Inicio.getPuesto().equals("Administrador"))||(Inicio.getPuesto().equals("Supervisor"))){
         if (claveA.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Ingrese un ID");
         } else if (accion.getText().equals("")) {
@@ -223,11 +225,12 @@ public class Accion extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "YA EXISTE LA CLAVE QUE INTENTA ASIGNAR", "No se puede crear", 2);
         }
         } else
-            JOptionPane.showMessageDialog(rootPane,"No eres Admon, no puedes agregar");
+            JOptionPane.showMessageDialog(rootPane,"Solo los administradores y supervisores pueden agregar, por favor inicie sesión");
     }//GEN-LAST:event_agregarActionPerformed
 
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
-        if(Inicio.getAdmon()){
+        
+if(Inicio.getPuesto().equals("Administrador")){
         String clave = claveA.getText();
         if (clave.equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Por favor ingrese al clave del elemento que desea eliminar");
@@ -247,7 +250,7 @@ public class Accion extends javax.swing.JFrame {
         } else 
             JOptionPane.showMessageDialog(rootPane, ("No existe: " + clave));
         } else
-            JOptionPane.showMessageDialog(rootPane,"No puedes eliminar, no eres ADMON");
+            JOptionPane.showMessageDialog(rootPane,"Solo los administradores pueden eliminar");
     }//GEN-LAST:event_eliminarActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
@@ -261,7 +264,8 @@ public class Accion extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarActionPerformed
-        if(Inicio.getAdmon()){
+        
+if(Inicio.getPuesto().equals("Administrador")){
         if (!(claveA.getText().equals(""))) {
             System.out.println("paso1");
             if (verificarID() || !(accion.getText().equals("") || tiempoAccion.getText().equals("") || desc.getText().equals(""))) {
@@ -299,7 +303,7 @@ public class Accion extends javax.swing.JFrame {
         }
         System.out.println("paso0");
         } else
-            JOptionPane.showMessageDialog(rootPane, "No eres ADMON, no puedes Editar");
+            JOptionPane.showMessageDialog(rootPane, "Solo el administrador puede editar");
 
     }//GEN-LAST:event_editarActionPerformed
 
@@ -404,8 +408,9 @@ public class Accion extends javax.swing.JFrame {
         } catch (Exception e) {
         }
         return false; //si no encontro nada falso
-
     }
+    
+ 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField accion;
